@@ -556,8 +556,8 @@
   <data name="Settings_GlassFpsHint" xml:space="preserve"><value>How often Liquid Glass follows what moves behind it. Higher is smoother and uses more CPU; a still screen costs almost nothing either way.</value></data>
   <data name="Settings_GlassFpsDisplay" xml:space="preserve"><value>Match display ({0} Hz)</value></data>
   <data name="Settings_GlassFpsN" xml:space="preserve"><value>{0} fps</value></data>
-  <data name="Settings_Companion" xml:space="preserve"><value>Clock companion</value></data>
-  <data name="Settings_CompanionHint" xml:space="preserve"><value>Who sits beside the clock: Yata the raven, a pixel character, or nobody.</value></data>
+  <data name="Settings_ClockCompanion" xml:space="preserve"><value>Clock companion</value></data>
+  <data name="Settings_ClockCompanionHint" xml:space="preserve"><value>Who sits beside the clock: Yata the raven, a pixel character, or nobody.</value></data>
   <data name="Companion_Yata" xml:space="preserve"><value>Yata (raven)</value></data>
   <data name="Companion_None" xml:space="preserve"><value>None</value></data>
   <data name="Companion_Cat" xml:space="preserve"><value>Cat</value></data>
@@ -567,4 +567,19 @@
   <data name="Companion_Frog" xml:space="preserve"><value>Frog</value></data>
   <data name="Companion_Bat" xml:space="preserve"><value>Bat</value></data>
   <data name="Companion_Hero" xml:space="preserve"><value>Masked hero</value></data>
+  <data name="Settings_ClosedNotch" xml:space="preserve"><value>Closed notch</value></data>
+  <data name="Badge_Network" xml:space="preserve"><value>Network</value></data>
+  <data name="Badge_NetworkHint" xml:space="preserve"><value>Wi-Fi bars, Ethernet, or offline in red.</value></data>
+  <data name="Badge_Date" xml:space="preserve"><value>Date</value></data>
+  <data name="Badge_NextTask" xml:space="preserve"><value>Next task</value></data>
+  <data name="Badge_NextTaskHint" xml:space="preserve"><value>A task due within the hour shows in the middle, like a calendar event.</value></data>
+  <data name="Badge_Alarm" xml:space="preserve"><value>Next alarm</value></data>
+  <data name="Badge_AlarmHint" xml:space="preserve"><value>When one rings within 12 hours.</value></data>
+  <data name="Badge_Notifications" xml:space="preserve"><value>Unread notifications</value></data>
+  <data name="Badge_NotificationsHint" xml:space="preserve"><value>How many phone and app notifications came while the notch was closed (with notifications on).</value></data>
+  <data name="Badge_MicMuted" xml:space="preserve"><value>Microphone muted</value></data>
+  <data name="Badge_Headphones" xml:space="preserve"><value>Headphone battery</value></data>
+  <data name="Badge_Downloads" xml:space="preserve"><value>Download in progress</value></data>
+  <data name="Badge_Ticker" xml:space="preserve"><value>Rotating ticker</value></data>
+  <data name="Badge_TickerHint" xml:space="preserve"><value>With nothing playing, the clock takes turns with the date, the next task and the next alarm.</value></data>
 </root>

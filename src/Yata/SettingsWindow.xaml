@@ -327,6 +327,12 @@
                 </StackPanel>
             </Border>
 
+            <!-- Closed notch: badges beside the clock, and the ticker -->
+            <TextBlock Text="{x:Static y:Strings.Settings_ClosedNotch}" Style="{StaticResource Section}"/>
+            <Border Style="{StaticResource Card}">
+                <StackPanel x:Name="BadgeRows"/>
+            </Border>
+
             <!-- Daily tools: clipboard, screenshots, downloads, Bluetooth batteries -->
             <TextBlock Text="{x:Static y:Strings.Settings_Daily}" Style="{StaticResource Section}"/>
             <Border Style="{StaticResource Card}">

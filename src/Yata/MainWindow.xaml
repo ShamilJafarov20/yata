@@ -85,12 +85,16 @@
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
 
+                    <!-- Left: badges (network, mic muted, headphones, unread) outside, the album art by the text -->
+                    <StackPanel x:Name="CompactLeft" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left">
+                    <StackPanel x:Name="BadgesLeft" Orientation="Horizontal" VerticalAlignment="Center"/>
                     <Border x:Name="CompactArt" Width="20" Height="20" CornerRadius="5"
                             VerticalAlignment="Center" Visibility="Collapsed">
                         <Border.Background>
                             <ImageBrush x:Name="CompactArtBrush" Stretch="UniformToFill"/>
                         </Border.Background>
                     </Border>
+                    </StackPanel>
 
                     <views:MarqueeText x:Name="CompactMarquee" Grid.Column="1" Margin="8,0"
                                        HorizontalAlignment="Center" VerticalAlignment="Center">
@@ -103,6 +107,9 @@
                         </TextBlock>
                     </views:MarqueeText>
 
+                    <!-- Right: the timer, weather, Yata or the equalizer by the text; badges (date, alarm, download) outside -->
+                    <StackPanel x:Name="CompactRight" Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Right">
+                    <Grid x:Name="CompactRightSlot" VerticalAlignment="Center">
                     <StackPanel x:Name="CompactTimer" Grid.Column="2" Orientation="Horizontal"
                                 VerticalAlignment="Center" Visibility="Collapsed">
                         <TextBlock x:Name="CompactTimerGlyph" Text="&#xE916;" FontFamily="{StaticResource IconFont}" FontSize="12"
@@ -127,6 +134,9 @@
                     <StackPanel x:Name="Equalizer" Grid.Column="2" Orientation="Horizontal" Height="14"
                                 VerticalAlignment="Center" Visibility="Collapsed"
                                 SnapsToDevicePixels="True" RenderOptions.EdgeMode="Aliased"/>
+                    </Grid>
+                    <StackPanel x:Name="BadgesRight" Orientation="Horizontal" VerticalAlignment="Center"/>
+                    </StackPanel>
                 </Grid>
 
                 <!-- Camera (green) / microphone (orange) in use; the expanded header names the apps -->

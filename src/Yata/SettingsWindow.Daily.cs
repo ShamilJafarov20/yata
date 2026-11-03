@@ -18,6 +18,7 @@ public partial class SettingsWindow
     private void InitDailySections()
     {
         BuildClockRows();
+        BuildBadgeRows();
         BuildDailyRows();
         BuildGameRows();
         BuildPrayerRows();
@@ -131,7 +132,7 @@ public partial class SettingsWindow
         _clockSizeButton = Choice(ClockRows, Strings.Settings_ClockSize, null, (_, _) =>
             ShowChoices(_clockSizeButton!, new[] { 0, 1, 2 }, ClockStyles.SizeName, size => size == _store.Settings.ClockSize,
                 size => _store.Settings.ClockSize = size));
-        _companionButton = Choice(ClockRows, Strings.Settings_Companion, Strings.Settings_CompanionHint, (_, _) => ShowCompanions());
+        _companionButton = Choice(ClockRows, Strings.Settings_ClockCompanion, Strings.Settings_ClockCompanionHint, (_, _) => ShowCompanions());
         _glassFpsButton = Choice(ClockRows, Strings.Settings_GlassFps, Strings.Settings_GlassFpsHint, (_, _) =>
             ShowChoices(_glassFpsButton!, new[] { 0, 120, 60, 30 }, GlassFpsName, fps => fps == _store.Settings.GlassFps,
                 fps => _store.Settings.GlassFps = fps));
@@ -223,6 +224,19 @@ public partial class SettingsWindow
         Switch(DailyRows, Strings.Settings_ScreenshotPreview, Strings.Settings_ScreenshotPreviewHint, "Settings.ScreenshotPreviewEnabled");
         Switch(DailyRows, Strings.Settings_Downloads, Strings.Settings_DownloadsHint, "Settings.DownloadsEnabled");
         Switch(DailyRows, Strings.Settings_DeviceBattery, Strings.Settings_DeviceBatteryHint, "Settings.DeviceBatteryEnabled");
+    }
+
+    private void BuildBadgeRows()
+    {
+        Switch(BadgeRows, Strings.Badge_Network, Strings.Badge_NetworkHint, "Settings.BadgeNetwork");
+        Switch(BadgeRows, Strings.Badge_Date, null, "Settings.BadgeDate");
+        Switch(BadgeRows, Strings.Badge_NextTask, Strings.Badge_NextTaskHint, "Settings.BadgeNextTask");
+        Switch(BadgeRows, Strings.Badge_Alarm, Strings.Badge_AlarmHint, "Settings.BadgeAlarm");
+        Switch(BadgeRows, Strings.Badge_Notifications, Strings.Badge_NotificationsHint, "Settings.BadgeNotifications");
+        Switch(BadgeRows, Strings.Badge_MicMuted, null, "Settings.BadgeMicMuted");
+        Switch(BadgeRows, Strings.Badge_Headphones, null, "Settings.BadgeHeadphones");
+        Switch(BadgeRows, Strings.Badge_Downloads, null, "Settings.BadgeDownloads");
+        Switch(BadgeRows, Strings.Badge_Ticker, Strings.Badge_TickerHint, "Settings.BadgeTicker");
     }
 
     private void BuildGameRows()

@@ -64,6 +64,7 @@ public partial class MainWindow
         NotesPage.Said += Say;
 
         DevicesPage.Attach(() => _batteries.Current);
+        DevicesPage.CallStateChanged += () => _ = PollBadgesAsync();
 
         _games = new GameTracker(_store);
         _games.SessionEnded += OnGameSessionEnded;
@@ -80,6 +81,7 @@ public partial class MainWindow
     private void StartDaily()
     {
         _clock.Start();
+        StartBadges();
         StartDragWatch();
         // Volume keys or the mixer moved the system volume: the open player's bar follows.
         _audio.Message += _ => { if (_expanded && _page == NotchPage.Media) ShowPlayerVolume(); };
@@ -131,6 +133,11 @@ public partial class MainWindow
 
         SchedulePrayer();
         ApplyClockStyle();
+        if (_badgesHooked)
+        {
+            _ = PollBadgesAsync();
+            UpdateTicker();
+        }
     }
 
     private void Say(string glyph, string text) => ShowHud(new HudMessage(glyph, text, DurationMs: 1600));
@@ -147,6 +154,7 @@ public partial class MainWindow
 
     private void OnClockChanged()
     {
+        UpdateBadges(); // An alarm added or switched off.
         bool active = CountdownActive;
         if (active || active != _countdownWasActive)
             UpdateCompactTimer();
@@ -231,6 +239,7 @@ public partial class MainWindow
             }
             if (_expanded && _page == NotchPage.Devices)
                 DevicesPage.ShowBatteries();
+            UpdateBadges();
         }
         finally
         {
@@ -245,6 +254,8 @@ public partial class MainWindow
             ShowHud(new HudMessage("", Strings.Devices_NoMic, DurationMs: 1800));
             return;
         }
+        _micMuted = muted && Settings.BadgeMicMuted;
+        UpdateBadges();
         ShowHud(new HudMessage(muted ? "" : "", muted ? Strings.Devices_MicMuted : Strings.Devices_MicOn,
             Warning: muted, DurationMs: 1500, Tag: "mic"));
         if (_page == NotchPage.Devices)
@@ -376,6 +387,7 @@ public partial class MainWindow
                 _downloadIds.Remove(id);
             PostActivity(request, now);
         }
+        UpdateBadges();
     }
 
     private static string Trim(string name) => name.Length > ActivityRequest.MaxTitle ? name[..(ActivityRequest.MaxTitle - 1)] + "…" : name;
@@ -418,6 +430,7 @@ public partial class MainWindow
 
     private void OnPhoneNotification(MirroredNotification notification)
     {
+        CountUnread();
         if (GameQuiet || _hiddenByUser)
             return; // Not over a game, and not when the notch was put away.
         string text = notification.Title is { Length: > 0 } title
@@ -449,7 +462,7 @@ public partial class MainWindow
     {
         if (_compactFamily == null)
             return;
-        bool clock = _state == null && _upcomingText == null;
+        bool clock = _state == null && _upcomingText == null && _compactShowsClock;
         var style = ClockStyles.Find(Settings.ClockFont);
         CompactText.FontFamily = clock ? ClockStyles.Family(style) : _compactFamily;
         CompactText.FontWeight = clock ? style.Weight : _compactWeight;

@@ -767,6 +767,7 @@ public partial class MainWindow : Window
             // hold up the first frames.
             _extrasAfterOpen.Stop();
             _extrasAfterOpen.Start();
+            ClearUnread();
         }
         else
         {
@@ -777,6 +778,7 @@ public partial class MainWindow : Window
             DevicesPage.StopSpeedTest();
         }
         ScheduleClock();
+        UpdateTicker(); // The ticker runs only on the closed notch.
         UpdateTargets();
         UpdateTasksShown();
         RefreshProgress();
@@ -806,7 +808,7 @@ public partial class MainWindow : Window
         // room at the right one so the clock stays centered on the notch.
         int dots = !PrivacyShown ? 0 : (_privacy.Current.Camera.Count > 0 ? 1 : 0) + (_privacy.Current.Microphone.Count > 0 ? 1 : 0);
         double privacyRoom = dots == 0 ? 0 : dots * 6 + (dots - 1) * 3 + PrivacyGap;
-        compact = new Size(compact.Width + 2 * privacyRoom, compact.Height);
+        compact = new Size(compact.Width + 2 * privacyRoom + 2 * BadgeRoom(), compact.Height);
         CompactView.Margin = new Thickness(12 + privacyRoom, 0, 12 + privacyRoom, 0);
         Size expanded = _page switch
         {
@@ -906,6 +908,9 @@ public partial class MainWindow : Window
             if (part.Visibility == Visibility.Visible)
                 right = Math.Max(right, part.DesiredSize.Width + part.Margin.Left + part.Margin.Right);
         }
+        // The badges sit outside those (MainWindow.Badges).
+        left += BadgesWidth(BadgesLeft, left > 0);
+        right += BadgesWidth(BadgesRight, right > 0);
         double side = Math.Max(left, right);
         var columns = CompactView.ColumnDefinitions;
         if (columns[0].MinWidth != side)
@@ -1138,6 +1143,9 @@ public partial class MainWindow : Window
         string? upcoming = null;
         if (_state == null && _upcomingEvent is CalendarEvent next)
             upcoming = $"{next.Title} {CalendarReminders.Until(next.Start, now)}";
+        // A task due within the hour, the same way (badge "next task").
+        if (upcoming == null && _state == null)
+            upcoming = NextTaskText(now);
         if (upcoming != _upcomingText)
         {
             _upcomingText = upcoming;
@@ -1145,11 +1153,14 @@ public partial class MainWindow : Window
         }
         _upcomingText = upcoming;
 
-        if (_state == null)
+        // The ticker takes turns with the clock (MainWindow.Badges); otherwise the clock or what's coming.
+        if (_state == null && !(TickerActive && upcoming == null))
             SetCompactText(upcoming ?? time);
 
         UpdateCompactFont();
         IdleClock.Text = time;
+        UpdateBadges(); // The date turns, an alarm comes within 12 h.
+        UpdateTicker();
         string date = now.ToString(Strings.Format_LongDate, Lang.Culture);
         HeaderDate.Text = char.ToUpper(date[0], Lang.Culture) + date[1..];
         UpdateBubble(); // While media plays, the next event moves to the bubble.

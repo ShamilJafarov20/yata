@@ -12,6 +12,7 @@
 - **Clock companions**: Yata the raven or an original pixel character beside the clock (cat, ghost, robot, alien, frog, bat, masked hero), blinking now and then.
 - **Keyboard shortcuts you choose** for: open and close, hide the notch completely, play/pause, next, previous, player volume, like on Spotify, microphone mute, silence call apps. Taken combinations are flagged.
 - **Hide completely**: one shortcut (Ctrl+Alt+H by default) or the tray menu takes the whole notch off the screen and back.
+- **Closed-notch badges**: network (Wi-Fi bars, Ethernet, offline), date, next alarm, next task, unread notifications, muted microphone, headphone battery and a download ring beside the clock, each shown only when it has something to say and switchable in Settings; an optional ticker alternates the clock with the date, the next task and the next alarm.
 
 **Music**
 - **The player's own volume**: a bar in the player that turns down only the app playing (YouTube in the browser, Spotify), not the game or the call. Works for free Spotify accounts.

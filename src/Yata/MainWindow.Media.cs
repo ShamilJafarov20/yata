@@ -93,6 +93,7 @@ public partial class MainWindow
         UpdateLyricLine();
         UpdateCompactText();
         UpdateCompanion();
+        UpdateTicker(); // Music takes the closed notch's middle from the ticker, and gives it back.
         // Play and pause make the app's sound session come and go: the volume bar follows.
         if (_expanded && _page == NotchPage.Media)
             ShowPlayerVolume();

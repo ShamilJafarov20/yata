@@ -161,6 +161,18 @@ public sealed class SettingsData
 
     /// <summary>Prayer times from the weather city's coordinates (computed here, nothing is sent).</summary>
     public bool PrayerEnabled { get; set; }
+    // Badges on the closed notch (MainWindow.Badges); each shows only when it has something to say.
+    public bool BadgeNetwork { get; set; } = true;
+    public bool BadgeNotifications { get; set; } = true;
+    public bool BadgeNextTask { get; set; } = true;
+    public bool BadgeDate { get; set; } = true;
+    public bool BadgeAlarm { get; set; } = true;
+    public bool BadgeMicMuted { get; set; } = true;
+    public bool BadgeDownloads { get; set; } = true;
+    public bool BadgeHeadphones { get; set; } = true;
+    /// <summary>The idle closed notch takes turns: clock, date, next task, next alarm. Off unless chosen.</summary>
+    public bool BadgeTicker { get; set; }
+
     /// <summary>Who sits by the clock: "yata" (the raven), a PixelCharacter id ("cat", "robot"…), or "none".</summary>
     public string ClockCompanion { get; set; } = "yata";
 

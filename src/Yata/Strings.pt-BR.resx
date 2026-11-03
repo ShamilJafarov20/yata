@@ -556,8 +556,8 @@
   <data name="Settings_GlassFpsHint" xml:space="preserve"><value>Com que frequência o Liquid Glass acompanha o que se move atrás dele. Mais alto é mais suave e usa mais CPU; uma tela parada quase não custa nada.</value></data>
   <data name="Settings_GlassFpsDisplay" xml:space="preserve"><value>Igual à tela ({0} Hz)</value></data>
   <data name="Settings_GlassFpsN" xml:space="preserve"><value>{0} fps</value></data>
-  <data name="Settings_Companion" xml:space="preserve"><value>Companheiro do relógio</value></data>
-  <data name="Settings_CompanionHint" xml:space="preserve"><value>Quem fica ao lado do relógio: o corvo Yata, um personagem em pixel, ou ninguém.</value></data>
+  <data name="Settings_ClockCompanion" xml:space="preserve"><value>Companheiro do relógio</value></data>
+  <data name="Settings_ClockCompanionHint" xml:space="preserve"><value>Quem fica ao lado do relógio: o corvo Yata, um personagem em pixel, ou ninguém.</value></data>
   <data name="Companion_Yata" xml:space="preserve"><value>Yata (corvo)</value></data>
   <data name="Companion_None" xml:space="preserve"><value>Nenhum</value></data>
   <data name="Companion_Cat" xml:space="preserve"><value>Gato</value></data>
@@ -567,4 +567,19 @@
   <data name="Companion_Frog" xml:space="preserve"><value>Sapo</value></data>
   <data name="Companion_Bat" xml:space="preserve"><value>Morcego</value></data>
   <data name="Companion_Hero" xml:space="preserve"><value>Herói mascarado</value></data>
+  <data name="Settings_ClosedNotch" xml:space="preserve"><value>Notch fechado</value></data>
+  <data name="Badge_Network" xml:space="preserve"><value>Rede</value></data>
+  <data name="Badge_NetworkHint" xml:space="preserve"><value>Barras de Wi-Fi, Ethernet, ou sem conexão em vermelho.</value></data>
+  <data name="Badge_Date" xml:space="preserve"><value>Data</value></data>
+  <data name="Badge_NextTask" xml:space="preserve"><value>Próxima tarefa</value></data>
+  <data name="Badge_NextTaskHint" xml:space="preserve"><value>Uma tarefa que vence na próxima hora aparece no meio, como um evento da agenda.</value></data>
+  <data name="Badge_Alarm" xml:space="preserve"><value>Próximo alarme</value></data>
+  <data name="Badge_AlarmHint" xml:space="preserve"><value>Quando um toca nas próximas 12 horas.</value></data>
+  <data name="Badge_Notifications" xml:space="preserve"><value>Notificações não lidas</value></data>
+  <data name="Badge_NotificationsHint" xml:space="preserve"><value>Quantas notificações do celular e de apps chegaram com o notch fechado (com as notificações ligadas).</value></data>
+  <data name="Badge_MicMuted" xml:space="preserve"><value>Microfone mudo</value></data>
+  <data name="Badge_Headphones" xml:space="preserve"><value>Bateria dos fones</value></data>
+  <data name="Badge_Downloads" xml:space="preserve"><value>Download em andamento</value></data>
+  <data name="Badge_Ticker" xml:space="preserve"><value>Letreiro rotativo</value></data>
+  <data name="Badge_TickerHint" xml:space="preserve"><value>Sem nada tocando, o relógio se alterna com a data, a próxima tarefa e o próximo alarme.</value></data>
 </root>
