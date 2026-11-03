@@ -34,6 +34,16 @@ public partial class ShelfPage : UserControl
         OnItemsChanged(null, null);
     }
 
+    /// <summary>The clock companion by the empty box: the same one as beside the clock, or nobody.</summary>
+    public void SetCompanion(string id)
+    {
+        ShelfRaven.Visibility = id == "yata" ? Visibility.Visible : Visibility.Collapsed;
+        bool character = PixelCharacter.Exists(id);
+        ShelfCharacter.Visibility = character ? Visibility.Visible : Visibility.Collapsed;
+        if (character)
+            ShelfCharacter.Character = id;
+    }
+
     public void ShowDropHint(bool show) =>
         DropOverlay.Visibility = show ? Visibility.Visible : Visibility.Collapsed;
 

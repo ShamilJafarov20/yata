@@ -52,6 +52,7 @@ public partial class MainWindow
             IdleCharacter.Character = companion;
             MusicCharacter.Character = companion;
         }
+        ShelfPage.SetCompanion(companion); // The same one by the shelf's empty box.
         // Sprite pixels grow with the clock, so the companion keeps its proportion to the digits.
         double pixel = Math.Round(IdleClock.FontSize / 18 * 2) / 2;
         IdleRaven.PixelSize = pixel;

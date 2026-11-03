@@ -13,9 +13,11 @@
         <Grid x:Name="EmptyState">
             <Rectangle RadiusX="14" RadiusY="14" Stroke="{DynamicResource OutlineBrush}" StrokeThickness="1.5" StrokeDashArray="4 3"/>
             <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-                <!-- Yata eyeing the empty box -->
+                <!-- The clock companion eyeing the empty box: Yata, a pixel character, or nobody (SetCompanion) -->
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                    <local:RavenSprite PixelSize="2" VerticalAlignment="Bottom" Margin="0,0,8,0" Opacity="0.7"/>
+                    <local:RavenSprite x:Name="ShelfRaven" PixelSize="2" VerticalAlignment="Bottom" Margin="0,0,8,0" Opacity="0.7"/>
+                    <local:PixelCharacter x:Name="ShelfCharacter" PixelSize="2" VerticalAlignment="Bottom" Margin="0,0,8,0" Opacity="0.7"
+                                         Fill="{DynamicResource TextPrimary}" Visibility="Collapsed"/>
                     <TextBlock Text="&#xE7B8;" FontFamily="{StaticResource IconFont}" FontSize="22"
                                VerticalAlignment="Bottom" Foreground="{DynamicResource TextSecondary}"/>
                 </StackPanel>
