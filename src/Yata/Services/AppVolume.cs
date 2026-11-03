@@ -162,8 +162,13 @@ internal static class AppVolume
 
     private static string? ProcessName(uint pid)
     {
-        if (Names.TryGetValue(pid, out var name))
-            return name;
+        // Read from the UI thread and from the background volume reads (MainWindow.ShowPlayerVolume).
+        lock (Names)
+        {
+            if (Names.TryGetValue(pid, out var known))
+                return known;
+        }
+        string name;
         try
         {
             using var process = Process.GetProcessById((int)pid);
@@ -173,9 +178,12 @@ internal static class AppVolume
         {
             return null; // Already gone.
         }
-        if (Names.Count > 256)
-            Names.Clear();
-        Names[pid] = name;
+        lock (Names)
+        {
+            if (Names.Count > 256)
+                Names.Clear();
+            Names[pid] = name;
+        }
         return name;
     }
 }

@@ -552,4 +552,19 @@
   <data name="Shelf_Close" xml:space="preserve"><value>Close (the shelf stays open while you fetch files)</value></data>
   <data name="Media_SwitchTo" xml:space="preserve"><value>Switch to {0}</value></data>
   <data name="Media_RemovePlayer" xml:space="preserve"><value>Remove {0} from the notch (it comes back when it plays again)</value></data>
+  <data name="Settings_GlassFps" xml:space="preserve"><value>Glass smoothness</value></data>
+  <data name="Settings_GlassFpsHint" xml:space="preserve"><value>How often Liquid Glass follows what moves behind it. Higher is smoother and uses more CPU; a still screen costs almost nothing either way.</value></data>
+  <data name="Settings_GlassFpsDisplay" xml:space="preserve"><value>Match display ({0} Hz)</value></data>
+  <data name="Settings_GlassFpsN" xml:space="preserve"><value>{0} fps</value></data>
+  <data name="Settings_Companion" xml:space="preserve"><value>Clock companion</value></data>
+  <data name="Settings_CompanionHint" xml:space="preserve"><value>Who sits beside the clock: Yata the raven, a pixel character, or nobody.</value></data>
+  <data name="Companion_Yata" xml:space="preserve"><value>Yata (raven)</value></data>
+  <data name="Companion_None" xml:space="preserve"><value>None</value></data>
+  <data name="Companion_Cat" xml:space="preserve"><value>Cat</value></data>
+  <data name="Companion_Ghost" xml:space="preserve"><value>Ghost</value></data>
+  <data name="Companion_Robot" xml:space="preserve"><value>Robot</value></data>
+  <data name="Companion_Alien" xml:space="preserve"><value>Alien</value></data>
+  <data name="Companion_Frog" xml:space="preserve"><value>Frog</value></data>
+  <data name="Companion_Bat" xml:space="preserve"><value>Bat</value></data>
+  <data name="Companion_Hero" xml:space="preserve"><value>Masked hero</value></data>
 </root>

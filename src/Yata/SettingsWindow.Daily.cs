@@ -12,7 +12,7 @@ namespace Yata;
 // Clock style, daily tools, games, prayer times and the notification mirror: rows built in code.
 public partial class SettingsWindow
 {
-    private Button? _clockFontButton, _clockSizeButton, _prayerMethodButton;
+    private Button? _clockFontButton, _clockSizeButton, _glassFpsButton, _companionButton, _prayerMethodButton;
     private TextBlock? _prayerHint, _prayerToday;
 
     private void InitDailySections()
@@ -38,6 +38,10 @@ public partial class SettingsWindow
         }
         if (_clockSizeButton != null)
             _clockSizeButton.Content = ClockStyles.SizeName(s.ClockSize);
+        if (_glassFpsButton != null)
+            _glassFpsButton.Content = GlassFpsName(s.GlassFps);
+        if (_companionButton != null)
+            _companionButton.Content = CompanionItem(s.ClockCompanion, 1.0);
         ShowPrayer();
     }
 
@@ -127,6 +131,88 @@ public partial class SettingsWindow
         _clockSizeButton = Choice(ClockRows, Strings.Settings_ClockSize, null, (_, _) =>
             ShowChoices(_clockSizeButton!, new[] { 0, 1, 2 }, ClockStyles.SizeName, size => size == _store.Settings.ClockSize,
                 size => _store.Settings.ClockSize = size));
+        _companionButton = Choice(ClockRows, Strings.Settings_Companion, Strings.Settings_CompanionHint, (_, _) => ShowCompanions());
+        _glassFpsButton = Choice(ClockRows, Strings.Settings_GlassFps, Strings.Settings_GlassFpsHint, (_, _) =>
+            ShowChoices(_glassFpsButton!, new[] { 0, 120, 60, 30 }, GlassFpsName, fps => fps == _store.Settings.GlassFps,
+                fps => _store.Settings.GlassFps = fps));
+    }
+
+    // ---- Clock companion ---------------------------------------------------------------------------
+
+    private static string CompanionName(string id) => id switch
+    {
+        "yata" => Strings.Companion_Yata,
+        "none" => Strings.Companion_None,
+        "cat" => Strings.Companion_Cat,
+        "ghost" => Strings.Companion_Ghost,
+        "robot" => Strings.Companion_Robot,
+        "alien" => Strings.Companion_Alien,
+        "frog" => Strings.Companion_Frog,
+        "bat" => Strings.Companion_Bat,
+        "hero" => Strings.Companion_Hero,
+        _ => id,
+    };
+
+    /// <summary>The character drawn small beside its name (Yata as his own sprite).</summary>
+    private UIElement CompanionItem(string id, double pixel)
+    {
+        var row = new StackPanel { Orientation = Orientation.Horizontal };
+        FrameworkElement? art = id switch
+        {
+            "yata" => new Views.RavenSprite { PixelSize = pixel },
+            "none" => null,
+            _ => new Views.PixelCharacter { Character = id, PixelSize = pixel },
+        };
+        if (art != null)
+        {
+            art.VerticalAlignment = VerticalAlignment.Center;
+            art.Margin = new Thickness(0, 0, 8, 0);
+            art.SetResourceReference(id == "yata" ? Views.RavenSprite.FillProperty : Views.PixelCharacter.FillProperty, "TextPrimary");
+            row.Children.Add(art);
+        }
+        row.Children.Add(new TextBlock { Text = CompanionName(id), VerticalAlignment = VerticalAlignment.Center });
+        return row;
+    }
+
+    private void ShowCompanions()
+    {
+        var menu = new ContextMenu { Style = (Style)FindResource("ChoiceMenu"), PlacementTarget = _companionButton, MinWidth = 180 };
+        foreach (string id in new[] { "yata" }.Concat(Views.PixelCharacter.Ids).Append("none"))
+        {
+            var item = new MenuItem { Header = CompanionItem(id, 1.5), IsChecked = id == _store.Settings.ClockCompanion };
+            item.Click += (_, _) =>
+            {
+                _store.Settings.ClockCompanion = id;
+                _store.NotifySettingsChanged();
+            };
+            menu.Items.Add(item);
+        }
+        menu.IsOpen = true;
+    }
+
+    private static string GlassFpsName(int fps) =>
+        fps == 0 ? string.Format(Strings.Settings_GlassFpsDisplay, DisplayRefresh()) : string.Format(Strings.Settings_GlassFpsN, fps);
+
+    private static int? _displayRefresh;
+
+    private static int DisplayRefresh() => _displayRefresh ??= ReadDisplayRefresh();
+
+    private static int ReadDisplayRefresh()
+    {
+        try
+        {
+            using var searcher = new System.Management.ManagementObjectSearcher("SELECT CurrentRefreshRate FROM Win32_VideoController");
+            foreach (var item in searcher.Get())
+            {
+                if (item["CurrentRefreshRate"] is uint hz && hz > 1)
+                    return (int)hz;
+            }
+        }
+        catch (Exception)
+        {
+            // No answer from WMI: just say "display".
+        }
+        return 60;
     }
 
     // ---- Daily tools --------------------------------------------------------------------------

@@ -456,6 +456,11 @@
                             <TextBlock x:Name="IdleClock" FontFamily="{StaticResource DisplayFont}" FontSize="36"
                                        FontWeight="SemiBold" Typography.NumeralAlignment="Tabular"/>
                             <views:RavenSprite x:Name="IdleRaven" PixelSize="2" VerticalAlignment="Bottom" Margin="10,0,0,10"/>
+                            <!-- Or a pixel companion chosen in Settings (Views/PixelCharacter) -->
+                            <views:PixelCharacter x:Name="IdleCharacter" PixelSize="2" VerticalAlignment="Bottom" Margin="10,0,0,10"
+                                                 Fill="{DynamicResource TextPrimary}" Visibility="Collapsed">
+                                <views:PixelCharacter.RenderTransform><TranslateTransform x:Name="IdleCharacterBob"/></views:PixelCharacter.RenderTransform>
+                            </views:PixelCharacter>
                         </StackPanel>
                         <TextBlock Text="{x:Static y:Strings.Media_NothingPlaying}" FontSize="13" HorizontalAlignment="Center"
                                    Foreground="{DynamicResource TextSecondary}"/>

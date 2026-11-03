@@ -440,6 +440,7 @@ public partial class MainWindow
         IdleClock.FontSize = ClockStyles.IdleSize(Settings.ClockSize);
         // The raven sits by the clock's baseline whatever its size.
         IdleRaven.Margin = new Thickness(10, 0, 0, Math.Round(IdleClock.FontSize * 0.27));
+        ApplyClockCompanion();
         UpdateCompactFont();
     }
 

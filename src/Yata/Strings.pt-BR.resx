@@ -552,4 +552,19 @@
   <data name="Shelf_Close" xml:space="preserve"><value>Fechar (a prateleira fica aberta enquanto você busca arquivos)</value></data>
   <data name="Media_SwitchTo" xml:space="preserve"><value>Trocar para {0}</value></data>
   <data name="Media_RemovePlayer" xml:space="preserve"><value>Tirar {0} do notch (volta quando tocar de novo)</value></data>
+  <data name="Settings_GlassFps" xml:space="preserve"><value>Suavidade do vidro</value></data>
+  <data name="Settings_GlassFpsHint" xml:space="preserve"><value>Com que frequência o Liquid Glass acompanha o que se move atrás dele. Mais alto é mais suave e usa mais CPU; uma tela parada quase não custa nada.</value></data>
+  <data name="Settings_GlassFpsDisplay" xml:space="preserve"><value>Igual à tela ({0} Hz)</value></data>
+  <data name="Settings_GlassFpsN" xml:space="preserve"><value>{0} fps</value></data>
+  <data name="Settings_Companion" xml:space="preserve"><value>Companheiro do relógio</value></data>
+  <data name="Settings_CompanionHint" xml:space="preserve"><value>Quem fica ao lado do relógio: o corvo Yata, um personagem em pixel, ou ninguém.</value></data>
+  <data name="Companion_Yata" xml:space="preserve"><value>Yata (corvo)</value></data>
+  <data name="Companion_None" xml:space="preserve"><value>Nenhum</value></data>
+  <data name="Companion_Cat" xml:space="preserve"><value>Gato</value></data>
+  <data name="Companion_Ghost" xml:space="preserve"><value>Fantasma</value></data>
+  <data name="Companion_Robot" xml:space="preserve"><value>Robô</value></data>
+  <data name="Companion_Alien" xml:space="preserve"><value>Alienígena</value></data>
+  <data name="Companion_Frog" xml:space="preserve"><value>Sapo</value></data>
+  <data name="Companion_Bat" xml:space="preserve"><value>Morcego</value></data>
+  <data name="Companion_Hero" xml:space="preserve"><value>Herói mascarado</value></data>
 </root>

@@ -79,3 +79,37 @@ public class GameTrackerTests
     [InlineData(134, "2 h 14 min")]
     public void Formats_play_time(int minutes, string text) => Assert.Equal(text, GameTracker.Format(TimeSpan.FromMinutes(minutes)));
 }
+
+public class PixelCharacterTests
+{
+    [Fact]
+    public void Every_character_fits_the_raven_grid_and_has_eyes_that_blink()
+    {
+        Assert.NotEmpty(Yata.Views.PixelCharacter.Ids);
+        foreach (string id in Yata.Views.PixelCharacter.Ids)
+        {
+            int open = 0, closed = 0;
+            for (int y = 0; y < Yata.Views.PixelCharacter.Rows; y++)
+                for (int x = 0; x < Yata.Views.PixelCharacter.Columns; x++)
+                {
+                    if (Yata.Views.PixelCharacter.IsOn(id, x, y, blink: false)) open++;
+                    if (Yata.Views.PixelCharacter.IsOn(id, x, y, blink: true)) closed++;
+                }
+            Assert.True(open > 40, $"{id} is nearly empty");
+            Assert.NotEqual(open, closed); // the blink changes something
+        }
+    }
+
+    [Theory]
+    [InlineData("cat", "cat")]
+    [InlineData("none", "none")]
+    [InlineData("spiderman", "yata")]
+    [InlineData(null, "yata")]
+    public void An_unknown_companion_falls_back_to_Yata(string? saved, string expected)
+    {
+        var data = new StoreData();
+        data.Settings.ClockCompanion = saved!;
+        data.Normalize();
+        Assert.Equal(expected, data.Settings.ClockCompanion);
+    }
+}

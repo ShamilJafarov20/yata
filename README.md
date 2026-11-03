@@ -7,8 +7,9 @@
 ## What this fork adds
 
 **Look and control**
-- **Themes**: 10 ready-made themes (Midnight, Liquid Glass, Graphite, Neon, Ocean, Forest, Sunset, Violet, Sakura, Paper), or your own five colors. **Liquid Glass** blurs and bends what's behind the notch, with a tint that adapts to bright backgrounds.
+- **Themes**: 10 ready-made themes (Midnight, Liquid Glass, Graphite, Neon, Ocean, Forest, Sunset, Violet, Sakura, Paper), or your own five colors. **Liquid Glass** blurs and bends what's behind the notch, with a tint that adapts to bright backgrounds. It follows motion behind it smoothly (up to about 120 updates a second on a fast display), with a setting to lower that and save power.
 - **Clock styles**: eight number fonts (Thin, Bold, Condensed, Digital, Serif, Handwritten…) and three sizes.
+- **Clock companions**: Yata the raven or an original pixel character beside the clock (cat, ghost, robot, alien, frog, bat, masked hero), blinking now and then.
 - **Keyboard shortcuts you choose** for: open and close, hide the notch completely, play/pause, next, previous, player volume, like on Spotify, microphone mute, silence call apps. Taken combinations are flagged.
 - **Hide completely**: one shortcut (Ctrl+Alt+H by default) or the tray menu takes the whole notch off the screen and back.
 

@@ -53,6 +53,13 @@ internal sealed class GlassBackdrop : IDisposable
         RenderOptions.SetBitmapScalingMode(_brush, BitmapScalingMode.Linear);
     }
 
+    /// <summary>Whether the last Update drew something new (the backdrop moved, or the shape did).</summary>
+    public bool Changed { get; private set; }
+
+    /// <summary>Time the last frame took to read the screen, and to blur and draw it (for tuning).</summary>
+    public double GrabMs { get; private set; }
+    public double WorkMs { get; private set; }
+
     /// <summary>Refreshes the glass; returns the brush to fill the shape with, or null when it can't be drawn now.</summary>
     public Brush? Update(Color tint)
     {
@@ -87,22 +94,30 @@ internal sealed class GlassBackdrop : IDisposable
             return null;
 
         int sw = Math.Max(4, (right - left + Scale - 1) / Scale), sh = Math.Max(4, (bottom - top + Scale - 1) / Scale);
+        long t0 = System.Diagnostics.Stopwatch.GetTimestamp();
         if (!Grab(left, top, right - left, bottom - top, sw, sh))
             return null;
+        GrabMs = System.Diagnostics.Stopwatch.GetElapsedTime(t0).TotalMilliseconds;
 
         long checksum = Checksum(sw, sh);
         if (checksum == _lastChecksum && bounds == _lastBounds && tint == _lastTint && _bitmap != null)
+        {
+            Changed = false;
             return _brush; // Nothing moved behind it.
+        }
+        Changed = true;
         _lastChecksum = checksum;
         _lastBounds = bounds;
         _lastTint = tint;
 
+        long t1 = System.Diagnostics.Stopwatch.GetTimestamp();
         ReadAndBlur(sw, sh);
 
         // Where the shape sits in the shrunk capture, and its size there.
         double ox = (x - left) / (double)Scale, oy = (y - top) / (double)Scale;
         int ow = Math.Max(1, (width + Scale - 1) / Scale), oh = Math.Max(1, (height + Scale - 1) / Scale);
         Render(sw, sh, ox, oy, ow, oh, sx / Scale, tint);
+        WorkMs = System.Diagnostics.Stopwatch.GetElapsedTime(t1).TotalMilliseconds;
         return _brush;
     }
 
@@ -133,9 +148,9 @@ internal sealed class GlassBackdrop : IDisposable
         IntPtr screen = GetDC(IntPtr.Zero);
         try
         {
-            // HALFTONE averages the pixels it shrinks: the first, free, part of the blur.
-            SetStretchBltMode(_dc, HALFTONE);
-            SetBrushOrgEx(_dc, 0, 0, IntPtr.Zero);
+            // COLORONCOLOR just drops pixels: several times faster than HALFTONE's averaging, and the blur
+            // that follows smooths it out anyway. Reading the screen is most of the glass's cost per frame.
+            SetStretchBltMode(_dc, COLORONCOLOR);
             return StretchBlt(_dc, 0, 0, sw, sh, screen, x, y, width, height, SRCCOPY);
         }
         finally
@@ -331,7 +346,7 @@ internal sealed class GlassBackdrop : IDisposable
 
     // ---- GDI ------------------------------------------------------------------------------------
 
-    private const int HALFTONE = 4;
+    private const int COLORONCOLOR = 3;
     private const int SRCCOPY = 0x00CC0020;
 
     [StructLayout(LayoutKind.Sequential)]

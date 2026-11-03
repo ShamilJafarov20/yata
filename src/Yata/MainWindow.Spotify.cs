@@ -28,12 +28,22 @@ public partial class MainWindow
     private string? _extrasTrack;
     private bool _volumeDragging;
 
+    // Fires once, when the notch has finished opening (see SetExpanded).
+    private readonly DispatcherTimer _extrasAfterOpen = new() { Interval = TimeSpan.FromMilliseconds(320) };
+    private int _volumeQuery;
+
     private void InitPlayerExtras()
     {
+        _extrasAfterOpen.Tick += (_, _) =>
+        {
+            _extrasAfterOpen.Stop();
+            if (_expanded)
+                RefreshPlayerExtras();
+        };
         _spotify = new SpotifyAccount(_store);
         _spotify.Changed += () => Dispatcher.InvokeAsync(RefreshPlayerExtras);
         // Laid out after the first draw: the fill follows the bar's real width.
-        VolumeTrack.SizeChanged += (_, _) => { if (VolumePanel.IsVisible) ShowPlayerVolume(); };
+        VolumeTrack.SizeChanged += (_, _) => { if (VolumePanel.IsVisible && _lastVolume is { } v) DrawPlayerVolume(v); };
         _volumeRetry.Tick += (_, _) =>
         {
             if (_expanded && _page == NotchPage.Media)
@@ -212,7 +222,11 @@ public partial class MainWindow
     // While the app has no sound session yet (a paused video), look again every second until it does.
     private readonly DispatcherTimer _volumeRetry = new() { Interval = TimeSpan.FromSeconds(1) };
 
-    private void ShowPlayerVolume()
+    /// <summary>
+    /// Reads the player's volume off the UI thread (Windows lists every audio session to find it: a few ms
+    /// that would stall an animation), then shows it. A newer request makes an older answer moot.
+    /// </summary>
+    private async void ShowPlayerVolume()
     {
         var (process, label) = VolumeTarget();
         // Shown for any player Yata can name; an app it can't (a store app with no process name) has no bar.
@@ -222,7 +236,11 @@ public partial class MainWindow
             _volumeRetry.Stop();
             return;
         }
-        if (ReadVolume(process) is { } level)
+        int query = ++_volumeQuery;
+        float? read = await System.Threading.Tasks.Task.Run(() => ReadVolume(process));
+        if (query != _volumeQuery || VolumePanel.Visibility != Visibility.Visible)
+            return;
+        if (read is { } level)
         {
             VolumePanel.Opacity = 1;
             VolumeTrack.IsHitTestVisible = true;
@@ -246,8 +264,12 @@ public partial class MainWindow
 
     private string _volumeLabel = "";
 
+    // The last level shown, to redraw the bar when it's resized without asking Windows again.
+    private float? _lastVolume;
+
     private void DrawPlayerVolume(float level, string? label = null)
     {
+        _lastVolume = level;
         if (label != null)
             _volumeLabel = label;
         double width = TrackWidth;
@@ -345,7 +367,10 @@ public partial class MainWindow
 
     private float _volumeBeforeMute;
 
-    private static string AppLabel(string process) => process switch
+    // For demo videos: YATA_DEMO_LABEL names the source app (a silent demo player runs in PowerShell).
+    private static readonly string? DemoLabel = Environment.GetEnvironmentVariable("YATA_DEMO_LABEL");
+
+    private static string AppLabel(string process) => DemoLabel ?? process switch
     {
         "Spotify" => "Spotify",
         "msedge" => "Edge",

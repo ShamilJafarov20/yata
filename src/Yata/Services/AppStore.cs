@@ -81,6 +81,10 @@ public sealed class StoreData
         s.CustomTheme?.Normalize();
         s.ClockFont = ClockStyles.Find(s.ClockFont).Id;
         s.ClockSize = Math.Clamp(s.ClockSize, 0, 2);
+        if (s.ClockCompanion is not ("yata" or "none") && !Yata.Views.PixelCharacter.Exists(s.ClockCompanion))
+            s.ClockCompanion = "yata";
+        if (s.GlassFps is not (0 or 30 or 60 or 120))
+            s.GlassFps = 0;
         s.GameSummaryMinutes = Math.Clamp(s.GameSummaryMinutes, 1, 120);
         s.PrayerReminderMinutes = Math.Clamp(s.PrayerReminderMinutes, 0, 60);
         s.PhoneMirrorApps ??= new();
@@ -139,6 +143,8 @@ public sealed class SettingsData
     public string ClockFont { get; set; } = "default";
     /// <summary>0 normal, 1 large, 2 huge (the idle clock; the closed notch's grows a little).</summary>
     public int ClockSize { get; set; } = 1;
+    /// <summary>Frames a second for Liquid Glass: 0 matches the display (240 on a 240 Hz screen), or 120/60/30 to save power.</summary>
+    public int GlassFps { get; set; }
 
     // Daily tools
     /// <summary>Keeps the last things copied, in memory only. Off unless chosen: it sees what you copy.</summary>
@@ -155,6 +161,9 @@ public sealed class SettingsData
 
     /// <summary>Prayer times from the weather city's coordinates (computed here, nothing is sent).</summary>
     public bool PrayerEnabled { get; set; }
+    /// <summary>Who sits by the clock: "yata" (the raven), a PixelCharacter id ("cat", "robot"…), or "none".</summary>
+    public string ClockCompanion { get; set; } = "yata";
+
     /// <summary>A PrayerMethod name; null picks the region's usual one.</summary>
     public string? PrayerMethod { get; set; }
     public bool PrayerHanafi { get; set; }

@@ -47,11 +47,10 @@ public partial class MainWindow : Window
     // And only two heights (with the 42px header): between pages of the same height the shape holds
     // still and only the page slides. Short: the player, Focus, Water, the idle clock. Tall: the lists
     // (Agenda, Tasks, Shelf) and the player with the lyrics under it.
-    private static readonly Size ExpandedShort = new(ExpandedWidth, 196);
+    // 220, not the original 196: the player's volume row needs the room, and every short page sharing one
+    // height means switching tabs never resizes the notch (a resize costs frames: the window is drawn on the CPU).
+    private static readonly Size ExpandedShort = new(ExpandedWidth, 220);
     private static readonly Size ExpandedTall = new(ExpandedWidth, 300);
-    // The player with its volume row; with lyrics, the same room for them as before.
-    private static readonly Size ExpandedMedia = new(ExpandedWidth, 220);
-    private static readonly Size ExpandedMediaLyrics = new(ExpandedWidth, 324);
     // How early the closed notch starts showing the next event.
     private static readonly TimeSpan UpcomingWindow = TimeSpan.FromMinutes(15);
     private static readonly Size CompactAmbient = new(130, 32);
@@ -273,6 +272,7 @@ public partial class MainWindow : Window
     private async void OnLoaded(object sender, RoutedEventArgs e)
     {
         StartupTimings.Mark("Loaded");
+        StartDumping();
         UpdateGlass();
         // What the first moments show: the clock, the volume and Caps Lock notices, presence.
         StartService("clock", () => { ScheduleClock(); _clockTimer.Start(); });
@@ -288,7 +288,9 @@ public partial class MainWindow : Window
         }
         try
         {
-            await _media.InitializeAsync();
+            // For capturing the idle clock in videos (MainWindow.Capture.cs): a test copy that ignores the players.
+            if (Environment.GetEnvironmentVariable("YATA_DUMP_NOMEDIA") != "1")
+                await _media.InitializeAsync();
             StartupTimings.Mark("media");
         }
         catch (Exception ex)
@@ -761,7 +763,10 @@ public partial class MainWindow : Window
             // Wait for the page to fade in before scrolling a long title.
             _titleReveal.Stop();
             _titleReveal.Start();
-            RefreshPlayerExtras();
+            // After the opening animation: asking Windows about the player (its volume, its buttons) mustn't
+            // hold up the first frames.
+            _extrasAfterOpen.Stop();
+            _extrasAfterOpen.Start();
         }
         else
         {
@@ -807,8 +812,7 @@ public partial class MainWindow : Window
         {
             NotchPage.Agenda or NotchPage.Tasks or NotchPage.Shelf or NotchPage.Timers or NotchPage.Clipboard
                 or NotchPage.Notes or NotchPage.Devices => ExpandedTall,
-            NotchPage.Media when hasLyrics => ExpandedMediaLyrics,
-            NotchPage.Media when hasMedia => ExpandedMedia,
+            NotchPage.Media when hasLyrics => ExpandedTall,
             _ => ExpandedShort,
         };
         LayoutActivityPanel(expanded.Width);
@@ -856,10 +860,13 @@ public partial class MainWindow : Window
         DevicesPage.Visibility = _page == NotchPage.Devices ? Visibility.Visible : Visibility.Hidden;
 
         // Yata only fidgets beside the idle clock while it can be seen.
-        if (_expanded && _page == NotchPage.Media && !hasMedia)
+        // The companion too (Yata or a pixel character), only while the idle clock is in view.
+        bool idleInView = _expanded && _page == NotchPage.Media && !hasMedia;
+        if (idleInView && CompanionIsYata)
             _idleRaven.Perch();
         else
             _idleRaven.Stop();
+        SetCharacterAnimating(idleInView && !CompanionIsYata);
 
         FitWindow(allowShrink: false);
         StartAnimation();
