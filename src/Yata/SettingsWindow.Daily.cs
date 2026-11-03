@@ -196,7 +196,7 @@ public partial class SettingsWindow
         foreach (string id in new[] { "yata" }.Concat(Views.PixelCharacter.Ids).Concat(s.CustomCharacters.Select(c => c.Id)).Append("none"))
             Add(CompanionItem(id, 1.5), id == s.ClockCompanion, () => Choose(id));
 
-        menu.Items.Add(new Separator());
+        menu.Items.Add(MenuDivider());
         Add(Strings.Companion_Draw, false, () => EditCharacter(null));
         if (s.CustomCharacters.FirstOrDefault(c => c.Id == s.ClockCompanion) is { } mine)
         {
@@ -208,6 +208,27 @@ public partial class SettingsWindow
             });
         }
         menu.IsOpen = true;
+    }
+
+    /// <summary>
+    /// A line between the characters and "Draw your own". It carries its own style: the menu's item style is
+    /// for MenuItem, and WPF throws if it tries to put that on a Separator (which crashed the app).
+    /// </summary>
+    internal static Separator MenuDivider()
+    {
+        var style = new Style(typeof(Separator));
+        style.Setters.Add(new Setter(FrameworkElement.MarginProperty, new Thickness(10, 4, 10, 4)));
+        style.Setters.Add(new Setter(FrameworkElement.HeightProperty, 1.0));
+        style.Setters.Add(new Setter(Control.TemplateProperty, DividerTemplate()));
+        return new Separator { Style = style, Focusable = false };
+    }
+
+    private static ControlTemplate DividerTemplate()
+    {
+        var line = new FrameworkElementFactory(typeof(Border));
+        line.SetValue(FrameworkElement.HeightProperty, 1.0);
+        line.SetResourceReference(Border.BackgroundProperty, "DividerBrush");
+        return new ControlTemplate(typeof(Separator)) { VisualTree = line };
     }
 
     /// <summary>The editor; a saved character replaces the one edited (or joins the list) and is chosen.</summary>

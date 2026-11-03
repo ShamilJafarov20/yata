@@ -179,3 +179,46 @@ public class SpriteEditorTests
         Assert.Equal("####............", saved.Rows[0]);
     }
 }
+
+public class ChoiceMenuTests
+{
+    /// <summary>
+    /// The settings menus give every entry the MenuItem style. A plain Separator among them made WPF throw and
+    /// closed the app (the clock companion menu); the one SettingsWindow uses brings its own style.
+    /// </summary>
+    [Fact]
+    public void The_companion_menu_divider_survives_the_menu_item_style()
+    {
+        Exception? plain = null, ours = null;
+        var thread = new Thread(() =>
+        {
+            plain = Measure(new System.Windows.Controls.Separator());
+            ours = Measure(Yata.SettingsWindow.MenuDivider());
+        });
+        thread.SetApartmentState(ApartmentState.STA);
+        thread.Start();
+        thread.Join();
+        Assert.NotNull(plain); // The crash, reproduced.
+        Assert.Null(ours);
+    }
+
+    private static Exception? Measure(System.Windows.Controls.Separator divider)
+    {
+        try
+        {
+            var menu = new System.Windows.Controls.ItemsControl
+            {
+                ItemContainerStyle = new System.Windows.Style(typeof(System.Windows.Controls.MenuItem)),
+            };
+            menu.Items.Add(new System.Windows.Controls.MenuItem { Header = "Cat" });
+            menu.Items.Add(divider);
+            menu.ApplyTemplate();
+            menu.Measure(new System.Windows.Size(300, 300));
+            return null;
+        }
+        catch (Exception ex)
+        {
+            return ex;
+        }
+    }
+}
