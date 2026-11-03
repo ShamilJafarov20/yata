@@ -582,4 +582,34 @@
   <data name="Badge_Downloads" xml:space="preserve"><value>Download em andamento</value></data>
   <data name="Badge_Ticker" xml:space="preserve"><value>Letreiro rotativo</value></data>
   <data name="Badge_TickerHint" xml:space="preserve"><value>Sem nada tocando, o relógio se alterna com a data, a próxima tarefa e o próximo alarme.</value></data>
+  <data name="Companion_Morning" xml:space="preserve"><value>Bom dia!</value></data>
+  <data name="Companion_Afternoon" xml:space="preserve"><value>Boa tarde!</value></data>
+  <data name="Companion_Evening" xml:space="preserve"><value>Boa noite!</value></data>
+  <data name="Poke_Cat" xml:space="preserve"><value>Mrrr… | Me alimenta. | *ronrona* | Esse lugar é meu.</value></data>
+  <data name="Poke_Ghost" xml:space="preserve"><value>BU! | Agora eu moro aqui. | Te assustei? | Uuuuu…</value></data>
+  <data name="Poke_Robot" xml:space="preserve"><value>Bip bop. | Escaneando… você está ótimo. | 01101000 01101001 | Bateria: 100%.</value></data>
+  <data name="Poke_Alien" xml:space="preserve"><value>Leve-me ao seu líder. | Belo planeta. | Viemos em paz. | 👽</value></data>
+  <data name="Poke_Frog" xml:space="preserve"><value>Croac. | Inseto? Onde? | *pulo* | Croac!</value></data>
+  <data name="Poke_Bat" xml:space="preserve"><value>Iiik! | De boa, pendurado. | Já é noite? | *flap flap*</value></data>
+  <data name="Poke_Hero" xml:space="preserve"><value>Deixa comigo! | Nem todo herói usa capa. | A justiça nunca dorme. | *faz pose*</value></data>
+  <data name="Poke_Custom" xml:space="preserve"><value>Oi! | E aí! | :)</value></data>
+  <data name="Companion_Draw" xml:space="preserve"><value>Desenhar o seu…</value></data>
+  <data name="Companion_Edit" xml:space="preserve"><value>Editar "{0}"…</value></data>
+  <data name="Companion_Delete" xml:space="preserve"><value>Apagar "{0}"</value></data>
+  <data name="Settings_CompanionDances" xml:space="preserve"><value>Dança com a música</value></data>
+  <data name="Settings_CompanionDancesHint" xml:space="preserve"><value>Enquanto toca música, o companheiro em pixel dança no notch fechado no lugar do equalizador.</value></data>
+  <data name="Editor_Title" xml:space="preserve"><value>Desenhe um companheiro do relógio</value></data>
+  <data name="Editor_DefaultName" xml:space="preserve"><value>Meu personagem</value></data>
+  <data name="Editor_Name" xml:space="preserve"><value>Nome</value></data>
+  <data name="Editor_Pixels" xml:space="preserve"><value>Pixels</value></data>
+  <data name="Editor_Eyes" xml:space="preserve"><value>Olhos (piscam)</value></data>
+  <data name="Editor_Mirror" xml:space="preserve"><value>Espelhar esquerda → direita</value></data>
+  <data name="Editor_Invert" xml:space="preserve"><value>Inverter</value></data>
+  <data name="Editor_Clear" xml:space="preserve"><value>Limpar</value></data>
+  <data name="Editor_Import" xml:space="preserve"><value>Importar imagem…</value></data>
+  <data name="Editor_ImportFilter" xml:space="preserve"><value>Imagens</value></data>
+  <data name="Editor_ImportFailed" xml:space="preserve"><value>Não foi possível ler esta imagem.</value></data>
+  <data name="Editor_Help" xml:space="preserve"><value>O botão esquerdo desenha, o direito apaga; arraste para traçar. Pixels feitos com Olhos (azul) se fecham quando ele pisca. Fica só neste PC.</value></data>
+  <data name="Editor_Cancel" xml:space="preserve"><value>Cancelar</value></data>
+  <data name="Editor_Save" xml:space="preserve"><value>Salvar</value></data>
 </root>

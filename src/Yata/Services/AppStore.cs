@@ -81,7 +81,14 @@ public sealed class StoreData
         s.CustomTheme?.Normalize();
         s.ClockFont = ClockStyles.Find(s.ClockFont).Id;
         s.ClockSize = Math.Clamp(s.ClockSize, 0, 2);
-        if (s.ClockCompanion is not ("yata" or "none") && !Yata.Views.PixelCharacter.Exists(s.ClockCompanion))
+        s.CustomCharacters = (s.CustomCharacters ?? new()).Where(c => c != null && !string.IsNullOrEmpty(c.Id)).ToList();
+        foreach (var c in s.CustomCharacters)
+        {
+            c.Name = string.IsNullOrWhiteSpace(c.Name) ? "?" : c.Name.Trim();
+            c.Rows = Yata.Views.PixelCharacter.Normalize(c.Rows).ToList();
+        }
+        if (s.ClockCompanion is not ("yata" or "none") && !Yata.Views.PixelCharacter.IsBuiltIn(s.ClockCompanion) &&
+            !s.CustomCharacters.Any(c => c.Id == s.ClockCompanion))
             s.ClockCompanion = "yata";
         if (s.GlassFps is not (0 or 30 or 60 or 120))
             s.GlassFps = 0;
@@ -175,6 +182,10 @@ public sealed class SettingsData
 
     /// <summary>Who sits by the clock: "yata" (the raven), a PixelCharacter id ("cat", "robot"…), or "none".</summary>
     public string ClockCompanion { get; set; } = "yata";
+    /// <summary>Characters drawn by the user (Settings → Clock companion → Draw your own). Kept here only.</summary>
+    public List<CustomCharacterData> CustomCharacters { get; set; } = new();
+    /// <summary>A pixel companion dances in the closed notch while music plays, in the equalizer's place.</summary>
+    public bool CompanionDances { get; set; } = true;
 
     /// <summary>A PrayerMethod name; null picks the region's usual one.</summary>
     public string? PrayerMethod { get; set; }
@@ -422,4 +433,12 @@ public sealed class AppStore
             Log.Warn("store", "Não foi possível guardar a cópia data.json.bad", ex);
         }
     }
+}
+
+/// <summary>A clock companion the user drew: 14 rows of 16 pixels in PixelCharacter's letters.</summary>
+public sealed class CustomCharacterData
+{
+    public string Id { get; set; } = "";
+    public string Name { get; set; } = "";
+    public List<string> Rows { get; set; } = new();
 }

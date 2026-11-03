@@ -582,4 +582,34 @@
   <data name="Badge_Downloads" xml:space="preserve"><value>Download in progress</value></data>
   <data name="Badge_Ticker" xml:space="preserve"><value>Rotating ticker</value></data>
   <data name="Badge_TickerHint" xml:space="preserve"><value>With nothing playing, the clock takes turns with the date, the next task and the next alarm.</value></data>
+  <data name="Companion_Morning" xml:space="preserve"><value>Good morning!</value></data>
+  <data name="Companion_Afternoon" xml:space="preserve"><value>Good afternoon!</value></data>
+  <data name="Companion_Evening" xml:space="preserve"><value>Good evening!</value></data>
+  <data name="Poke_Cat" xml:space="preserve"><value>Mrrr… | Feed me. | *purrs* | That's my spot.</value></data>
+  <data name="Poke_Ghost" xml:space="preserve"><value>BOO! | I live here now. | Did I scare you? | Wooooo…</value></data>
+  <data name="Poke_Robot" xml:space="preserve"><value>Beep boop. | Scanning… you look great. | 01101000 01101001 | Battery: 100%.</value></data>
+  <data name="Poke_Alien" xml:space="preserve"><value>Take me to your leader. | Nice planet. | We come in peace. | 👽</value></data>
+  <data name="Poke_Frog" xml:space="preserve"><value>Ribbit. | Bug? Where? | *hop* | Croak!</value></data>
+  <data name="Poke_Bat" xml:space="preserve"><value>Squeak! | Hanging out. | Is it night yet? | *flap flap*</value></data>
+  <data name="Poke_Hero" xml:space="preserve"><value>On it! | Not all heroes wear capes. | Justice never sleeps. | *strikes a pose*</value></data>
+  <data name="Poke_Custom" xml:space="preserve"><value>Hi! | Hey there! | :)</value></data>
+  <data name="Companion_Draw" xml:space="preserve"><value>Draw your own…</value></data>
+  <data name="Companion_Edit" xml:space="preserve"><value>Edit "{0}"…</value></data>
+  <data name="Companion_Delete" xml:space="preserve"><value>Delete "{0}"</value></data>
+  <data name="Settings_CompanionDances" xml:space="preserve"><value>Dances to music</value></data>
+  <data name="Settings_CompanionDancesHint" xml:space="preserve"><value>While music plays, the pixel companion dances in the closed notch instead of the equalizer.</value></data>
+  <data name="Editor_Title" xml:space="preserve"><value>Draw a clock companion</value></data>
+  <data name="Editor_DefaultName" xml:space="preserve"><value>My character</value></data>
+  <data name="Editor_Name" xml:space="preserve"><value>Name</value></data>
+  <data name="Editor_Pixels" xml:space="preserve"><value>Pixels</value></data>
+  <data name="Editor_Eyes" xml:space="preserve"><value>Eyes (blink)</value></data>
+  <data name="Editor_Mirror" xml:space="preserve"><value>Mirror left → right</value></data>
+  <data name="Editor_Invert" xml:space="preserve"><value>Invert</value></data>
+  <data name="Editor_Clear" xml:space="preserve"><value>Clear</value></data>
+  <data name="Editor_Import" xml:space="preserve"><value>Import picture…</value></data>
+  <data name="Editor_ImportFilter" xml:space="preserve"><value>Pictures</value></data>
+  <data name="Editor_ImportFailed" xml:space="preserve"><value>This picture could not be read.</value></data>
+  <data name="Editor_Help" xml:space="preserve"><value>Left button draws, right button erases; drag to draw lines. Pixels drawn with Eyes (blue) close when it blinks. It's kept on this PC only.</value></data>
+  <data name="Editor_Cancel" xml:space="preserve"><value>Cancel</value></data>
+  <data name="Editor_Save" xml:space="preserve"><value>Save</value></data>
 </root>

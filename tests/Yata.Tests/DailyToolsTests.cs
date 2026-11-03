@@ -113,3 +113,69 @@ public class PixelCharacterTests
         Assert.Equal(expected, data.Settings.ClockCompanion);
     }
 }
+
+public class CharacterAnimationTests
+{
+    [Fact]
+    public void Every_pose_of_every_character_is_16_by_14()
+    {
+        foreach (string id in Yata.Views.PixelCharacter.Ids)
+        {
+            var sprite = Yata.Views.PixelCharacter.Sprite(id)!;
+            foreach (var rows in sprite.Poses.Values.Prepend(sprite.Base))
+            {
+                Assert.Equal(Yata.Views.PixelCharacter.Rows, rows.Length);
+                Assert.All(rows, r => Assert.Equal(Yata.Views.PixelCharacter.Columns, r.Length));
+            }
+            // Every action points at poses that exist, and something happens when poked.
+            Assert.NotNull(sprite.Poke);
+            foreach (var action in sprite.Idle.Append(sprite.Poke!))
+                Assert.All(action.Steps, step => Assert.True(step.Pose == "base" || sprite.Poses.ContainsKey(step.Pose), $"{id}: {step.Pose}"));
+        }
+    }
+
+    [Fact]
+    public void A_drawing_is_cleaned_to_the_grid()
+    {
+        var rows = Yata.Views.PixelCharacter.Normalize(new[] { "##x##", "", null!, new string('#', 30) });
+        Assert.Equal(14, rows.Length);
+        Assert.All(rows, r => Assert.Equal(16, r.Length));
+        Assert.Equal("##.##...........", rows[0]);
+        Assert.Equal(new string('#', 16), rows[3]);
+    }
+}
+
+public class SpriteEditorTests
+{
+    /// <summary>The editor builds with the app's own styles and colors, and saves what was drawn.</summary>
+    [Fact]
+    public void The_editor_opens_and_saves_a_character()
+    {
+        Exception? failure = null;
+        CustomCharacterData? saved = null;
+        var thread = new Thread(() =>
+        {
+            try
+            {
+                if (System.Windows.Application.Current == null)
+                    new Yata.App().InitializeComponent();
+                var editing = new CustomCharacterData { Id = "custom-test", Name = "Test", Rows = Enumerable.Repeat("####............", 14).ToList() };
+                var editor = new Yata.SpriteEditorWindow(editing);
+                var save = typeof(Yata.SpriteEditorWindow).GetMethod("Save", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)!;
+                save.Invoke(editor, null);
+                saved = editor.Result;
+            }
+            catch (Exception ex)
+            {
+                failure = ex;
+            }
+        });
+        thread.SetApartmentState(ApartmentState.STA);
+        thread.Start();
+        thread.Join();
+        Assert.Null(failure);
+        Assert.NotNull(saved);
+        Assert.Equal("custom-test", saved!.Id);
+        Assert.Equal("####............", saved.Rows[0]);
+    }
+}

@@ -868,7 +868,7 @@ public partial class MainWindow : Window
             _idleRaven.Perch();
         else
             _idleRaven.Stop();
-        SetCharacterAnimating(idleInView && !CompanionIsYata);
+        SetCharacterAnimating(idleInView && CompanionIsCharacter);
 
         FitWindow(allowShrink: false);
         StartAnimation();
@@ -903,7 +903,7 @@ public partial class MainWindow : Window
     {
         double left = CompactArt.Visibility == Visibility.Visible ? CompactArt.Width : 0;
         double right = 0;
-        foreach (var part in new FrameworkElement[] { CompactTimer, CompactWeather, MusicRaven, Equalizer })
+        foreach (var part in new FrameworkElement[] { CompactTimer, CompactWeather, MusicRaven, MusicCharacter, Equalizer })
         {
             if (part.Visibility == Visibility.Visible)
                 right = Math.Max(right, part.DesiredSize.Width + part.Margin.Left + part.Margin.Right);

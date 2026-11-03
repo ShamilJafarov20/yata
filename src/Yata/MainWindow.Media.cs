@@ -162,6 +162,7 @@ public partial class MainWindow
         CompactTimer.Visibility = active && _state == null ? Visibility.Visible : Visibility.Collapsed;
         bool nodding = MusicRaven.Visibility == Visibility.Visible;
         Equalizer.Visibility = _state != null && !nodding ? Visibility.Visible : Visibility.Collapsed;
+        UpdateDancer(nodding); // A pixel companion may dance in the equalizer's place.
 
         if (_focus.IsActive)
         {
@@ -198,9 +199,12 @@ public partial class MainWindow
     /// The bars move only where they can be seen: a running animation keeps WPF drawing frames
     /// even behind the open notch (where the closed view is just transparent) or when collapsed.
     /// </summary>
-    private void UpdateEqualizer() =>
+    private void UpdateEqualizer()
+    {
+        UpdateDancer(MusicRaven.Visibility == Visibility.Visible);
         SetEqualizer(_state?.IsPlaying == true && IsVisible && !_expanded && Equalizer.Visibility == Visibility.Visible &&
                      !_reduceMotion);
+    }
 
     /// <summary>
     /// Windows' "Animation effects" switched off, or energy saver on: the bars stand still.

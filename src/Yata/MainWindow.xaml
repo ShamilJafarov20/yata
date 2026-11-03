@@ -129,6 +129,11 @@
                     <!-- Yata nods along when you're away but the music plays on -->
                     <views:RavenSprite x:Name="MusicRaven" Grid.Column="2" PixelSize="1" VerticalAlignment="Center"
                                        Visibility="Collapsed"/>
+                    <!-- Or the chosen pixel companion, dancing to the music in the equalizer's place -->
+                    <views:PixelCharacter x:Name="MusicCharacter" PixelSize="1" VerticalAlignment="Center" Margin="0,2,0,0"
+                                         Fill="{DynamicResource TextPrimary}" Visibility="Collapsed">
+                        <views:PixelCharacter.RenderTransform><TranslateTransform x:Name="MusicCharacterBob"/></views:PixelCharacter.RenderTransform>
+                    </views:PixelCharacter>
 
                     <!-- Pixel-art equalizer, like Yata: square bars stepping in whole pixel rows, built in code -->
                     <StackPanel x:Name="Equalizer" Grid.Column="2" Orientation="Horizontal" Height="14"
@@ -466,11 +471,21 @@
                             <TextBlock x:Name="IdleClock" FontFamily="{StaticResource DisplayFont}" FontSize="36"
                                        FontWeight="SemiBold" Typography.NumeralAlignment="Tabular"/>
                             <views:RavenSprite x:Name="IdleRaven" PixelSize="2" VerticalAlignment="Bottom" Margin="10,0,0,10"/>
-                            <!-- Or a pixel companion chosen in Settings (Views/PixelCharacter) -->
-                            <views:PixelCharacter x:Name="IdleCharacter" PixelSize="2" VerticalAlignment="Bottom" Margin="10,0,0,10"
-                                                 Fill="{DynamicResource TextPrimary}" Visibility="Collapsed">
-                                <views:PixelCharacter.RenderTransform><TranslateTransform x:Name="IdleCharacterBob"/></views:PixelCharacter.RenderTransform>
-                            </views:PixelCharacter>
+                            <!-- Or a pixel companion chosen in Settings (Views/PixelCharacter); click it and it reacts,
+                                 with a speech bubble that may overflow to the right (MainWindow.ClockCompanion) -->
+                            <Grid x:Name="CharacterHost" VerticalAlignment="Bottom" Visibility="Collapsed">
+                                <views:PixelCharacter x:Name="IdleCharacter" PixelSize="2" Margin="10,0,0,10" Cursor="Hand"
+                                                     Fill="{DynamicResource TextPrimary}"
+                                                     MouseLeftButtonUp="OnCharacterClick">
+                                    <views:PixelCharacter.RenderTransform><TranslateTransform x:Name="IdleCharacterBob"/></views:PixelCharacter.RenderTransform>
+                                </views:PixelCharacter>
+                                <Border x:Name="CharacterBubble" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="24,-30,-220,0"
+                                        CornerRadius="9" Padding="8,3" Background="{DynamicResource MenuBackground}"
+                                        Visibility="Collapsed" IsHitTestVisible="False">
+                                    <TextBlock x:Name="CharacterBubbleText" FontSize="11.5" FontWeight="SemiBold"
+                                               Foreground="{DynamicResource TextPrimary}"/>
+                                </Border>
+                            </Grid>
                         </StackPanel>
                         <TextBlock Text="{x:Static y:Strings.Media_NothingPlaying}" FontSize="13" HorizontalAlignment="Center"
                                    Foreground="{DynamicResource TextSecondary}"/>

@@ -133,6 +133,7 @@ public partial class SettingsWindow
             ShowChoices(_clockSizeButton!, new[] { 0, 1, 2 }, ClockStyles.SizeName, size => size == _store.Settings.ClockSize,
                 size => _store.Settings.ClockSize = size));
         _companionButton = Choice(ClockRows, Strings.Settings_ClockCompanion, Strings.Settings_ClockCompanionHint, (_, _) => ShowCompanions());
+        Switch(ClockRows, Strings.Settings_CompanionDances, Strings.Settings_CompanionDancesHint, "Settings.CompanionDances");
         _glassFpsButton = Choice(ClockRows, Strings.Settings_GlassFps, Strings.Settings_GlassFpsHint, (_, _) =>
             ShowChoices(_glassFpsButton!, new[] { 0, 120, 60, 30 }, GlassFpsName, fps => fps == _store.Settings.GlassFps,
                 fps => _store.Settings.GlassFps = fps));
@@ -140,7 +141,7 @@ public partial class SettingsWindow
 
     // ---- Clock companion ---------------------------------------------------------------------------
 
-    private static string CompanionName(string id) => id switch
+    private string CompanionName(string id) => id switch
     {
         "yata" => Strings.Companion_Yata,
         "none" => Strings.Companion_None,
@@ -151,7 +152,7 @@ public partial class SettingsWindow
         "frog" => Strings.Companion_Frog,
         "bat" => Strings.Companion_Bat,
         "hero" => Strings.Companion_Hero,
-        _ => id,
+        _ => _store.Settings.CustomCharacters.FirstOrDefault(c => c.Id == id)?.Name ?? id,
     };
 
     /// <summary>The character drawn small beside its name (Yata as his own sprite).</summary>
@@ -177,18 +178,53 @@ public partial class SettingsWindow
 
     private void ShowCompanions()
     {
-        var menu = new ContextMenu { Style = (Style)FindResource("ChoiceMenu"), PlacementTarget = _companionButton, MinWidth = 180 };
-        foreach (string id in new[] { "yata" }.Concat(Views.PixelCharacter.Ids).Append("none"))
+        var s = _store.Settings;
+        Views.PixelCharacter.SetCustom(s.CustomCharacters.Select(c => (c.Id, c.Rows.ToArray())));
+        var menu = new ContextMenu { Style = (Style)FindResource("ChoiceMenu"), PlacementTarget = _companionButton, MinWidth = 200 };
+        void Add(object header, bool check, Action click)
         {
-            var item = new MenuItem { Header = CompanionItem(id, 1.5), IsChecked = id == _store.Settings.ClockCompanion };
-            item.Click += (_, _) =>
-            {
-                _store.Settings.ClockCompanion = id;
-                _store.NotifySettingsChanged();
-            };
+            var item = new MenuItem { Header = header, IsChecked = check };
+            item.Click += (_, _) => click();
             menu.Items.Add(item);
         }
+        void Choose(string id)
+        {
+            s.ClockCompanion = id;
+            _store.NotifySettingsChanged();
+        }
+
+        foreach (string id in new[] { "yata" }.Concat(Views.PixelCharacter.Ids).Concat(s.CustomCharacters.Select(c => c.Id)).Append("none"))
+            Add(CompanionItem(id, 1.5), id == s.ClockCompanion, () => Choose(id));
+
+        menu.Items.Add(new Separator());
+        Add(Strings.Companion_Draw, false, () => EditCharacter(null));
+        if (s.CustomCharacters.FirstOrDefault(c => c.Id == s.ClockCompanion) is { } mine)
+        {
+            Add(string.Format(Strings.Companion_Edit, mine.Name), false, () => EditCharacter(mine));
+            Add(string.Format(Strings.Companion_Delete, mine.Name), false, () =>
+            {
+                s.CustomCharacters.Remove(mine);
+                Choose("yata");
+            });
+        }
         menu.IsOpen = true;
+    }
+
+    /// <summary>The editor; a saved character replaces the one edited (or joins the list) and is chosen.</summary>
+    private void EditCharacter(CustomCharacterData? editing)
+    {
+        var editor = new SpriteEditorWindow(editing) { Owner = this };
+        editor.ShowDialog();
+        if (editor.Result is not { } saved)
+            return;
+        var list = _store.Settings.CustomCharacters;
+        int at = list.FindIndex(c => c.Id == saved.Id);
+        if (at >= 0)
+            list[at] = saved;
+        else
+            list.Add(saved);
+        _store.Settings.ClockCompanion = saved.Id;
+        _store.NotifySettingsChanged();
     }
 
     private static string GlassFpsName(int fps) =>
