@@ -45,7 +45,10 @@ public partial class MainWindow
         if (hwnd == IntPtr.Zero || exclude == _excludedFromCapture)
             return;
         if (NativeMethods.SetWindowDisplayAffinity(hwnd, exclude ? NativeMethods.WDA_EXCLUDEFROMCAPTURE : NativeMethods.WDA_NONE))
+        {
             _excludedFromCapture = exclude;
+            UpdateGlass(); // Glass reads the screen behind the notch: only safe while the notch is invisible to that.
+        }
         else
             Log.Warn("privacy", $"SetWindowDisplayAffinity falhou ({System.Runtime.InteropServices.Marshal.GetLastWin32Error()})");
     }

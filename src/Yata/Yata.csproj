@@ -20,10 +20,14 @@
     <IncludeSourceRevisionInInformationalVersion>false</IncludeSourceRevisionInInformationalVersion>
     <!-- DPI awareness lives in app.manifest for WPF; the WinForms analyzer doesn't apply. -->
     <NoWarn>$(NoWarn);WFO0003</NoWarn>
+    <!-- SQLite's native e_sqlite3.dll goes inside the single-file Yata.exe, so the installer needs nothing more. -->
+    <IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="System.Management" Version="10.0.14" />
+    <!-- Reads the Windows notification store for the opt-in notification mirror (NotificationMirror). -->
+    <PackageReference Include="Microsoft.Data.Sqlite" Version="10.0.14" />
   </ItemGroup>
 
   <!-- Lean WinRT projection: only the namespaces Yata uses, instead of the whole Windows SDK projection

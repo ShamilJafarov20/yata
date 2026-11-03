@@ -9,7 +9,7 @@ public class UpdateInstallerTests
     private const string Sha = "e972a47ca26e81e169158967e037cc100ef33457d582eebef0a85a83d1d1b7d5";
 
     private static JsonElement Release(string tag = "v0.2.1", string name = "Yata-Setup-0.2.1.exe",
-        string url = "https://github.com/akaneni/yata/releases/download/v0.2.1/Yata-Setup-0.2.1.exe",
+        string url = "https://github.com/ShamilJafarov20/yata/releases/download/v0.2.1/Yata-Setup-0.2.1.exe",
         string? digest = "sha256:" + Sha)
     {
         var asset = new Dictionary<string, object?> { ["name"] = name, ["browser_download_url"] = url };
@@ -41,8 +41,8 @@ public class UpdateInstallerTests
     }
 
     [Theory]
-    [InlineData("http://github.com/akaneni/yata/releases/download/v0.2.1/Yata-Setup-0.2.1.exe")] // not HTTPS
-    [InlineData("https://example.com/akaneni/yata/releases/download/v0.2.1/Yata-Setup-0.2.1.exe")] // other host
+    [InlineData("http://github.com/ShamilJafarov20/yata/releases/download/v0.2.1/Yata-Setup-0.2.1.exe")] // not HTTPS
+    [InlineData("https://example.com/ShamilJafarov20/yata/releases/download/v0.2.1/Yata-Setup-0.2.1.exe")] // other host
     [InlineData("https://github.com/someone/yata/releases/download/v0.2.1/Yata-Setup-0.2.1.exe")] // other repository
     public void Refuses_a_download_from_anywhere_else(string url)
     {

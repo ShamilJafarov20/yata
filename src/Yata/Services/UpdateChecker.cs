@@ -18,8 +18,8 @@ public enum UpdateCheckResult { UpToDate, Available, Failed }
 /// </summary>
 public sealed class UpdateChecker
 {
-    public const string ReleasesPage = "https://github.com/akaneni/yata/releases/latest";
-    internal const string LatestApi = "https://api.github.com/repos/akaneni/yata/releases/latest";
+    public const string ReleasesPage = "https://github.com/ShamilJafarov20/yata/releases/latest";
+    internal const string LatestApi = "https://api.github.com/repos/ShamilJafarov20/yata/releases/latest";
     private static readonly TimeSpan Interval = TimeSpan.FromDays(1);
     private static readonly HttpClient Http = CreateClient();
 

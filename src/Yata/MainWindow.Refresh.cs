@@ -52,6 +52,8 @@ public partial class MainWindow
         bool agenda = _page == NotchPage.Agenda && _calendar.Status == CalendarStatus.Connected;
         bool tasks = _page == NotchPage.Tasks && _googleTasks.IsOn;
         RefreshButton.Visibility = agenda || tasks ? Visibility.Visible : Visibility.Collapsed;
+        // The shelf stays open while it's the page (ShelfHoldsOpen): this closes it.
+        CloseNotchButton.Visibility = _page == NotchPage.Shelf ? Visibility.Visible : Visibility.Collapsed;
 
         bool busy = (agenda && _calendar.IsFetching) || (tasks && _googleTasks.IsSyncing);
         RefreshButton.IsEnabled = !busy;

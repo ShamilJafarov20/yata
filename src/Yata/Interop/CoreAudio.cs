@@ -212,3 +212,14 @@ internal struct AudioVolumeNotificationData
     public bool Muted;
     public float MasterVolume;
 }
+
+// ---- Per-app volume: the volume mixer's slider for one audio session ----
+
+[ComImport, Guid("87CE5498-68D6-44E5-9215-6DA47EF883D8"), InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+internal interface ISimpleAudioVolume
+{
+    void SetMasterVolume(float level, ref Guid eventContext);
+    void GetMasterVolume(out float level);
+    void SetMute([MarshalAs(UnmanagedType.Bool)] bool mute, ref Guid eventContext);
+    void GetMute([MarshalAs(UnmanagedType.Bool)] out bool mute);
+}

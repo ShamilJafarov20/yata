@@ -1,0 +1,76 @@
+<UserControl x:Class="Yata.Views.TimersPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:y="clr-namespace:Yata">
+    <Grid Margin="{StaticResource PageInsetFilled}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- An alarm ringing: takes the box's place until stopped or snoozed -->
+        <Border x:Name="RingingBar" Height="34" CornerRadius="10" Background="{DynamicResource SelectedFill}" Visibility="Collapsed">
+            <Grid Margin="12,0,4,0">
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                    <TextBlock Text="&#xEA8F;" FontFamily="{StaticResource IconFont}" FontSize="14" VerticalAlignment="Center"
+                               Foreground="{DynamicResource WarningBrush}"/>
+                    <TextBlock x:Name="RingingText" Margin="10,0,0,0" FontSize="14" FontWeight="SemiBold" VerticalAlignment="Center"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
+                    <Button Style="{StaticResource PillButton}" Content="{x:Static y:Strings.Clock_Snooze}" Margin="0,0,6,0" Click="OnSnooze"/>
+                    <Button Style="{StaticResource PrimaryPillButton}" Content="{x:Static y:Strings.Clock_Stop}" Click="OnStopRinging"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!-- "10m", "pizza 12m", "7:30 daily": a timer or an alarm, from one box -->
+        <Border x:Name="InputBox" Height="34" CornerRadius="10" Background="{DynamicResource SubtleFill}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock x:Name="Placeholder" Margin="12,0" VerticalAlignment="Center" FontSize="13" IsHitTestVisible="False"
+                           Foreground="{DynamicResource TextPlaceholder}" Text="{x:Static y:Strings.Clock_Placeholder}"/>
+                <TextBox x:Name="Input" Margin="9,0" VerticalAlignment="Center" FontSize="13"
+                         Background="Transparent" BorderThickness="0" Foreground="{DynamicResource TextPrimary}" CaretBrush="{DynamicResource TextPrimary}"
+                         SelectionBrush="{DynamicResource SelectionHighlight}" MaxLength="80"
+                         PreviewMouseLeftButtonDown="OnInputMouseDown" KeyDown="OnInputKeyDown"
+                         TextChanged="OnInputTextChanged" LostKeyboardFocus="OnInputLostFocus"/>
+                <Button Grid.Column="1" Style="{StaticResource IconButton}" Width="30" Height="30" FontSize="13"
+                        Margin="0,0,2,0" Content="&#xE710;" ToolTip="{x:Static y:Strings.Clock_Add}" Click="OnAdd"/>
+            </Grid>
+        </Border>
+
+        <!-- Timers, then alarms -->
+        <ScrollViewer Grid.Row="1" Margin="0,6,0,0" VerticalScrollBarVisibility="Auto" Focusable="False">
+            <StackPanel x:Name="List"/>
+        </ScrollViewer>
+        <TextBlock x:Name="EmptyText" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="12"
+                   TextAlignment="Center" TextWrapping="Wrap" Margin="12,0"
+                   Foreground="{DynamicResource TextSecondary}" Text="{x:Static y:Strings.Clock_Empty}"/>
+
+        <!-- Stopwatch -->
+        <Border Grid.Row="2" Height="1" Margin="8,4,8,0" VerticalAlignment="Top" Background="{DynamicResource DividerBrush}"/>
+        <Grid Grid.Row="2" Margin="8,8,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="&#xE916;" FontFamily="{StaticResource IconFont}" FontSize="14" VerticalAlignment="Center"
+                       Foreground="{DynamicResource TextSecondary}"/>
+            <StackPanel Grid.Column="1" Orientation="Horizontal" Margin="10,0,0,0" VerticalAlignment="Center">
+                <TextBlock x:Name="StopwatchText" FontSize="18" FontWeight="SemiBold" Typography.NumeralAlignment="Tabular" Text="0:00.0"/>
+                <TextBlock x:Name="LapText" FontSize="11" Margin="10,0,0,0" VerticalAlignment="Center"
+                           Foreground="{DynamicResource TextSecondary}" TextTrimming="CharacterEllipsis"/>
+            </StackPanel>
+            <StackPanel Grid.Column="2" Orientation="Horizontal">
+                <Button x:Name="LapButton" Style="{StaticResource PillButton}" Content="{x:Static y:Strings.Clock_Lap}" Margin="0,0,6,0" Click="OnLap"/>
+                <Button x:Name="StartButton" Style="{StaticResource PillButton}" Content="{x:Static y:Strings.Clock_Start}" Margin="0,0,6,0" Click="OnStartPause"/>
+                <Button x:Name="ResetButton" Style="{StaticResource PillButton}" Content="{x:Static y:Strings.Clock_Reset}" Click="OnReset"/>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</UserControl>

@@ -39,7 +39,6 @@ public partial class MainWindow
     };
     private const int EqualizerStepMs = 130;
     private const double EqualizerRows = 7;
-    private static readonly Color MonochromeAccent = Color.FromRgb(0xE0, 0xE0, 0xE0);
 
     private bool _equalizerRunning;
     private readonly DispatcherTimer _equalizerTimer = new() { Interval = TimeSpan.FromMilliseconds(EqualizerStepMs) };
@@ -56,15 +55,16 @@ public partial class MainWindow
 
         if (_state != null)
         {
-            if (TitleText.Text != _state.Title)
+            var (shownTitle, shownArtist) = DisplayTrack(_state);
+            if (TitleText.Text != shownTitle)
             {
                 TitleMarquee.Stop();
-                TitleText.Text = _state.Title;
+                TitleText.Text = shownTitle;
                 if (_expanded)
                     RevealOverflow(TitleMarquee);
             }
-            ArtistText.Text = _state.Artist;
-            ArtistText.Visibility = string.IsNullOrEmpty(_state.Artist) ? Visibility.Collapsed : Visibility.Visible;
+            ArtistText.Text = shownArtist;
+            ArtistText.Visibility = string.IsNullOrEmpty(shownArtist) ? Visibility.Collapsed : Visibility.Visible;
             PlayPauseButton.Content = _state.IsPlaying ? "\uF8AE" : "\uF5B0";
             AutomationProperties.SetName(PlayPauseButton, _state.IsPlaying ? Strings.Media_Pause : Strings.Media_Play);
 
@@ -83,6 +83,7 @@ public partial class MainWindow
         {
             _lyricsTrack = track;
             LoadLyrics(_state);
+            RefreshPlayerExtras();
         }
 
         UpdateClock();
@@ -92,6 +93,9 @@ public partial class MainWindow
         UpdateLyricLine();
         UpdateCompactText();
         UpdateCompanion();
+        // Play and pause make the app's sound session come and go: the volume bar follows.
+        if (_expanded && _page == NotchPage.Media)
+            ShowPlayerVolume();
     }
 
     private void UpdateCompactText()
@@ -100,7 +104,7 @@ public partial class MainWindow
             return; // The clock owns the compact text.
 
         string? line = _lyrics != null && _lyricIndex >= 0 ? _lyrics.Lines[_lyricIndex].Text : null;
-        SetCompactText(string.IsNullOrWhiteSpace(line) ? _state.Title : line);
+        SetCompactText(string.IsNullOrWhiteSpace(line) ? DisplayTrack(_state).Title : line);
     }
 
     /// <summary>
@@ -153,16 +157,32 @@ public partial class MainWindow
     /// </summary>
     private void UpdateCompactTimer()
     {
-        bool active = _focus.IsActive;
+        bool active = CountdownActive;
         CompactTimer.Visibility = active && _state == null ? Visibility.Visible : Visibility.Collapsed;
         bool nodding = MusicRaven.Visibility == Visibility.Visible;
         Equalizer.Visibility = _state != null && !nodding ? Visibility.Visible : Visibility.Collapsed;
 
-        var remaining = _focus.Remaining;
-        CompactTimerText.Text = $"{(int)remaining.TotalMinutes:00}:{remaining.Seconds:00}";
-        // Paused reads differently from running at a glance: pause icon, dimmed time.
-        CompactTimerGlyph.Text = _focus.IsPaused ? "" : Glyphs.Timer;
-        CompactTimer.Opacity = _focus.IsPaused ? 0.55 : 1;
+        if (_focus.IsActive)
+        {
+            var remaining = _focus.Remaining;
+            CompactTimerText.Text = $"{(int)remaining.TotalMinutes:00}:{remaining.Seconds:00}";
+            // Paused reads differently from running at a glance: pause icon, dimmed time.
+            CompactTimerGlyph.Text = _focus.IsPaused ? "" : Glyphs.Timer;
+            CompactTimer.Opacity = _focus.IsPaused ? 0.55 : 1;
+        }
+        else if (_clock?.NextTimer is { } timer)
+        {
+            // The quick timer ending first.
+            CompactTimerText.Text = ClockTools.Format(timer.Ends - DateTime.Now);
+            CompactTimerGlyph.Text = "";
+            CompactTimer.Opacity = 1;
+        }
+        else if (_clock?.StopwatchRunning == true)
+        {
+            CompactTimerText.Text = ClockTools.Format(_clock.StopwatchElapsed);
+            CompactTimerGlyph.Text = "";
+            CompactTimer.Opacity = 1;
+        }
 
         if (active != _focusWasActive)
         {
@@ -242,11 +262,14 @@ public partial class MainWindow
     /// The cover's color, or plain light gray when the user prefers black and white.
     /// Only media elements (equalizer, progress bar) wear it; everything else stays white.
     /// </summary>
+    /// <summary>The chosen theme's colors, for the notch and Settings alike (Application resources).</summary>
+    private void ApplyTheme() => Themes.Apply(Application.Current.Resources, Themes.Current(Settings));
+
     private void ApplyAccent()
     {
-        var accent = !Settings.UseArtworkAccent ? MonochromeAccent
-                   : _artwork != null ? ColorExtractor.FromImage(_artwork)
-                   : ColorExtractor.Default;
+        // The theme's accent, unless the album art gives the color.
+        var accent = Settings.UseArtworkAccent && _artwork != null ? ColorExtractor.FromImage(_artwork)
+                   : Themes.AccentOf(Settings);
         _accent.BeginAnimation(SolidColorBrush.ColorProperty, new ColorAnimation(accent, TimeSpan.FromMilliseconds(500)));
     }
 

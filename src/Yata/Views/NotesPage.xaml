@@ -1,0 +1,22 @@
+<UserControl x:Class="Yata.Views.NotesPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:y="clr-namespace:Yata">
+    <Grid Margin="{StaticResource PageInsetFilled}">
+        <Border CornerRadius="10" Background="{DynamicResource SubtleFill}">
+            <Grid>
+                <TextBlock x:Name="Placeholder" Margin="12,10" FontSize="13" IsHitTestVisible="False" TextWrapping="Wrap"
+                           Foreground="{DynamicResource TextPlaceholder}" Text="{x:Static y:Strings.Notes_Placeholder}"/>
+                <TextBox x:Name="Input" Margin="9,8" FontSize="13" AcceptsReturn="True" AcceptsTab="False" TextWrapping="Wrap"
+                         VerticalScrollBarVisibility="Auto" Background="Transparent" BorderThickness="0"
+                         Foreground="{DynamicResource TextPrimary}" CaretBrush="{DynamicResource TextPrimary}"
+                         SelectionBrush="{DynamicResource SelectionHighlight}" MaxLength="20000"
+                         PreviewMouseLeftButtonDown="OnInputMouseDown" PreviewKeyDown="OnInputKeyDown"
+                         TextChanged="OnInputTextChanged" LostKeyboardFocus="OnInputLostFocus"/>
+                <Button Style="{StaticResource IconButton}" Width="28" Height="28" FontSize="12" Margin="0,4,4,0"
+                        HorizontalAlignment="Right" VerticalAlignment="Top" Content="&#xE8C8;"
+                        ToolTip="{x:Static y:Strings.Notes_CopyAll}" Click="OnCopyAll"/>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

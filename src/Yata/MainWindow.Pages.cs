@@ -28,7 +28,7 @@ namespace Yata;
 // Page tabs of the open notch.
 public partial class MainWindow
 {
-    private const double TabPitch = 34;
+    private const double TabPitch = 30;
 
     private void OnTabChecked(object sender, RoutedEventArgs e)
     {
@@ -41,8 +41,16 @@ public partial class MainWindow
               : sender == TabWater ? NotchPage.Water
               : sender == TabTasks ? NotchPage.Tasks
               : sender == TabShelf ? NotchPage.Shelf
+              : sender == TabTimers ? NotchPage.Timers
+              : sender == TabClipboard ? NotchPage.Clipboard
+              : sender == TabNotes ? NotchPage.Notes
+              : sender == TabDevices ? NotchPage.Devices
               : NotchPage.Media;
-        TasksPage.EndTyping();
+        EndAllTyping();
+        if (_page == NotchPage.Devices)
+            DevicesPage.Refresh();
+        if (_page == NotchPage.Shelf)
+            _lastShelfActivity = DateTime.Now;
         UpdateTargets();
         UpdateTasksShown();
 
@@ -63,10 +71,14 @@ public partial class MainWindow
         NotchPage.Water => WaterPage,
         NotchPage.Tasks => TasksPage,
         NotchPage.Shelf => ShelfPage,
+        NotchPage.Timers => TimersPage,
+        NotchPage.Clipboard => ClipboardPage,
+        NotchPage.Notes => NotesPage,
+        NotchPage.Devices => DevicesPage,
         _ => MediaPage,
     };
 
-    /// <summary>Tabs are fixed-size (TabButton: 32 wide, 2 apart), so the pill's spot is just the index.</summary>
+    /// <summary>Tabs are fixed-size (TabButton: 28 wide, 2 apart), so the pill's spot is just the index.</summary>
     private void MoveTabIndicator(bool animate)
     {
         double x = (int)_page * TabPitch;
@@ -99,4 +111,15 @@ public partial class MainWindow
         shift.BeginAnimation(TranslateTransform.XProperty, new DoubleAnimation(18 * direction, 0, duration) { EasingFunction = ease });
         page.BeginAnimation(OpacityProperty, new DoubleAnimation(0, 1, duration) { EasingFunction = ease });
     }
+
+    /// <summary>Leaves whatever box was being typed in (tasks, timers, notes).</summary>
+    private void EndAllTyping()
+    {
+        TasksPage.EndTyping();
+        TimersPage?.EndTyping();
+        NotesPage?.EndTyping();
+    }
+
+    /// <summary>Half-typed text, or notes being written: the notch stays open when the mouse leaves.</summary>
+    private bool HasDraft => TasksPage.HasDraft || TimersPage.HasDraft || NotesPage.IsTyping;
 }

@@ -2,6 +2,39 @@
 
 **English** · [Português](README.pt-BR.md)
 
+> **About this fork.** This is a fork of [akaneni/yata](https://github.com/akaneni/yata) (MIT) that adds more ways to style and control the notch and a set of everyday tools. Everything below the "What this fork adds" section is the original Yata's README; credit for Yata itself goes to its author.
+
+## What this fork adds
+
+**Look and control**
+- **Themes**: 10 ready-made themes (Midnight, Liquid Glass, Graphite, Neon, Ocean, Forest, Sunset, Violet, Sakura, Paper), or your own five colors. **Liquid Glass** blurs and bends what's behind the notch, with a tint that adapts to bright backgrounds.
+- **Clock styles**: eight number fonts (Thin, Bold, Condensed, Digital, Serif, Handwritten…) and three sizes.
+- **Keyboard shortcuts you choose** for: open and close, hide the notch completely, play/pause, next, previous, player volume, like on Spotify, microphone mute, silence call apps. Taken combinations are flagged.
+- **Hide completely**: one shortcut (Ctrl+Alt+H by default) or the tray menu takes the whole notch off the screen and back.
+
+**Music**
+- **The player's own volume**: a bar in the player that turns down only the app playing (YouTube in the browser, Spotify), not the game or the call. Works for free Spotify accounts.
+- **Switch players**: with two players open (Spotify and a YouTube tab), ⇄ switches between them; ✕ takes one off the notch until it plays again. Untitled media sessions (a game's sounds) no longer hide the real player.
+- **Cleaner browser titles**: "Song / Artist · Opera" instead of "Artist - Song (Official Video)".
+- **Spotify Web API (optional)**: like, shuffle and repeat, with your own Spotify app's Client ID.
+
+**Daily tools** (four new pages in the open notch)
+- **Timers and alarms**: type "10m", "pizza 12m" or "7:30 daily"; a stopwatch with laps. Alarms ring during games too, without showing over them.
+- **Clipboard**: the last 12 copies (in memory only, password managers skipped); after Win+Shift+S the notch offers Copy / Save / Open.
+- **Notes**: a scratchpad saved as you type.
+- **Devices and calls**: Bluetooth headphone/mouse batteries, microphone mute and "silence call apps" for any app (Discord, Teams, games), Wi-Fi status and a speed test.
+
+**Automatic**
+- **Game summary and game mode**: how long you played when a full-screen game ends; no notices or sounds during games except alarms and timers.
+- **Prayer times** (optional), computed on the PC from the weather city.
+- **Download progress** for browser downloads in the Downloads folder, beside the notch.
+- **Phone and app notifications** (optional) from Phone Link, Telegram, WhatsApp, Discord.
+- **Easier file drops**: the shelf stays open while it's the page, and a file dragged near the top of the screen opens it.
+
+**What the new features read or send** (on top of the list further down): the Spotify Web API (only with your own Client ID, signed in), Cloudflare's speed test (only when you press *Test speed*), and, only if you turn them on, the clipboard (in memory) and Windows' own notification list (read-only, `wpndatabase.db`). Battery levels, Wi-Fi and game times are read on the PC; game minutes per day are kept in `data.json`.
+
+---
+
 ![Yata, a pixel-art raven, perched in front of a dithered sun](docs/yata-hero.png)
 
 A live notch at the top of the Windows screen, right below the camera: it shows what's playing, the time and your reminders, and gets out of the way when it isn't needed. Website: **[getyata.app](https://getyata.app)**.
@@ -14,7 +47,7 @@ Open source, no account and no telemetry.
 
 **Network access:** only what you turn on, and nothing about the PC is sent:
 - lyrics lookup on [LRCLIB](https://lrclib.net) (an open, free service), sending only the artist, title and length of the song. Lyrics are cached in `%LOCALAPPDATA%\Yata\lyrics`. Can be turned off in Settings.
-- new version notice: **off by default**. When on, it checks GitHub's [public releases page](https://github.com/akaneni/yata/releases) once a day. **Check now** (Settings → Updates, or the tray menu) asks right away, on or off. Updating takes one click (**Update and restart** in Settings): the installer comes from GitHub and is checked against its published SHA-256 before it runs; once Yata is code-signed, it also has to carry the same publisher's signature.
+- new version notice: **off by default**. When on, it checks GitHub's [public releases page](https://github.com/ShamilJafarov20/yata/releases) once a day. **Check now** (Settings → Updates, or the tray menu) asks right away, on or off. Updating takes one click (**Update and restart** in Settings): the installer comes from GitHub and is checked against its published SHA-256 before it runs; once Yata is code-signed, it also has to carry the same publisher's signature.
 - **weather** from [Open-Meteo](https://open-meteo.com) (open, no account or key), only if you turn it on: sends the chosen city's coordinates, rounded to ~1 km. The city search sends only the name you type.
 - **Google Calendar and Google Tasks**, only if you connect your account and allow each one: reading your calendars and today's and tomorrow's events, and syncing one task list, directly between the PC and Google. The access is encrypted with DPAPI in `%LOCALAPPDATA%\Yata\google.dat` and events stay in memory only. Details in [PRIVACY.md](PRIVACY.md).
 

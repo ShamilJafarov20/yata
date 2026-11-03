@@ -359,4 +359,197 @@
   <data name="Undo_Action" xml:space="preserve"><value>Undo</value></data>
   <data name="Undo_TaskRemoved" xml:space="preserve"><value>Task removed</value></data>
   <data name="Undo_ShelfCleared" xml:space="preserve"><value>Shelf cleared</value></data>
+  <data name="Settings_HideInFullscreenHint" xml:space="preserve"><value>Games, videos and presentations: the notch stays out of the way. Player shortcuts still work.</value></data>
+  <data name="Settings_Appearance" xml:space="preserve"><value>Appearance</value></data>
+  <data name="Settings_Theme" xml:space="preserve"><value>Theme</value></data>
+  <data name="Settings_ThemeHint" xml:space="preserve"><value>A ready-made look, or change any color below to make your own.</value></data>
+  <data name="Theme_Custom" xml:space="preserve"><value>Custom</value></data>
+  <data name="Theme_Notch" xml:space="preserve"><value>Notch</value></data>
+  <data name="Theme_Text" xml:space="preserve"><value>Text and icons</value></data>
+  <data name="Theme_Accent" xml:space="preserve"><value>Accent (when the album art color is off)</value></data>
+  <data name="Theme_Window" xml:space="preserve"><value>Settings background</value></data>
+  <data name="Theme_Card" xml:space="preserve"><value>Settings cards</value></data>
+  <data name="Theme_PickColor" xml:space="preserve"><value>Choose a color</value></data>
+  <data name="Settings_Shortcuts" xml:space="preserve"><value>Keyboard shortcuts</value></data>
+  <data name="Settings_ShortcutsHint" xml:space="preserve"><value>Click a shortcut, then press the new keys (with Ctrl, Alt or Win). Esc cancels, Backspace removes it. They work from any app; the player ones also while the notch is hidden for a game.</value></data>
+  <data name="Shortcut_ToggleNotch" xml:space="preserve"><value>Open and close the notch</value></data>
+  <data name="Shortcut_JumpToActivity" xml:space="preserve"><value>Go to the agent that needs you</value></data>
+  <data name="Shortcut_PlayPause" xml:space="preserve"><value>Play / pause</value></data>
+  <data name="Shortcut_NextTrack" xml:space="preserve"><value>Next song</value></data>
+  <data name="Shortcut_PreviousTrack" xml:space="preserve"><value>Previous song</value></data>
+  <data name="Shortcut_PlayerVolumeUp" xml:space="preserve"><value>Player volume up</value></data>
+  <data name="Shortcut_PlayerVolumeDown" xml:space="preserve"><value>Player volume down</value></data>
+  <data name="Shortcut_LikeTrack" xml:space="preserve"><value>Like the song (Spotify)</value></data>
+  <data name="Shortcut_None" xml:space="preserve"><value>None</value></data>
+  <data name="Shortcut_Recording" xml:space="preserve"><value>Press the keys…</value></data>
+  <data name="Shortcut_Clear" xml:space="preserve"><value>Remove shortcut</value></data>
+  <data name="Shortcut_Taken" xml:space="preserve"><value>Another app already uses this shortcut. Pick another.</value></data>
+  <data name="Shortcut_NeedsModifier" xml:space="preserve"><value>Add Ctrl, Alt or Win to the key.</value></data>
+  <data name="Media_Like" xml:space="preserve"><value>Like</value></data>
+  <data name="Media_Unlike" xml:space="preserve"><value>Remove from Liked Songs</value></data>
+  <data name="Media_ShuffleOn" xml:space="preserve"><value>Shuffle: on</value></data>
+  <data name="Media_ShuffleOff" xml:space="preserve"><value>Shuffle: off</value></data>
+  <data name="Media_RepeatOff" xml:space="preserve"><value>Repeat: off</value></data>
+  <data name="Media_RepeatAll" xml:space="preserve"><value>Repeat: playlist</value></data>
+  <data name="Media_RepeatTrack" xml:space="preserve"><value>Repeat: this song</value></data>
+  <data name="Media_PlayerVolume" xml:space="preserve"><value>Player volume: {0}%</value></data>
+  <data name="Media_PlayerVolumeOf" xml:space="preserve"><value>{0} volume</value></data>
+  <data name="Spotify_Note" xml:space="preserve"><value>Optional. Play, pause, skip, seek, lyrics and the player volume already work without it, free accounts too. Connecting adds like, shuffle and repeat. Spotify doesn't share app keys: create an app at developer.spotify.com (its owner needs Premium; up to 5 users per app, added under User Management), add the redirect URI below, choose "Web API", then paste the app's Client ID here.</value></data>
+  <data name="Spotify_RedirectLabel" xml:space="preserve"><value>Redirect URI for your Spotify app</value></data>
+  <data name="Spotify_OpenDashboard" xml:space="preserve"><value>Open dashboard</value></data>
+  <data name="Spotify_Copy" xml:space="preserve"><value>Copy</value></data>
+  <data name="Spotify_Copied" xml:space="preserve"><value>Redirect URI copied.</value></data>
+  <data name="Spotify_Save" xml:space="preserve"><value>Save</value></data>
+  <data name="Spotify_Account" xml:space="preserve"><value>Spotify account</value></data>
+  <data name="Spotify_Connect" xml:space="preserve"><value>Connect</value></data>
+  <data name="Spotify_Disconnect" xml:space="preserve"><value>Disconnect</value></data>
+  <data name="Spotify_Connecting" xml:space="preserve"><value>Waiting for the browser…</value></data>
+  <data name="Spotify_ConnectedAs" xml:space="preserve"><value>Connected as {0}.</value></data>
+  <data name="Spotify_EnterClient" xml:space="preserve"><value>Paste your app's Client ID above first.</value></data>
+  <data name="Spotify_NotConnectedHint" xml:space="preserve"><value>Not connected.</value></data>
+  <data name="Spotify_BadClientId" xml:space="preserve"><value>That doesn't look like a Client ID (32 letters and digits).</value></data>
+  <data name="Spotify_ClientSaved" xml:space="preserve"><value>Client ID saved. Now connect.</value></data>
+  <data name="Spotify_NoClientId" xml:space="preserve"><value>No Spotify Client ID in Settings.</value></data>
+  <data name="Spotify_Refused" xml:space="preserve"><value>Spotify refused the connection. Check the Client ID and the redirect URI.</value></data>
+  <data name="Spotify_Cancelled" xml:space="preserve"><value>Connection cancelled on Spotify.</value></data>
+  <data name="Spotify_Forbidden" xml:space="preserve"><value>Spotify refused: this needs Premium, and your account must be added under User Management in the app.</value></data>
+  <data name="Spotify_NoDevice" xml:space="preserve"><value>No active Spotify device.</value></data>
+  <data name="Spotify_TooMany" xml:space="preserve"><value>Spotify asked to slow down. Try again in a moment.</value></data>
+  <data name="Spotify_Failed" xml:space="preserve"><value>Spotify error ({0}).</value></data>
+  <data name="Spotify_NotConnected" xml:space="preserve"><value>Connect Spotify in Settings first.</value></data>
+  <data name="Spotify_Expired" xml:space="preserve"><value>The Spotify access expired. Connect again in Settings.</value></data>
+  <data name="Spotify_PageConnected" xml:space="preserve"><value>Spotify connected</value></data>
+  <data name="Spotify_NotPlaying" xml:space="preserve"><value>Spotify isn't the player right now.</value></data>
+  <data name="Spotify_Liked" xml:space="preserve"><value>Added to Liked Songs</value></data>
+  <data name="Spotify_Unliked" xml:space="preserve"><value>Removed from Liked Songs</value></data>
+  <data name="Spotify_Offline" xml:space="preserve"><value>Couldn't reach Spotify.</value></data>
+  <data name="Shortcut_HideNotch" xml:space="preserve"><value>Hide / show the notch completely</value></data>
+  <data name="Tray_Hide" xml:space="preserve"><value>Hide the notch</value></data>
+  <data name="Tray_Show" xml:space="preserve"><value>Show the notch</value></data>
+  <data name="Tab_Timers" xml:space="preserve"><value>Timers and alarms</value></data>
+  <data name="Tab_Clipboard" xml:space="preserve"><value>Clipboard</value></data>
+  <data name="Tab_Notes" xml:space="preserve"><value>Notes</value></data>
+  <data name="Tab_Devices" xml:space="preserve"><value>Devices and calls</value></data>
+  <data name="Clock_Placeholder" xml:space="preserve"><value>10m · pizza 12m · 7:30 daily</value></data>
+  <data name="Clock_Add" xml:space="preserve"><value>Add</value></data>
+  <data name="Clock_Empty" xml:space="preserve"><value>Type a time above: "10m" starts a timer, "7:30" sets an alarm.</value></data>
+  <data name="Clock_NotUnderstood" xml:space="preserve"><value>Try "10m", "pizza 12m" or "7:30".</value></data>
+  <data name="Clock_Lap" xml:space="preserve"><value>Lap</value></data>
+  <data name="Clock_LapN" xml:space="preserve"><value>#{0} {1}</value></data>
+  <data name="Clock_Start" xml:space="preserve"><value>Start</value></data>
+  <data name="Clock_Pause" xml:space="preserve"><value>Pause</value></data>
+  <data name="Clock_Resume" xml:space="preserve"><value>Resume</value></data>
+  <data name="Clock_Reset" xml:space="preserve"><value>Reset</value></data>
+  <data name="Clock_PlusMinute" xml:space="preserve"><value>+1 min</value></data>
+  <data name="Clock_Cancel" xml:space="preserve"><value>Cancel timer</value></data>
+  <data name="Clock_Delete" xml:space="preserve"><value>Delete alarm</value></data>
+  <data name="Clock_AlarmOn" xml:space="preserve"><value>Turn alarm on</value></data>
+  <data name="Clock_AlarmOff" xml:space="preserve"><value>Turn alarm off</value></data>
+  <data name="Clock_Daily" xml:space="preserve"><value>every day</value></data>
+  <data name="Clock_Weekdays" xml:space="preserve"><value>weekdays</value></data>
+  <data name="Clock_Once" xml:space="preserve"><value>once</value></data>
+  <data name="Clock_Alarm" xml:space="preserve"><value>Alarm</value></data>
+  <data name="Clock_Snooze" xml:space="preserve"><value>Snooze 5 min</value></data>
+  <data name="Clock_Snoozed" xml:space="preserve"><value>Snoozed alarm</value></data>
+  <data name="Clock_Stop" xml:space="preserve"><value>Stop</value></data>
+  <data name="Clock_TimerDone" xml:space="preserve"><value>Time is up</value></data>
+  <data name="Clock_TimerDoneNamed" xml:space="preserve"><value>{0}: time is up</value></data>
+  <data name="ClockFont_Default" xml:space="preserve"><value>Default</value></data>
+  <data name="ClockFont_Thin" xml:space="preserve"><value>Thin</value></data>
+  <data name="ClockFont_Bold" xml:space="preserve"><value>Bold</value></data>
+  <data name="ClockFont_Condensed" xml:space="preserve"><value>Condensed</value></data>
+  <data name="ClockFont_Wide" xml:space="preserve"><value>Wide</value></data>
+  <data name="ClockFont_Digital" xml:space="preserve"><value>Digital</value></data>
+  <data name="ClockFont_Serif" xml:space="preserve"><value>Serif</value></data>
+  <data name="ClockFont_Handwritten" xml:space="preserve"><value>Handwritten</value></data>
+  <data name="ClockSize_Normal" xml:space="preserve"><value>Normal</value></data>
+  <data name="ClockSize_Large" xml:space="preserve"><value>Large</value></data>
+  <data name="ClockSize_Huge" xml:space="preserve"><value>Huge</value></data>
+  <data name="Clip_Hint" xml:space="preserve"><value>Click to copy again</value></data>
+  <data name="Clip_Clear" xml:space="preserve"><value>Clear</value></data>
+  <data name="Clip_Empty" xml:space="preserve"><value>Nothing copied yet. The last 12 things you copy show here (kept in memory only).</value></data>
+  <data name="Clip_Off" xml:space="preserve"><value>Clipboard history is off. Screenshots still show here for a moment.</value></data>
+  <data name="Clip_TurnOn" xml:space="preserve"><value>Turn on history</value></data>
+  <data name="Clip_Image" xml:space="preserve"><value>Image</value></data>
+  <data name="Clip_Copy" xml:space="preserve"><value>Copy</value></data>
+  <data name="Clip_Save" xml:space="preserve"><value>Save</value></data>
+  <data name="Clip_Open" xml:space="preserve"><value>Open</value></data>
+  <data name="Clip_Copied" xml:space="preserve"><value>Copied</value></data>
+  <data name="Clip_Saved" xml:space="preserve"><value>Saved to Pictures › Screenshots</value></data>
+  <data name="Clip_SaveFailed" xml:space="preserve"><value>Could not save the image</value></data>
+  <data name="Notes_Placeholder" xml:space="preserve"><value>Write anything: a phone number, a link, a thought. Saved as you type.</value></data>
+  <data name="Notes_CopyAll" xml:space="preserve"><value>Copy all</value></data>
+  <data name="Devices_Batteries" xml:space="preserve"><value>BLUETOOTH BATTERIES</value></data>
+  <data name="Devices_NoBatteries" xml:space="preserve"><value>No connected device reports its battery right now.</value></data>
+  <data name="Devices_MicOn" xml:space="preserve"><value>Microphone on</value></data>
+  <data name="Devices_MicMuted" xml:space="preserve"><value>Microphone muted</value></data>
+  <data name="Devices_NoMic" xml:space="preserve"><value>No microphone</value></data>
+  <data name="Devices_Deafen" xml:space="preserve"><value>Silence call apps</value></data>
+  <data name="Devices_Deafened" xml:space="preserve"><value>Call sound off</value></data>
+  <data name="Devices_Undeafened" xml:space="preserve"><value>Call sound on</value></data>
+  <data name="Devices_NoCallApp" xml:space="preserve"><value>No call app is playing sound</value></data>
+  <data name="Devices_Connected" xml:space="preserve"><value>{0} connected</value></data>
+  <data name="Devices_Low" xml:space="preserve"><value>{0}: battery low</value></data>
+  <data name="Devices_Wifi" xml:space="preserve"><value>Wi-Fi: {0} · {1}%</value></data>
+  <data name="Devices_NoWifi" xml:space="preserve"><value>Not on Wi-Fi</value></data>
+  <data name="Devices_SpeedHint" xml:space="preserve"><value>Test your internet speed (Cloudflare).</value></data>
+  <data name="Devices_TestSpeed" xml:space="preserve"><value>Test speed</value></data>
+  <data name="Devices_Stop" xml:space="preserve"><value>Stop</value></data>
+  <data name="Devices_TestingPing" xml:space="preserve"><value>Measuring ping…</value></data>
+  <data name="Devices_TestingDown" xml:space="preserve"><value>Measuring download…</value></data>
+  <data name="Devices_TestingUp" xml:space="preserve"><value>Measuring upload…</value></data>
+  <data name="Devices_SpeedFailed" xml:space="preserve"><value>Could not reach the test server.</value></data>
+  <data name="Devices_Ping" xml:space="preserve"><value>Ping</value></data>
+  <data name="Downloads_Done" xml:space="preserve"><value>Downloaded</value></data>
+  <data name="Game_Played" xml:space="preserve"><value>{0} · {1}</value></data>
+  <data name="Game_Today" xml:space="preserve"><value>today {0}</value></data>
+  <data name="Prayer_Fajr" xml:space="preserve"><value>Fajr</value></data>
+  <data name="Prayer_Sunrise" xml:space="preserve"><value>Sunrise</value></data>
+  <data name="Prayer_Dhuhr" xml:space="preserve"><value>Dhuhr</value></data>
+  <data name="Prayer_Asr" xml:space="preserve"><value>Asr</value></data>
+  <data name="Prayer_Maghrib" xml:space="preserve"><value>Maghrib</value></data>
+  <data name="Prayer_Isha" xml:space="preserve"><value>Isha</value></data>
+  <data name="Prayer_Next" xml:space="preserve"><value>Next: {0} {1}</value></data>
+  <data name="Prayer_Soon" xml:space="preserve"><value>{0} in {1} min</value></data>
+  <data name="Prayer_Now" xml:space="preserve"><value>{0} time</value></data>
+  <data name="Mirror_Phone" xml:space="preserve"><value>Phone (Phone Link)</value></data>
+  <data name="Mirror_Other" xml:space="preserve"><value>Other apps</value></data>
+  <data name="Shortcut_ToggleMic" xml:space="preserve"><value>Mute / unmute the microphone</value></data>
+  <data name="Shortcut_ToggleDeafen" xml:space="preserve"><value>Silence / restore call apps</value></data>
+  <data name="Settings_ClockFont" xml:space="preserve"><value>Clock font</value></data>
+  <data name="Settings_ClockFontHint" xml:space="preserve"><value>For the clock in the open and closed notch.</value></data>
+  <data name="Settings_ClockSize" xml:space="preserve"><value>Clock size</value></data>
+  <data name="Settings_Daily" xml:space="preserve"><value>Daily tools</value></data>
+  <data name="Settings_ClipboardHistory" xml:space="preserve"><value>Clipboard history</value></data>
+  <data name="Settings_ClipboardHistoryHint" xml:space="preserve"><value>The last 12 copied texts and images, in memory only: nothing is saved, and copies from password managers are skipped.</value></data>
+  <data name="Settings_ScreenshotPreview" xml:space="preserve"><value>Screenshot preview</value></data>
+  <data name="Settings_ScreenshotPreviewHint" xml:space="preserve"><value>After Win+Shift+S, the notch opens with Copy, Save and Open.</value></data>
+  <data name="Settings_Downloads" xml:space="preserve"><value>Download progress</value></data>
+  <data name="Settings_DownloadsHint" xml:space="preserve"><value>Browser downloads in the Downloads folder show beside the notch, with a notice when done.</value></data>
+  <data name="Settings_DeviceBattery" xml:space="preserve"><value>Bluetooth battery notices</value></data>
+  <data name="Settings_DeviceBatteryHint" xml:space="preserve"><value>When headphones, a mouse or a controller connects, and when one is low.</value></data>
+  <data name="Settings_Games" xml:space="preserve"><value>Games</value></data>
+  <data name="Settings_GameSummary" xml:space="preserve"><value>Summary after playing</value></data>
+  <data name="Settings_GameSummaryHint" xml:space="preserve"><value>When you leave a full-screen game: how long you played, and the total for today.</value></data>
+  <data name="Settings_GameSummaryMinutes" xml:space="preserve"><value>Only after sessions of at least</value></data>
+  <data name="Settings_GameMode" xml:space="preserve"><value>Game mode</value></data>
+  <data name="Settings_GameModeHint" xml:space="preserve"><value>While a game is full screen: no notices or sounds, except alarms and timers.</value></data>
+  <data name="Settings_Prayer" xml:space="preserve"><value>Prayer times</value></data>
+  <data name="Settings_PrayerShow" xml:space="preserve"><value>Show prayer times</value></data>
+  <data name="Settings_PrayerShowHint" xml:space="preserve"><value>Computed on this PC; nothing is sent.</value></data>
+  <data name="Settings_PrayerPlace" xml:space="preserve"><value>For {0} (the weather city).</value></data>
+  <data name="Settings_PrayerNoPlace" xml:space="preserve"><value>Pick a city under Weather first.</value></data>
+  <data name="Settings_PrayerMethod" xml:space="preserve"><value>Calculation method</value></data>
+  <data name="Settings_PrayerAuto" xml:space="preserve"><value>Usual for the region ({0})</value></data>
+  <data name="Settings_PrayerHanafi" xml:space="preserve"><value>Asr: Hanafi</value></data>
+  <data name="Settings_PrayerReminder" xml:space="preserve"><value>Reminder before</value></data>
+  <data name="Settings_PrayerToday" xml:space="preserve"><value>Today</value></data>
+  <data name="Settings_Mirror" xml:space="preserve"><value>Phone and app notifications</value></data>
+  <data name="Settings_MirrorShow" xml:space="preserve"><value>Show notifications in the notch</value></data>
+  <data name="Settings_MirrorHint" xml:space="preserve"><value>Reads the Windows notification list (read-only) for the apps below. Phone notifications come through Phone Link. Nothing is stored, and none show during games.</value></data>
+  <data name="Devices_Ethernet" xml:space="preserve"><value>Ethernet (wired)</value></data>
+  <data name="Media_NoSound" xml:space="preserve"><value>{0} · no sound yet</value></data>
+  <data name="Shelf_Close" xml:space="preserve"><value>Close (the shelf stays open while you fetch files)</value></data>
+  <data name="Media_SwitchTo" xml:space="preserve"><value>Switch to {0}</value></data>
+  <data name="Media_RemovePlayer" xml:space="preserve"><value>Remove {0} from the notch (it comes back when it plays again)</value></data>
 </root>

@@ -35,11 +35,12 @@ public partial class SettingsWindow : Window
     private readonly GoogleTasks _googleTasks;
     private readonly UpdateChecker _updates;
     private readonly WeatherService _weather;
+    private readonly SpotifyAccount _spotify;
     // What the last "Check now" found, shown until the window closes; null shows the last check time.
     private string? _checkResult;
 
     public SettingsWindow(AppStore store, GoogleAccount google, GoogleCalendar calendar, GoogleTasks googleTasks,
-        UpdateChecker updates, WeatherService weather)
+        UpdateChecker updates, WeatherService weather, SpotifyAccount spotify)
     {
         _store = store;
         _google = google;
@@ -47,6 +48,7 @@ public partial class SettingsWindow : Window
         _googleTasks = googleTasks;
         _updates = updates;
         _weather = weather;
+        _spotify = spotify;
         InitializeComponent();
         DataContext = store.Data;
 
@@ -93,6 +95,7 @@ public partial class SettingsWindow : Window
         ShowWeatherPlace();
         ShowForecast();
         ShowAgents();
+        InitCustomSections();
         BuildSectionNav();
     }
 
@@ -838,7 +841,8 @@ public partial class SettingsWindow : Window
 
     private void UseDarkTitleBar()
     {
-        int dark = 1;
+        // Dark title bar for dark themes; a light theme (Paper, Sakura) gets the light one.
+        int dark = Themes.IsDark(Themes.Current(_store.Settings)) ? 1 : 0;
         DwmSetWindowAttribute(new WindowInteropHelper(this).Handle, DWMWA_USE_IMMERSIVE_DARK_MODE, ref dark, sizeof(int));
     }
 

@@ -255,16 +255,9 @@
                     <Border Style="{StaticResource Divider}"/>
                     <views:SettingRow Style="{StaticResource Row}">
                         <StackPanel VerticalAlignment="Center" Margin="0,8">
-                            <TextBlock Text="{x:Static y:Strings.Settings_Hotkey}" Style="{StaticResource Label}"/>
-                            <TextBlock Text="{x:Static y:Strings.Settings_HotkeyHint}"
-                                       Style="{StaticResource Hint}"/>
+                            <TextBlock Text="{x:Static y:Strings.Settings_HideInFullscreen}" Style="{StaticResource Label}"/>
+                            <TextBlock Text="{x:Static y:Strings.Settings_HideInFullscreenHint}" Style="{StaticResource Hint}"/>
                         </StackPanel>
-                        <CheckBox Style="{StaticResource Switch}" HorizontalAlignment="Right"
-                                  IsChecked="{Binding Settings.HotkeyEnabled}"/>
-                    </views:SettingRow>
-                    <Border Style="{StaticResource Divider}"/>
-                    <views:SettingRow Style="{StaticResource Row}">
-                        <TextBlock Text="{x:Static y:Strings.Settings_HideInFullscreen}" Style="{StaticResource Label}" VerticalAlignment="Center"/>
                         <CheckBox Style="{StaticResource Switch}" HorizontalAlignment="Right"
                                   IsChecked="{Binding Settings.HideInFullscreen}"/>
                     </views:SettingRow>
@@ -293,6 +286,25 @@
                         <CheckBox Style="{StaticResource Switch}" HorizontalAlignment="Right"
                                   IsChecked="{Binding Settings.CalmMotion}"/>
                     </views:SettingRow>
+                </StackPanel>
+            </Border>
+
+            <!-- Appearance: a ready-made theme, or your own five colors -->
+            <TextBlock Text="{x:Static y:Strings.Settings_Appearance}" Style="{StaticResource Section}"/>
+            <Border Style="{StaticResource Card}">
+                <StackPanel>
+                    <views:SettingRow Style="{StaticResource Row}">
+                        <StackPanel VerticalAlignment="Center" Margin="0,8">
+                            <TextBlock Text="{x:Static y:Strings.Settings_Theme}" Style="{StaticResource Label}"/>
+                            <TextBlock Text="{x:Static y:Strings.Settings_ThemeHint}" Style="{StaticResource Hint}"/>
+                        </StackPanel>
+                        <Button x:Name="ThemeButton" Style="{StaticResource PillButton}" HorizontalAlignment="Right"
+                                VerticalAlignment="Center" Click="OnThemeClick"/>
+                    </views:SettingRow>
+                    <!-- One row per color, built in code; changing one makes the theme "Custom" -->
+                    <StackPanel x:Name="ThemeColorRows"/>
+                    <!-- Clock font and size, built in code -->
+                    <StackPanel x:Name="ClockRows"/>
                     <Border Style="{StaticResource Divider}"/>
                     <views:SettingRow Style="{StaticResource Row}">
                         <StackPanel VerticalAlignment="Center" Margin="0,8">
@@ -303,6 +315,40 @@
                                   IsChecked="{Binding Settings.UseArtworkAccent}"/>
                     </views:SettingRow>
                 </StackPanel>
+            </Border>
+
+            <!-- Keyboard shortcuts: one row per action, built in code; click, then press the keys -->
+            <TextBlock Text="{x:Static y:Strings.Settings_Shortcuts}" Style="{StaticResource Section}"/>
+            <Border Style="{StaticResource Card}">
+                <StackPanel>
+                    <TextBlock Style="{StaticResource Hint}" Margin="0,14,0,6" TextWrapping="Wrap"
+                               Text="{x:Static y:Strings.Settings_ShortcutsHint}"/>
+                    <StackPanel x:Name="ShortcutRows"/>
+                </StackPanel>
+            </Border>
+
+            <!-- Daily tools: clipboard, screenshots, downloads, Bluetooth batteries -->
+            <TextBlock Text="{x:Static y:Strings.Settings_Daily}" Style="{StaticResource Section}"/>
+            <Border Style="{StaticResource Card}">
+                <StackPanel x:Name="DailyRows"/>
+            </Border>
+
+            <!-- Games: the summary after playing, and game mode -->
+            <TextBlock Text="{x:Static y:Strings.Settings_Games}" Style="{StaticResource Section}"/>
+            <Border Style="{StaticResource Card}">
+                <StackPanel x:Name="GameRows"/>
+            </Border>
+
+            <!-- Prayer times: computed here from the weather city -->
+            <TextBlock Text="{x:Static y:Strings.Settings_Prayer}" Style="{StaticResource Section}"/>
+            <Border Style="{StaticResource Card}">
+                <StackPanel x:Name="PrayerRows"/>
+            </Border>
+
+            <!-- Notifications from the phone (Phone Link) and chat apps -->
+            <TextBlock Text="{x:Static y:Strings.Settings_Mirror}" Style="{StaticResource Section}"/>
+            <Border Style="{StaticResource Card}">
+                <StackPanel x:Name="MirrorRows"/>
             </Border>
 
             <!-- Updates -->
@@ -359,6 +405,57 @@
                     <CheckBox Style="{StaticResource Switch}" HorizontalAlignment="Right"
                               IsChecked="{Binding Settings.LyricsEnabled}"/>
                 </views:SettingRow>
+            </Border>
+
+            <!-- Spotify Web API: optional, with the user's own Client ID (Spotify gives no shared ones) -->
+            <TextBlock Text="Spotify" Style="{StaticResource Section}"/>
+            <Border Style="{StaticResource Card}">
+                <StackPanel>
+                    <TextBlock Style="{StaticResource Hint}" Margin="0,14,0,6" TextWrapping="Wrap"
+                               Text="{x:Static y:Strings.Spotify_Note}"/>
+                    <Border Style="{StaticResource Divider}"/>
+                    <views:SettingRow Style="{StaticResource Row}">
+                        <StackPanel VerticalAlignment="Center" Margin="0,8">
+                            <TextBlock Text="{x:Static y:Strings.Spotify_RedirectLabel}" Style="{StaticResource Label}"/>
+                            <TextBlock x:Name="SpotifyRedirectText" Style="{StaticResource Hint}" FontFamily="Consolas"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
+                            <Button Style="{StaticResource PillButton}" Content="{x:Static y:Strings.Spotify_OpenDashboard}" Margin="0,0,8,0"
+                                    Click="OnSpotifyDashboard"/>
+                            <Button Style="{StaticResource PillButton}" Content="{x:Static y:Strings.Spotify_Copy}"
+                                    Click="OnSpotifyCopyRedirect"/>
+                        </StackPanel>
+                    </views:SettingRow>
+                    <Border Style="{StaticResource Divider}"/>
+                    <StackPanel Margin="0,10,0,10">
+                        <TextBlock Text="Client ID" Style="{StaticResource Label}" Margin="0,0,0,6"/>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Border Height="32" CornerRadius="10" Background="{DynamicResource SubtleFill}">
+                                <TextBox x:Name="SpotifyClientBox" Margin="9,0" VerticalAlignment="Center" FontSize="13"
+                                         FontFamily="Consolas" AutomationProperties.Name="Spotify Client ID"
+                                         Background="Transparent" BorderThickness="0" Foreground="{DynamicResource TextPrimary}"
+                                         CaretBrush="{DynamicResource TextPrimary}" SelectionBrush="{DynamicResource SelectionHighlight}"
+                                         MaxLength="64" KeyDown="OnSpotifyClientKeyDown"/>
+                            </Border>
+                            <Button Grid.Column="1" Style="{StaticResource PillButton}" Content="{x:Static y:Strings.Spotify_Save}"
+                                    Margin="8,0,0,0" Click="OnSpotifySaveClient"/>
+                        </Grid>
+                    </StackPanel>
+                    <Border Style="{StaticResource Divider}"/>
+                    <views:SettingRow Style="{StaticResource Row}">
+                        <StackPanel VerticalAlignment="Center" Margin="0,8">
+                            <TextBlock x:Name="SpotifyTitle" Text="{x:Static y:Strings.Spotify_Account}" Style="{StaticResource Label}"/>
+                            <TextBlock x:Name="SpotifyStatus" Style="{StaticResource Hint}" TextWrapping="Wrap"
+                                       AutomationProperties.LiveSetting="Polite"/>
+                        </StackPanel>
+                        <Button x:Name="SpotifyButton" Style="{StaticResource PillButton}" HorizontalAlignment="Right"
+                                VerticalAlignment="Center" Click="OnSpotifyClick"/>
+                    </views:SettingRow>
+                </StackPanel>
             </Border>
 
             <!-- Google: one account, a permission per feature -->
@@ -765,16 +862,6 @@
                         </StackPanel>
                         <CheckBox Style="{StaticResource Switch}" HorizontalAlignment="Right"
                                   IsChecked="{Binding Settings.ActivitiesEnabled}"/>
-                    </views:SettingRow>
-                    <Border Style="{StaticResource Divider}"/>
-                    <views:SettingRow Style="{StaticResource Row}">
-                        <StackPanel VerticalAlignment="Center" Margin="0,8">
-                            <TextBlock Text="{x:Static y:Strings.Settings_JumpHotkey}" Style="{StaticResource Label}"/>
-                            <TextBlock Text="{x:Static y:Strings.Settings_JumpHotkeyHint}"
-                                       Style="{StaticResource Hint}"/>
-                        </StackPanel>
-                        <CheckBox Style="{StaticResource Switch}" HorizontalAlignment="Right"
-                                  IsChecked="{Binding Settings.JumpHotkeyEnabled}"/>
                     </views:SettingRow>
                 </StackPanel>
             </Border>

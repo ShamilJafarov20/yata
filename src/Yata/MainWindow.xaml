@@ -13,6 +13,13 @@
         <!-- Everything outside NotchHost is fully transparent, so clicks pass through to the desktop.
              The window is resized in code (FitWindow) to the notch plus room for shadow and overshoot. -->
 
+        <!-- Drop zone: a wider, invisible target around the notch (1/255 opaque: Windows only hands drops to
+             pixels that aren't fully transparent). It exists only while a mouse button is held after a press
+             outside the notch, so it never takes a click; a file dragged near the top opens the shelf. -->
+        <Border x:Name="DropZone" HorizontalAlignment="Center" VerticalAlignment="Top" Width="600" Height="240"
+                Background="#01000000" Visibility="Collapsed" AllowDrop="True"
+                DragEnter="OnNotchDragOver" DragOver="OnNotchDragOver" DragLeave="OnNotchDragLeave" Drop="OnNotchDrop"/>
+
         <!-- Bubble: a second, small notch beside the first for what doesn't fit in it (another program's
              activity, the next meeting while music plays). Outside NotchHost, so hovering it doesn't open
              the notch; drawn first, so it slides out from under it. Placed in code (ApplyBubbleFrame).
@@ -26,7 +33,7 @@
             </Grid.RenderTransform>
             <views:SoftShadow x:Name="BubbleShadow" HorizontalAlignment="Center" VerticalAlignment="Top"
                               BlurRadius="20" Depth="4" ShadowOpacity="0.4" Width="54" Height="32"/>
-            <Path x:Name="BubbleShape" Fill="{DynamicResource NotchBrush}"/>
+            <Path x:Name="BubbleShape" Fill="{DynamicResource NotchBrush}" Stroke="{DynamicResource NotchRimBrush}" StrokeThickness="1"/>
             <Grid x:Name="BubbleContent" Width="54" Height="22" Margin="0,5,0,0" HorizontalAlignment="Center" VerticalAlignment="Top">
                 <views:IconView x:Name="BubbleIcon" Size="13" Margin="9.5,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
                 <Grid Width="22" Height="22" Margin="0,0,5,0" HorizontalAlignment="Right">
@@ -54,7 +61,7 @@
             </Grid.RenderTransform>
             <views:SoftShadow x:Name="ActivityPanelShadow" HorizontalAlignment="Center" VerticalAlignment="Top"
                               BlurRadius="20" Depth="4" ShadowOpacity="0.4"/>
-            <Path x:Name="ActivityPanelShape" Fill="{DynamicResource NotchBrush}"/>
+            <Path x:Name="ActivityPanelShape" Fill="{DynamicResource NotchBrush}" Stroke="{DynamicResource NotchRimBrush}" StrokeThickness="1"/>
             <StackPanel x:Name="ActivityStrip" Margin="14,8,10,8" VerticalAlignment="Top"/>
         </Grid>
 
@@ -66,7 +73,7 @@
 
             <views:SoftShadow x:Name="NotchShadow" HorizontalAlignment="Center" VerticalAlignment="Top"
                               BlurRadius="28" Depth="6" ShadowOpacity="0.45"/>
-            <Path x:Name="NotchShape" Fill="{DynamicResource NotchBrush}"/>
+            <Path x:Name="NotchShape" Fill="{DynamicResource NotchBrush}" Stroke="{DynamicResource NotchRimBrush}" StrokeThickness="1"/>
 
             <Grid x:Name="ContentHost" HorizontalAlignment="Center" VerticalAlignment="Top" ClipToBounds="True">
 
@@ -216,6 +223,10 @@
                             <!-- Takes the date's place while the camera or microphone is in use -->
                             <TextBlock x:Name="PrivacyText" FontSize="12" VerticalAlignment="Center" MaxWidth="260"
                                        TextTrimming="CharacterEllipsis" Visibility="Collapsed"/>
+                            <!-- Shelf: the notch stays open while it's the page (to fetch files); this closes it -->
+                            <Button x:Name="CloseNotchButton" Style="{StaticResource IconButton}" Width="26" Height="26" FontSize="12"
+                                    Margin="6,0,0,0" Foreground="{DynamicResource TextSecondary}" Content="&#xE70E;"
+                                    ToolTip="{x:Static y:Strings.Shelf_Close}" Visibility="Collapsed" Click="OnCloseNotchClick"/>
                             <!-- Agenda and Tasks: read Google now (MainWindow.Refresh.cs); spins while it does -->
                             <Button x:Name="RefreshButton" Style="{StaticResource IconButton}" Width="26" Height="26" FontSize="12"
                                     Margin="6,0,0,0" Foreground="{DynamicResource TextSecondary}" Content="&#xE72C;"
@@ -229,7 +240,7 @@
                         </StackPanel>
                         <Grid x:Name="TabStrip" HorizontalAlignment="Right">
                         <!-- Selection pill that glides to the chosen tab -->
-                        <Border x:Name="TabIndicator" Width="32" Height="26" Margin="2,0,0,0" CornerRadius="8" Background="{DynamicResource SelectedFill}"
+                        <Border x:Name="TabIndicator" Width="28" Height="26" Margin="2,0,0,0" CornerRadius="8" Background="{DynamicResource SelectedFill}"
                                 HorizontalAlignment="Left" VerticalAlignment="Center" IsHitTestVisible="False">
                             <Border.RenderTransform>
                                 <TranslateTransform x:Name="TabIndicatorShift"/>
@@ -248,6 +259,14 @@
                                          Content="&#xE9D5;" ToolTip="{x:Static y:Strings.Tab_Tasks}" Checked="OnTabChecked"/>
                             <RadioButton x:Name="TabShelf" Style="{StaticResource TabButton}" GroupName="Pages"
                                          Content="&#xE7B8;" ToolTip="{x:Static y:Strings.Tab_Shelf}" Checked="OnTabChecked"/>
+                            <RadioButton x:Name="TabTimers" Style="{StaticResource TabButton}" GroupName="Pages"
+                                         Content="&#xE823;" ToolTip="{x:Static y:Strings.Tab_Timers}" Checked="OnTabChecked"/>
+                            <RadioButton x:Name="TabClipboard" Style="{StaticResource TabButton}" GroupName="Pages"
+                                         Content="&#xF0E3;" ToolTip="{x:Static y:Strings.Tab_Clipboard}" Checked="OnTabChecked"/>
+                            <RadioButton x:Name="TabNotes" Style="{StaticResource TabButton}" GroupName="Pages"
+                                         Content="&#xE70B;" ToolTip="{x:Static y:Strings.Tab_Notes}" Checked="OnTabChecked"/>
+                            <RadioButton x:Name="TabDevices" Style="{StaticResource TabButton}" GroupName="Pages"
+                                         Content="&#xE772;" ToolTip="{x:Static y:Strings.Tab_Devices}" Checked="OnTabChecked"/>
                             <Button Style="{StaticResource IconButton}" Width="28" Height="26" FontSize="13" Margin="6,0,0,0"
                                     Foreground="{DynamicResource TextSecondary}" Content="&#xE713;" ToolTip="{x:Static y:Strings.Tab_Settings}"
                                     Click="OnSettingsClick"/>
@@ -262,7 +281,7 @@
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
-                    <Grid x:Name="MediaPanel" Height="136" Margin="24,0">
+                    <Grid x:Name="MediaPanel" Height="160" Margin="24,0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto"/>
                             <ColumnDefinition Width="*"/>
@@ -287,12 +306,22 @@
                                 <RowDefinition Height="*"/>
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
                             </Grid.RowDefinitions>
 
-                            <views:MarqueeText x:Name="TitleMarquee" HorizontalAlignment="Left">
+                            <views:MarqueeText x:Name="TitleMarquee" HorizontalAlignment="Left" Margin="0,0,58,0">
                                 <TextBlock x:Name="TitleText" FontSize="16" FontWeight="SemiBold"
                                            TextTrimming="CharacterEllipsis"/>
                             </views:MarqueeText>
+                            <!-- ⇄ the other player (when there are several); ✕ takes this one off the notch (the app keeps running) -->
+                            <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top"
+                                        Margin="0,-5,-6,0">
+                                <Button x:Name="SourcesButton" Style="{StaticResource IconButton}" Width="26" Height="26" FontSize="12"
+                                        Foreground="{DynamicResource TextSecondary}" Content="&#xE8AB;"
+                                        Visibility="Collapsed" Click="OnSwitchPlayerClick"/>
+                                <Button x:Name="RemovePlayerButton" Style="{StaticResource IconButton}" Width="26" Height="26" FontSize="11"
+                                        Foreground="{DynamicResource TextSecondary}" Content="&#xE711;" Click="OnRemovePlayerClick"/>
+                            </StackPanel>
                             <TextBlock x:Name="ArtistText" Grid.Row="1" Margin="0,1,0,0" FontSize="13"
                                        Foreground="{DynamicResource TextSecondary}" TextTrimming="CharacterEllipsis"/>
 
@@ -337,14 +366,60 @@
                                            Typography.NumeralAlignment="Tabular"/>
                             </Grid>
 
-                            <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,2,0,0">
-                                <!-- Filled glyphs, same family as the focus timer's buttons -->
-                                <Button Style="{StaticResource IconButton}" Content="&#xF8AC;" ToolTip="{x:Static y:Strings.Media_Previous}" Click="OnPrevious"/>
-                                <Button x:Name="PlayPauseButton" Style="{StaticResource PrimaryIconButton}"
-                                        Width="38" Height="38" FontSize="15" Margin="12,0"
-                                        Content="&#xF5B0;" Click="OnPlayPause"/>
-                                <Button Style="{StaticResource IconButton}" Content="&#xF8AD;" ToolTip="{x:Static y:Strings.Media_Next}" Click="OnNext"/>
-                            </StackPanel>
+                            <!-- Like on the left, the controls in the middle, the player's own volume on the right.
+                                 Like, shuffle and repeat only show with the Spotify Web API signed in. -->
+                            <Grid Grid.Row="4" Margin="0,2,0,0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Button x:Name="LikeButton" Style="{StaticResource IconButton}" Width="30" Height="30" FontSize="14"
+                                        HorizontalAlignment="Left" Content="&#xE006;" ToolTip="{x:Static y:Strings.Media_Like}"
+                                        Visibility="Collapsed" Click="OnLikeClick"/>
+
+                                <StackPanel Grid.Column="1" Orientation="Horizontal">
+                                    <Button x:Name="ShuffleButton" Style="{StaticResource IconButton}" Width="30" Height="30" FontSize="13"
+                                            Content="&#xE8B1;" Visibility="Collapsed" Click="OnShuffleClick"/>
+                                    <!-- Filled glyphs, same family as the focus timer's buttons -->
+                                    <Button Style="{StaticResource IconButton}" Content="&#xF8AC;" ToolTip="{x:Static y:Strings.Media_Previous}" Click="OnPrevious"/>
+                                    <Button x:Name="PlayPauseButton" Style="{StaticResource PrimaryIconButton}"
+                                            Width="38" Height="38" FontSize="15" Margin="12,0"
+                                            Content="&#xF5B0;" Click="OnPlayPause"/>
+                                    <Button Style="{StaticResource IconButton}" Content="&#xF8AD;" ToolTip="{x:Static y:Strings.Media_Next}" Click="OnNext"/>
+                                    <Button x:Name="RepeatButton" Style="{StaticResource IconButton}" Width="30" Height="30" FontSize="13"
+                                            Content="&#xE8EE;" Visibility="Collapsed" Click="OnRepeatClick"/>
+                                </StackPanel>
+
+                            </Grid>
+
+                            <!-- Volume: the player's own (as in the Windows volume mixer) when Windows can find its sound,
+                                 otherwise the system volume. Drag, scroll, or click the speaker to mute. -->
+                            <Grid x:Name="VolumePanel" Grid.Row="5" Margin="0,6,0,0" Background="Transparent" MouseWheel="OnVolumeWheel"
+                                  Visibility="Collapsed">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <Button Style="{StaticResource IconButton}" Width="26" Height="22" FontSize="13" Margin="-4,0,4,0"
+                                        Click="OnVolumeIconClick">
+                                    <TextBlock x:Name="VolumeIcon" FontFamily="{StaticResource IconFont}"/>
+                                </Button>
+                                <Grid x:Name="VolumeTrack" Grid.Column="1" Height="16" Background="Transparent" Cursor="Hand"
+                                      MouseLeftButtonDown="OnVolumeMouseDown" MouseMove="OnVolumeMouseMove"
+                                      MouseLeftButtonUp="OnVolumeMouseUp" LostMouseCapture="OnVolumeLostCapture">
+                                    <Border Height="4" CornerRadius="2" Background="{DynamicResource TrackBrush}"/>
+                                    <Border x:Name="VolumeFill" Height="4" CornerRadius="2" Width="0" HorizontalAlignment="Left"
+                                            Background="{DynamicResource AccentBrush}"/>
+                                    <Ellipse x:Name="VolumeThumb" Width="11" Height="11" HorizontalAlignment="Left"
+                                             Fill="{DynamicResource TextPrimary}" IsHitTestVisible="False"/>
+                                </Grid>
+                                <TextBlock x:Name="VolumeText" Grid.Column="2" Margin="8,0,0,0" FontSize="11" VerticalAlignment="Center"
+                                           MinWidth="70" TextAlignment="Right" Foreground="{DynamicResource TextSecondary}"
+                                           Typography.NumeralAlignment="Tabular"/>
+                            </Grid>
                         </Grid>
                     </Grid>
 
@@ -384,6 +459,9 @@
                         </StackPanel>
                         <TextBlock Text="{x:Static y:Strings.Media_NothingPlaying}" FontSize="13" HorizontalAlignment="Center"
                                    Foreground="{DynamicResource TextSecondary}"/>
+                        <!-- Next prayer, when prayer times are on -->
+                        <TextBlock x:Name="IdlePrayer" FontSize="12" HorizontalAlignment="Center" Margin="0,6,0,0"
+                                   Foreground="{DynamicResource TextSecondary}" Visibility="Collapsed"/>
                         <StackPanel x:Name="IdleWeather" Orientation="Horizontal" HorizontalAlignment="Center"
                                     Margin="0,8,0,0" Visibility="Collapsed">
                             <views:WeatherSprite x:Name="IdleWeatherIcon" PixelSize="1.5" VerticalAlignment="Center" Margin="0,0,8,0"/>
@@ -398,6 +476,10 @@
                     <views:WaterPage x:Name="WaterPage" Grid.Row="1" Visibility="Collapsed"/>
                     <views:ShelfPage x:Name="ShelfPage" Grid.Row="1" Visibility="Collapsed"/>
                     <views:TasksPage x:Name="TasksPage" Grid.Row="1" Visibility="Collapsed"/>
+                    <views:TimersPage x:Name="TimersPage" Grid.Row="1" Visibility="Collapsed"/>
+                    <views:ClipboardPage x:Name="ClipboardPage" Grid.Row="1" Visibility="Collapsed"/>
+                    <views:NotesPage x:Name="NotesPage" Grid.Row="1" Visibility="Collapsed"/>
+                    <views:DevicesPage x:Name="DevicesPage" Grid.Row="1" Visibility="Collapsed"/>
                 </Grid>
             </Grid>
         </Grid>

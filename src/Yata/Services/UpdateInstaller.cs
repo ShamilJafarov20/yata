@@ -24,7 +24,7 @@ public sealed class UpdateException(string message, Exception? inner = null) : E
 /// </summary>
 public sealed class UpdateInstaller
 {
-    private const string Repo = "/akaneni/yata/releases/download/";
+    private const string Repo = "/ShamilJafarov20/yata/releases/download/";
     // The download link on github.com redirects to GitHub's file storage.
     private static readonly string[] Hosts = { "github.com", "objects.githubusercontent.com", "release-assets.githubusercontent.com" };
     private static readonly HttpClient Api = UpdateChecker.CreateClient();

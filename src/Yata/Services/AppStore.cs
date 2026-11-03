@@ -23,6 +23,12 @@ public sealed class StoreData
     /// <summary>Paths parked on the shelf (references only, files are never copied).</summary>
     public List<string> Shelf { get; set; } = new();
     public UpdateData Updates { get; set; } = new();
+    /// <summary>Quick timers and alarms (the stopwatch lives in memory only).</summary>
+    public ClockData Clock { get; set; } = new();
+    /// <summary>Notes page scratchpad.</summary>
+    public string Notes { get; set; } = "";
+    /// <summary>Minutes played per day ("2026-11-03" → 134), for the game summary.</summary>
+    public Dictionary<string, int> GameDays { get; set; } = new();
 
     /// <summary>
     /// After loading: a hand-edited or half-old file can't crash Yata at every start. Missing parts
@@ -39,6 +45,18 @@ public sealed class StoreData
         Water ??= new WaterData();
         Focus ??= new FocusData();
         Updates ??= new UpdateData();
+        Clock ??= new ClockData();
+        Clock.Timers = (Clock.Timers ?? new()).Where(t => t != null).ToList();
+        Clock.Alarms = (Clock.Alarms ?? new()).Where(a => a != null).ToList();
+        foreach (var alarm in Clock.Alarms)
+        {
+            alarm.Label ??= "";
+            alarm.Time = AlarmData.NormalizeTime(alarm.Time);
+        }
+        foreach (var timer in Clock.Timers)
+            timer.Label ??= "";
+        Notes ??= "";
+        GameDays ??= new();
         Tasks = (Tasks ?? new()).Where(t => t != null).ToList();
         foreach (var task in Tasks)
             task.Text ??= "";
@@ -58,6 +76,16 @@ public sealed class StoreData
         s.FocusGoalMinutes = Math.Clamp(s.FocusGoalMinutes, 15, 600);
         s.CompanionIdleMinutes = Math.Clamp(s.CompanionIdleMinutes, 1, 30);
         s.CompanionSleepMinutes = Math.Clamp(s.CompanionSleepMinutes, 2, 120);
+        if (string.IsNullOrWhiteSpace(s.ThemeId) || (s.ThemeId == Themes.CustomId ? s.CustomTheme == null : Themes.Find(s.ThemeId) == null))
+            s.ThemeId = Themes.DefaultId;
+        s.CustomTheme?.Normalize();
+        s.ClockFont = ClockStyles.Find(s.ClockFont).Id;
+        s.ClockSize = Math.Clamp(s.ClockSize, 0, 2);
+        s.GameSummaryMinutes = Math.Clamp(s.GameSummaryMinutes, 1, 120);
+        s.PrayerReminderMinutes = Math.Clamp(s.PrayerReminderMinutes, 0, 60);
+        s.PhoneMirrorApps ??= new();
+        if (string.IsNullOrWhiteSpace(s.SpotifyClientId))
+            s.SpotifyClientId = null;
         Water.GoalMl = Math.Clamp(Water.GoalMl, 500, 5000);
         Water.CupMl = Math.Clamp(Water.CupMl, 50, 1000);
         Water.ReminderMinutes = Math.Clamp(Water.ReminderMinutes, 15, 240);
@@ -95,6 +123,52 @@ public sealed class SettingsData
     public bool HotkeyEnabled { get; set; } = true;
     /// <summary>Ctrl+Alt+J goes to the window of the activity that needs you. Off unless the user opts in.</summary>
     public bool JumpHotkeyEnabled { get; set; }
+    /// <summary>
+    /// Shortcut per action (HotkeyAction name → "Ctrl+Alt+Y", "" for none). Null until the user changes
+    /// one: until then the two switches above decide (see Hotkeys.For).
+    /// </summary>
+    public Dictionary<string, string>? Hotkeys { get; set; }
+
+    // Appearance
+    /// <summary>A preset's id (see Themes), or "custom" for <see cref="CustomTheme"/>.</summary>
+    public string ThemeId { get; set; } = "midnight";
+    /// <summary>The user's own colors, kept when they try a preset so they can come back.</summary>
+    public ThemeColors? CustomTheme { get; set; }
+
+    /// <summary>The clock's look: an id from ClockStyles ("default", "thin", "digital"…).</summary>
+    public string ClockFont { get; set; } = "default";
+    /// <summary>0 normal, 1 large, 2 huge (the idle clock; the closed notch's grows a little).</summary>
+    public int ClockSize { get; set; } = 1;
+
+    // Daily tools
+    /// <summary>Keeps the last things copied, in memory only. Off unless chosen: it sees what you copy.</summary>
+    public bool ClipboardHistoryEnabled { get; set; }
+    /// <summary>A screenshot (any image copied) opens the notch with Copy / Save / Open.</summary>
+    public bool ScreenshotPreviewEnabled { get; set; } = true;
+    public bool GameSummaryEnabled { get; set; } = true;
+    /// <summary>Shorter sessions are counted for the day but not announced.</summary>
+    public int GameSummaryMinutes { get; set; } = 10;
+    /// <summary>During a game: no notices or sounds, except alarms and timers.</summary>
+    public bool GameModeEnabled { get; set; } = true;
+    public bool DownloadsEnabled { get; set; } = true;
+    public bool DeviceBatteryEnabled { get; set; } = true;
+
+    /// <summary>Prayer times from the weather city's coordinates (computed here, nothing is sent).</summary>
+    public bool PrayerEnabled { get; set; }
+    /// <summary>A PrayerMethod name; null picks the region's usual one.</summary>
+    public string? PrayerMethod { get; set; }
+    public bool PrayerHanafi { get; set; }
+    /// <summary>A notice this many minutes before each prayer (0: at the time).</summary>
+    public int PrayerReminderMinutes { get; set; } = 10;
+
+    /// <summary>Notifications from chosen apps (Phone Link, Telegram…) shown in the notch. Off unless chosen.</summary>
+    public bool PhoneMirrorEnabled { get; set; }
+    /// <summary>Which apps: keys from NotificationApps ("phone", "telegram", "whatsapp", "discord", "other").</summary>
+    public List<string> PhoneMirrorApps { get; set; } = new() { "phone", "telegram", "whatsapp" };
+
+    // Spotify (optional Web API; the player itself works through Windows' media controls)
+    /// <summary>Client ID of the user's own app on developer.spotify.com; null leaves the Web API off.</summary>
+    public string? SpotifyClientId { get; set; }
 
     // Media
     public bool LyricsEnabled { get; set; } = true;

@@ -15,6 +15,8 @@
 
     <!-- Surfaces -->
     <SolidColorBrush x:Key="NotchBrush" Color="#FF000000"/>
+    <!-- The edge of the notch: only the liquid glass themes light it -->
+    <SolidColorBrush x:Key="NotchRimBrush" Color="#00000000"/>
     <SolidColorBrush x:Key="WindowBackground" Color="#FF0E0E0E"/>
     <SolidColorBrush x:Key="CardBackground" Color="#FF161616"/>
     <!-- Menus open over the cards, so a step lighter -->

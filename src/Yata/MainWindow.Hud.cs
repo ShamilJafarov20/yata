@@ -45,11 +45,14 @@ public partial class MainWindow
     private bool ChimeAllowed =>
         Settings.SoundsEnabled &&
         !(Settings.QuietDuringCalls && _privacy.Current.Microphone.Count > 0) &&
-        !FullscreenWatcher.WindowsWantsQuiet();
+        !FullscreenWatcher.WindowsWantsQuiet() && !GameQuiet;
 
     private void ShowHud(HudMessage message)
     {
         if (!Settings.Shows(message.Kind))
+            return;
+        // Game mode: only what matters (reminders, alarms, timers) gets through, and it waits for the game to end.
+        if (GameQuiet && !message.Important)
             return;
         _presence.NoteIfUnseen(message);
 

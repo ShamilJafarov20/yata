@@ -30,7 +30,7 @@ public partial class MainWindow : Window
     // Width of the concave "ears" that blend the notch into the top edge of the screen.
     private const double Ear = 10;
 
-    private enum NotchPage { Media, Agenda, Focus, Water, Tasks, Shelf }
+    private enum NotchPage { Media, Agenda, Focus, Water, Tasks, Shelf, Timers, Clipboard, Notes, Devices }
 
     private static readonly Size CompactIdle = new(170, 32);
     private static readonly Size CompactIdleTimer = new(250, 32);
@@ -49,6 +49,9 @@ public partial class MainWindow : Window
     // (Agenda, Tasks, Shelf) and the player with the lyrics under it.
     private static readonly Size ExpandedShort = new(ExpandedWidth, 196);
     private static readonly Size ExpandedTall = new(ExpandedWidth, 300);
+    // The player with its volume row; with lyrics, the same room for them as before.
+    private static readonly Size ExpandedMedia = new(ExpandedWidth, 220);
+    private static readonly Size ExpandedMediaLyrics = new(ExpandedWidth, 324);
     // How early the closed notch starts showing the next event.
     private static readonly TimeSpan UpcomingWindow = TimeSpan.FromMinutes(15);
     private static readonly Size CompactAmbient = new(130, 32);
@@ -149,12 +152,16 @@ public partial class MainWindow : Window
         StartupTimings.Mark("fields");
         // Before any text is built: the notch, the tray menu and Settings all read it.
         Lang.Apply(_store.Settings.Language);
+        ApplyTheme();
         Resources["AccentBrush"] = _accent;
         InitializeComponent();
         StartupTimings.Mark("InitializeComponent");
 
         _media = new MediaService(Dispatcher);
         _media.Changed += OnMediaChanged;
+        InitPlayerExtras();
+        InitPlayers();
+        InitDaily();
 
         _hoverTimer.Tick += OnHoverTimer;
         _clockTimer.Tick += (_, _) =>
@@ -266,6 +273,7 @@ public partial class MainWindow : Window
     private async void OnLoaded(object sender, RoutedEventArgs e)
     {
         StartupTimings.Mark("Loaded");
+        UpdateGlass();
         // What the first moments show: the clock, the volume and Caps Lock notices, presence.
         StartService("clock", () => { ScheduleClock(); _clockTimer.Start(); });
         StartService("audio", _audio.Start);
@@ -305,6 +313,7 @@ public partial class MainWindow : Window
         StartService("water", _water.Start);
         StartService("tasks", _tasks.Start);
         StartService("activities", StartActivities);
+        StartService("daily", StartDaily);
 
         if (!StartedWithWindows)
         {
@@ -392,7 +401,7 @@ public partial class MainWindow : Window
             handled = true;
             return new IntPtr(NativeMethods.MA_NOACTIVATE);
         }
-        if (msg == NativeMethods.WM_HOTKEY && wParam.ToInt32() is HotkeyId or JumpHotkeyId)
+        if (msg == NativeMethods.WM_HOTKEY && IsHotkeyId(wParam.ToInt32()))
         {
             handled = true;
             OnHotkey(wParam.ToInt32());
@@ -430,6 +439,8 @@ public partial class MainWindow : Window
     {
         _fullscreenApp = fullscreen;
         UpdateShown();
+        // After the notch is back: the game summary shows on it.
+        _games.OnFullscreen(fullscreen);
     }
 
     /// <summary>
@@ -479,7 +490,7 @@ public partial class MainWindow : Window
     /// </summary>
     private void UpdateShown()
     {
-        if (_sessionLocked || (_fullscreenApp && Settings.HideInFullscreen))
+        if (_sessionLocked || _hiddenByUser || (_fullscreenApp && Settings.HideInFullscreen))
         {
             _hoverTimer.Stop();
             SetExpanded(false);
@@ -494,6 +505,7 @@ public partial class MainWindow : Window
             ShowNextHud();
         }
         UpdateLyricsTimer();
+        UpdateGlass();
     }
 
     // ---- Settings -------------------------------------------------------------------
@@ -505,7 +517,7 @@ public partial class MainWindow : Window
         SetExpanded(false);
         if (_settingsWindow == null)
         {
-            _settingsWindow = new SettingsWindow(_store, _google, _calendar, _googleTasks, _updates, _weather);
+            _settingsWindow = new SettingsWindow(_store, _google, _calendar, _googleTasks, _updates, _weather, _spotify);
             _settingsWindow.Closed += (_, _) => _settingsWindow = null;
             _settingsWindow.Show();
         }
@@ -548,7 +560,9 @@ public partial class MainWindow : Window
             LoadLyrics(_state);
         }
 
+        ApplyTheme();
         ApplyAccent();
+        ApplyDailySettings();
         UpdateClock();
         PositionWindow();
         UpdateHotkey();
@@ -591,7 +605,7 @@ public partial class MainWindow : Window
     private void OnDeactivated(object? sender, EventArgs e)
     {
         // Clicked elsewhere while typing: give focus back and close like a normal mouse-out.
-        TasksPage.EndTyping();
+        EndAllTyping();
         ExitKeyboardMode();
         if (!NotchHost.IsMouseOver)
             ScheduleExpanded(false, 350);
@@ -602,6 +616,7 @@ public partial class MainWindow : Window
     private void OnNotchMouseEnter(object sender, MouseEventArgs e)
     {
         _pinnedUntil = DateTime.MinValue; // The real mouse takes over from a preview.
+        _lastShelfActivity = DateTime.Now;
         // Announcing an activity a click goes to: hovering doesn't open the notch, or the click
         // would land on the open notch instead. Once the notice is over, hovering opens it as usual.
         if (AnnouncedWithWindow() != null)
@@ -635,6 +650,10 @@ public partial class MainWindow : Window
             "agua" or "água" or "water" => TabWater,
             "tarefas" or "tasks" => TabTasks,
             "prateleira" or "shelf" => TabShelf,
+            "timers" or "timer" or "alarm" => TabTimers,
+            "clipboard" => TabClipboard,
+            "notes" or "notas" => TabNotes,
+            "devices" => TabDevices,
             _ => TabMedia,
         };
         tab.IsChecked = true;
@@ -648,7 +667,8 @@ public partial class MainWindow : Window
     private void OnNotchMouseLeave(object sender, MouseEventArgs e)
     {
         SetPeeking(false);
-        if (!_seeking && !TasksPage.HasDraft)
+        // Dragging a shelf item out sends a mouse-leave as the drag starts: not a reason to close.
+        if (!_seeking && !HasDraft && !ShelfPage.IsDraggingOut && !ShelfHoldsOpen)
             ScheduleExpanded(false, 350);
     }
 
@@ -659,10 +679,17 @@ public partial class MainWindow : Window
     private void CollapseIfCursorLeft()
     {
         if (!_expanded || _dropHinting || _seeking || _hoverTimer.IsEnabled || DateTime.Now < _pinnedUntil ||
-            TasksPage.HasDraft || ShelfPage.IsDraggingOut || IsCursorOverNotch())
+            HasDraft || ShelfPage.IsDraggingOut || ShelfHoldsOpen || IsCursorOverNotch())
             return;
         ScheduleExpanded(false, 350);
     }
+
+    /// <summary>
+    /// A drag in progress that the notch is part of: a shelf item being dragged out, or files held over the
+    /// open notch. DragLeave also fires when the cursor crosses a see-through gap between the page's controls,
+    /// so the cursor's real position decides, not the event.
+    /// </summary>
+    private bool DragKeepsOpen() => ShelfPage.IsDraggingOut || (_dropHinting && IsCursorOverNotch());
 
     private bool IsCursorOverNotch()
     {
@@ -709,6 +736,12 @@ public partial class MainWindow : Window
                 return;
             }
         }
+        else if (DragKeepsOpen() || ShelfHoldsOpen)
+        {
+            // A file is being dragged onto (or out of) the notch: look again in a moment.
+            _hoverTimer.Start();
+            return;
+        }
         SetExpanded(_pendingExpand);
     }
 
@@ -728,13 +761,15 @@ public partial class MainWindow : Window
             // Wait for the page to fade in before scrolling a long title.
             _titleReveal.Stop();
             _titleReveal.Start();
+            RefreshPlayerExtras();
         }
         else
         {
             _titleReveal.Stop();
             TitleMarquee.Stop();
-            TasksPage.EndTyping();
+            EndAllTyping();
             EndDropHint();
+            DevicesPage.StopSpeedTest();
         }
         ScheduleClock();
         UpdateTargets();
@@ -754,12 +789,12 @@ public partial class MainWindow : Window
         bool ambient = _ambientShown && _state?.IsPlaying != true;
         var weather = _weather.Current;
         // The idle clock's companion; gives way to media, the focus countdown and an upcoming event.
-        bool compactWeather = weather != null && !hasMedia && !_focus.IsActive && _upcomingText == null;
+        bool compactWeather = weather != null && !hasMedia && !CountdownActive && _upcomingText == null;
         Size compact = hasLyrics ? CompactLyrics
                      : hasMedia ? CompactMedia
                      : ambient ? CompactAmbient
                      : _upcomingText != null ? EventCompact()
-                     : _focus.IsActive ? CompactIdleTimer
+                     : CountdownActive ? CompactIdleTimer
                      : compactWeather ? CompactIdleWeather
                      : CompactIdle;
         // The privacy dots get their own space at the left edge of the closed notch, and the same
@@ -770,8 +805,10 @@ public partial class MainWindow : Window
         CompactView.Margin = new Thickness(12 + privacyRoom, 0, 12 + privacyRoom, 0);
         Size expanded = _page switch
         {
-            NotchPage.Agenda or NotchPage.Tasks or NotchPage.Shelf => ExpandedTall,
-            NotchPage.Media when hasLyrics => ExpandedTall,
+            NotchPage.Agenda or NotchPage.Tasks or NotchPage.Shelf or NotchPage.Timers or NotchPage.Clipboard
+                or NotchPage.Notes or NotchPage.Devices => ExpandedTall,
+            NotchPage.Media when hasLyrics => ExpandedMediaLyrics,
+            NotchPage.Media when hasMedia => ExpandedMedia,
             _ => ExpandedShort,
         };
         LayoutActivityPanel(expanded.Width);
@@ -813,6 +850,10 @@ public partial class MainWindow : Window
         WaterPage.Visibility = _page == NotchPage.Water ? Visibility.Visible : Visibility.Hidden;
         TasksPage.Visibility = _page == NotchPage.Tasks ? Visibility.Visible : Visibility.Hidden;
         ShelfPage.Visibility = _page == NotchPage.Shelf ? Visibility.Visible : Visibility.Hidden;
+        TimersPage.Visibility = _page == NotchPage.Timers ? Visibility.Visible : Visibility.Hidden;
+        ClipboardPage.Visibility = _page == NotchPage.Clipboard ? Visibility.Visible : Visibility.Hidden;
+        NotesPage.Visibility = _page == NotchPage.Notes ? Visibility.Visible : Visibility.Hidden;
+        DevicesPage.Visibility = _page == NotchPage.Devices ? Visibility.Visible : Visibility.Hidden;
 
         // Yata only fidgets beside the idle clock while it can be seen.
         if (_expanded && _page == NotchPage.Media && !hasMedia)
@@ -874,7 +915,7 @@ public partial class MainWindow : Window
     private Size EventCompact()
     {
         double timer = 0;
-        if (_focus.IsActive)
+        if (CountdownActive)
         {
             foreach (var part in new FrameworkElement[] { CompactTimerGlyph, CompactTimerText })
             {
@@ -887,7 +928,7 @@ public partial class MainWindow : Window
             new Typeface(CompactText.FontFamily, CompactText.FontStyle, CompactText.FontWeight, CompactText.FontStretch),
             CompactText.FontSize, Brushes.White, VisualTreeHelper.GetDpi(this).PixelsPerDip);
         double width = Math.Ceiling(24 + text.WidthIncludingTrailingWhitespace + 2 * timer);
-        return _focus.IsActive
+        return CountdownActive
             ? new Size(Math.Clamp(width, CompactIdleTimer.Width, CompactEventTimer.Width), CompactEvent.Height)
             : new Size(Math.Clamp(width, CompactIdle.Width, CompactEvent.Width), CompactEvent.Height);
     }
@@ -910,6 +951,11 @@ public partial class MainWindow : Window
         var panel = ActivityPanelRoom;
 
         double width = Math.Max(_width.Value, _width.Target) * overshoot + 2 * Ear + 2 * sideRoom + Math.Max(bubbleRoom, panel.Width);
+        // The width never changes for the usual sizes: wide enough for the open notch and the bubble from the
+        // start. Growing the window takes two steps (resize, then re-center), and the frame drawn in between
+        // showed the notch jumping sideways on hover. Only the height follows the notch (the top stays put).
+        double usual = ExpandedWidth * overshoot + 2 * Ear + 2 * sideRoom + 2 * (BubbleGap + BubbleWidth + Ear);
+        width = Math.Max(width, Math.Max(usual, Width));
         double height = Math.Max(Math.Max(_height.Value, _height.Target) * overshoot, Math.Max(_height.Value, _height.Target) + panel.Height) + bottomRoom;
         width = Math.Ceiling(width / 2) * 2; // Even, so centering doesn't shift the notch by half a pixel.
         height = Math.Ceiling(height);
@@ -1095,6 +1141,7 @@ public partial class MainWindow : Window
         if (_state == null)
             SetCompactText(upcoming ?? time);
 
+        UpdateCompactFont();
         IdleClock.Text = time;
         string date = now.ToString(Strings.Format_LongDate, Lang.Culture);
         HeaderDate.Text = char.ToUpper(date[0], Lang.Culture) + date[1..];

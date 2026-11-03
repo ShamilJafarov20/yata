@@ -160,6 +160,10 @@ public partial class App : Application
     {
         var menu = new Forms.ContextMenuStrip();
         menu.Items.Add(Strings.Tray_Open, null, (_, _) => _window?.OpenNotch());
+        // Hide the notch completely, or bring it back (also Ctrl+Alt+H by default).
+        var hide = new Forms.ToolStripMenuItem(Strings.Tray_Hide, null, (_, _) => _window?.ToggleHidden());
+        menu.Items.Add(hide);
+        menu.Opening += (_, _) => hide.Text = _window?.IsHiddenByUser == true ? Strings.Tray_Show : Strings.Tray_Hide;
         menu.Items.Add(Strings.Tray_Settings, null, (_, _) => _window?.OpenSettings());
         menu.Items.Add(Strings.Tray_CheckUpdates, null, (_, _) => _window?.CheckForUpdatesNow());
         menu.Items.Add(Strings.Tray_Demo, null, (_, _) => _window?.RunCompanionDemo());

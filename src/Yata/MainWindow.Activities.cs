@@ -291,7 +291,7 @@ public partial class MainWindow
 
     private void OnActivityPanelMouseLeave(object sender, MouseEventArgs e)
     {
-        if (_expanded && !IsCursorOverNotch() && !TasksPage.HasDraft)
+        if (_expanded && !IsCursorOverNotch() && !HasDraft)
             ScheduleExpanded(false, 350);
     }
 
