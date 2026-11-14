@@ -377,7 +377,10 @@ public sealed class NotificationMirrorTests : IDisposable
         mirror.Arrived += n => received.Add((n, Environment.CurrentManagedThreadId));
 
         mirror.Start();
-        Pump(dispatcher, TimeSpan.FromMilliseconds(300), () => false); // Lets the first poll note the old one.
+        // Lets the first poll note the old one. A fixed 300 ms wasn't always enough on a busy CI runner: the first
+        // poll opening the store came after Ana was added, took her as already seen, and the test failed.
+        var primed = typeof(NotificationMirror).GetField("_primed", BindingFlags.NonPublic | BindingFlags.Instance)!;
+        Pump(dispatcher, TimeSpan.FromSeconds(5), () => (bool)primed.GetValue(mirror)!);
         Add(Telegram, "Ana", "hi");
         Pump(dispatcher, TimeSpan.FromSeconds(5), () => received.Count > 0);
         mirror.Stop();
