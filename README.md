@@ -2,38 +2,82 @@
 
 **English** · [Português](README.pt-BR.md)
 
-> **About this fork.** This is a fork of [akaneni/yata](https://github.com/akaneni/yata) (MIT) that adds more ways to style and control the notch and a set of everyday tools. Everything below the "What this fork adds" section is the original Yata's README; credit for Yata itself goes to its author.
+**Yata, Shamil's edition** — a live notch at the top of the Windows screen, with themes, pixel companions beside the clock and a set of everyday tools: timers, clipboard, notes, devices and calls.
+
+<p align="center"><img src="docs/screenshots/en/aberto-musica.png" width="554" alt="Yata open on a song: cover, title, progress, controls, synced lyrics and the full row of pages"></p>
+
+<p align="center">
+  <a href="https://github.com/ShamilJafarov20/yata/releases/latest"><b>Download for Windows</b></a> ·
+  <a href="#what-this-fork-adds">What's new</a> ·
+  <a href="CHANGELOG.md">Changelog</a> ·
+  <a href="docs/screenshots/fork">All screenshots</a>
+</p>
+
+> **About this fork.** Built by [ShamilJafarov20](https://github.com/ShamilJafarov20) on top of [akaneni/yata](https://github.com/akaneni/yata) (MIT). This part of the README covers what the fork adds; everything below the line is the original Yata's README, and credit for Yata itself goes to its author.
 
 ## What this fork adds
 
-**Look and control**
-- **Themes**: 10 ready-made themes (Midnight, Liquid Glass, Graphite, Neon, Ocean, Forest, Sunset, Violet, Sakura, Paper), or your own five colors. **Liquid Glass** blurs and bends what's behind the notch, with a tint that adapts to bright backgrounds. It follows motion behind it smoothly (up to about 120 updates a second on a fast display), with a setting to lower that and save power.
+### Themes
+
+<p align="center"><img src="docs/fork/themes.png" alt="The same song in eight themes: Midnight, Graphite, Neon, Ocean, Sunset, Violet, Sakura and Paper"></p>
+
+- **10 ready-made themes** (Midnight, Liquid Glass, Graphite, Neon, Ocean, Forest, Sunset, Violet, Sakura, Paper), or your own five colors.
+- **Liquid Glass** blurs and bends what's behind the notch, with a tint that adapts to bright backgrounds. It follows motion behind it smoothly (up to about 120 updates a second on a fast display), with a setting to lower that and save power. It needs *Hide from recordings and screen sharing* on, which is also why it can't be shown in a screenshot.
 - **Clock styles**: eight number fonts (Thin, Bold, Condensed, Digital, Serif, Handwritten…) and three sizes.
-- **Clock companions**: Yata the raven or an original pixel character beside the clock (cat, ghost, robot, alien, frog, bat, masked hero), or **one you draw yourself** (a 16×14 editor with an eyes tool, mirror and picture import; kept on your PC). Each has its own moves (the cat flicks its tail, the robot scans, the bat flaps…), reacts with a line when you click it, says hello once a day, sleeps at night and dances in the closed notch while music plays.
-- **Keyboard shortcuts you choose** for: open and close, hide the notch completely, play/pause, next, previous, player volume, like on Spotify, microphone mute, silence call apps. Taken combinations are flagged.
-- **Hide completely**: one shortcut (Ctrl+Alt+H by default) or the tray menu takes the whole notch off the screen and back.
-- **Closed-notch badges**: network (Wi-Fi bars, Ethernet, offline), date, next alarm, next task, unread notifications, muted microphone, headphone battery and a download ring beside the clock, each shown only when it has something to say and switchable in Settings; an optional ticker alternates the clock with the date, the next task and the next alarm.
 
-**Music**
-- **The player's own volume**: a bar in the player that turns down only the app playing (YouTube in the browser, Spotify), not the game or the call. Works for free Spotify accounts.
-- **Switch players**: with two players open (Spotify and a YouTube tab), ⇄ switches between them; ✕ takes one off the notch until it plays again. Untitled media sessions (a game's sounds) no longer hide the real player.
-- **Cleaner browser titles**: "Song / Artist · Opera" instead of "Artist - Song (Official Video)".
-- **Spotify Web API (optional)**: like, shuffle and repeat, with your own Spotify app's Client ID.
+### Clock companions
 
-**Daily tools** (four new pages in the open notch)
+<p align="center"><img src="docs/fork/companions.png" alt="The idle clock with each companion beside it: Yata the raven, a cat, a robot, a ghost, a frog and a bat"></p>
+
+- **Yata the raven or an original pixel character** beside the clock: cat, ghost, robot, alien, frog, bat, masked hero.
+- **Or one you draw yourself**: a 16×14 editor with an eyes tool, mirror and picture import; kept on your PC.
+- **They're alive**: each has its own moves (the cat flicks its tail, the robot scans, the bat flaps…), reacts with a line when you click it, says hello once a day, sleeps at night and dances in the closed notch while music plays. The chosen one also keeps the shelf company.
+
+### Daily tools
+
+<p align="center"><img src="docs/fork/tools.png" alt="The four new pages: timers with an alarm and a running stopwatch, notes, the clipboard history, and devices and calls"></p>
+
+Four new pages in the open notch:
+
 - **Timers and alarms**: type "10m", "pizza 12m" or "7:30 daily"; a stopwatch with laps. Alarms ring during games too, without showing over them.
 - **Clipboard**: the last 12 copies (in memory only, password managers skipped); after Win+Shift+S the notch offers Copy / Save / Open.
 - **Notes**: a scratchpad saved as you type.
 - **Devices and calls**: Bluetooth headphone/mouse batteries, microphone mute and "silence call apps" for any app (Discord, Teams, games), Wi-Fi status and a speed test.
 
-**Automatic**
+### The closed notch
+
+<p align="center"><img src="docs/screenshots/fork/fork-closed-badges.png" width="526" alt="The closed notch while a song plays, with the network badge on the left and the date on the right"></p>
+
+- **Badges**: network (Wi-Fi bars, Ethernet, offline), date, next alarm, next task, unread notifications, muted microphone, headphone battery and a download ring beside the clock, each shown only when it has something to say and switchable in Settings. An optional ticker alternates the clock with the date, the next task and the next alarm.
+- **Keyboard shortcuts you choose** for: open and close, hide the notch completely, play/pause, next, previous, player volume, like on Spotify, microphone mute, silence call apps. Taken combinations are flagged.
+- **Hide completely**: one shortcut (Ctrl+Alt+H by default) or the tray menu takes the whole notch off the screen and back.
+
+### Music
+
+- **The player's own volume**: a bar in the player that turns down only the app playing (YouTube in the browser, Spotify), not the game or the call. Works for free Spotify accounts.
+- **Switch players**: with two players open (Spotify and a YouTube tab), ⇄ switches between them; ✕ takes one off the notch until it plays again. Untitled media sessions (a game's sounds) no longer hide the real player.
+- **Cleaner browser titles**: "Song / Artist · Opera" instead of "Artist - Song (Official Video)".
+- **Spotify Web API (optional)**: like, shuffle and repeat, with your own Spotify app's Client ID.
+
+### Automatic
+
 - **Game summary and game mode**: how long you played when a full-screen game ends; no notices or sounds during games except alarms and timers.
 - **Prayer times** (optional), computed on the PC from the weather city.
 - **Download progress** for browser downloads in the Downloads folder, beside the notch.
 - **Phone and app notifications** (optional) from Phone Link, Telegram, WhatsApp, Discord.
 - **Easier file drops**: the shelf stays open while it's the page, and a file dragged near the top of the screen opens it.
 
+### Privacy
+
 **What the new features read or send** (on top of the list further down): the Spotify Web API (only with your own Client ID, signed in), Cloudflare's speed test (only when you press *Test speed*), and, only if you turn them on, the clipboard (in memory) and Windows' own notification list (read-only, `wpndatabase.db`). Battery levels, Wi-Fi and game times are read on the PC; game minutes per day are kept in `data.json`.
+
+### Install this version
+
+Download `Yata-Setup-x.y.z.exe` from this fork's [Releases](https://github.com/ShamilJafarov20/yata/releases) and run it. It installs for your user only, fetches the .NET 10 Desktop Runtime from Microsoft if it's missing, and installs over the original Yata, keeping your data in `%LOCALAPPDATA%\Yata`. The installer isn't signed, so SmartScreen asks first: **More info** → **Run anyway**.
+
+Signing in to Google Calendar and Google Tasks needs the Google OAuth keys, which builds of this fork don't carry yet; everything else works without them.
+
+The screenshots are drawn by Yata itself with sample content (`tools/make-shots.ps1`); the fork's are in [docs/screenshots/fork](docs/screenshots/fork).
 
 ---
 
