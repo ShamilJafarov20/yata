@@ -19,10 +19,13 @@
 
 ### Themes
 
+<p align="center"><img src="docs/screenshots/fork/fork-glass.png" width="644" alt="Liquid Glass: the open notch over a colorful wallpaper, the colors behind it blurred and bent at the edges"></p>
+<p align="center"><img src="docs/screenshots/fork/fork-glass-closed.png" width="616" alt="Liquid Glass on the closed notch while a song plays"></p>
+
 <p align="center"><img src="docs/fork/themes.png" alt="The same song in eight themes: Midnight, Graphite, Neon, Ocean, Sunset, Violet, Sakura and Paper"></p>
 
 - **10 ready-made themes** (Midnight, Liquid Glass, Graphite, Neon, Ocean, Forest, Sunset, Violet, Sakura, Paper), or your own five colors.
-- **Liquid Glass** blurs and bends what's behind the notch, with a tint that adapts to bright backgrounds. It follows motion behind it smoothly (up to about 120 updates a second on a fast display), with a setting to lower that and save power. It needs *Hide from recordings and screen sharing* on, which is also why it can't be shown in a screenshot.
+- **Liquid Glass** blurs and bends what's behind the notch, with a tint that adapts to bright backgrounds. It follows motion behind it smoothly (up to about 120 updates a second on a fast display), with a setting to lower that and save power. It needs *Hide from recordings and screen sharing* on.
 - **Clock styles**: eight number fonts (Thin, Bold, Condensed, Digital, Serif, Handwritten…) and three sizes.
 
 ### Clock companions
