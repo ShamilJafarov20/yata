@@ -2,6 +2,10 @@
 
 O que mudou em cada versão do Yata. As notas completas (instalação, como conferir o arquivo e limitações conhecidas) ficam nas [versões do GitHub](https://github.com/akaneni/yata/releases).
 
+## 1.0.0 — 2026-11-14
+
+Primeira versão de [ShamilJafarov20/yata](https://github.com/ShamilJafarov20/yata), sobre a 0.7.1: temas (Liquid Glass entre eles), companheiros em pixel ao lado do relógio, páginas de timers, área de transferência, notas e dispositivos, selos no notch fechado e atalhos configuráveis. Detalhes no [CHANGELOG.md](CHANGELOG.md).
+
 ## 0.7.1 — 2026-10-29
 
 - **O ponto do microfone não fica mais preso.** Às vezes o Windows não avisa que um app parou de usar o microfone, e o ponto laranja ficava aceso sem ninguém gravando. Enquanto algum app aparece, o Yata confere de novo a cada poucos segundos.

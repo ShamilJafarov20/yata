@@ -2,7 +2,9 @@
 #   git tag v0.1.0 && git push origin v0.1.0
 # Code signing (SignPath Foundation) turns on once the SIGNPATH_ORGANIZATION_ID variable and the
 # SIGNPATH_API_TOKEN secret exist; until then releases stay unsigned. See docs/code-signing.md.
-# Every release gets a build provenance attestation (gh attestation verify <file> --repo akaneni/yata).
+# Every release gets a build provenance attestation (gh attestation verify <file> --repo ShamilJafarov20/yata).
+# The Google OAuth client (for Calendar and Tasks) is embedded when its secrets exist; without them the
+# release still goes out, with Google sign-in unavailable. Notes come from .github/release-notes/<version>.md..
 name: Release
 
 on:
@@ -24,6 +26,8 @@ env:
 jobs:
   release:
     runs-on: windows-latest
+    env:
+      HAS_GOOGLE: ${{ secrets.YATA_GOOGLE_CLIENT_ID != '' && secrets.YATA_GOOGLE_CLIENT_SECRET != '' }}
     steps:
       - uses: actions/checkout@v7
 
@@ -48,13 +52,13 @@ jobs:
           YATA_GOOGLE_CLIENT_ID: ${{ secrets.YATA_GOOGLE_CLIENT_ID }}
           YATA_GOOGLE_CLIENT_SECRET: ${{ secrets.YATA_GOOGLE_CLIENT_SECRET }}
         run: |
-          # v0.1.0 shipped without them because the secrets came later: refuse to release that way again.
           if (-not $env:YATA_GOOGLE_CLIENT_ID -or -not $env:YATA_GOOGLE_CLIENT_SECRET) {
-            throw "YATA_GOOGLE_CLIENT_ID / YATA_GOOGLE_CLIENT_SECRET secrets are missing"
+            Write-Warning "No Google OAuth secrets: this build can't sign in to Google Calendar and Tasks"
           }
           ./tools/build-installer.ps1 -Version $env:VERSION -PublishOnly
 
       - name: Check the Google client is in the build
+        if: env.HAS_GOOGLE == 'true'
         shell: pwsh
         # The single-file exe keeps Yata.dll uncompressed, so the metadata key is plain text in it.
         # Only presence is reported; the values never reach the log.
@@ -143,10 +147,19 @@ jobs:
         shell: pwsh
         run: Copy-Item "dist\Yata-Setup-$env:VERSION.exe" dist\Yata-Setup.exe
 
+      # Yata.exe and yata-cli.exe without the installer (needs the .NET 10 Desktop Runtime).
+      - name: Portable zip
+        shell: pwsh
+        run: |
+          $dir = "dist\Yata-$env:VERSION-portable"
+          New-Item -ItemType Directory -Force $dir | Out-Null
+          Copy-Item publish\Yata.exe, publish\yata-cli.exe $dir
+          Compress-Archive -Path $dir -DestinationPath "dist\Yata-$env:VERSION-portable.zip" -Force
+
       - name: Checksums
         shell: pwsh
         run: |
-          Get-ChildItem dist\*.exe | ForEach-Object {
+          Get-ChildItem dist\*.exe, dist\*.zip | ForEach-Object {
             "$((Get-FileHash $_ -Algorithm SHA256).Hash.ToLower())  $($_.Name)"
           } | Set-Content dist\SHA256SUMS.txt
 
@@ -157,7 +170,9 @@ jobs:
 
       - uses: softprops/action-gh-release@v3
         with:
+          name: Yata ${{ env.VERSION }}
+          body_path: .github/release-notes/${{ env.VERSION }}.md
           files: |
             dist/*.exe
+            dist/*.zip
             dist/SHA256SUMS.txt
-          generate_release_notes: true

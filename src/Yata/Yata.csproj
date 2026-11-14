@@ -14,7 +14,7 @@
     <ApplicationIcon>Assets\yata.ico</ApplicationIcon>
     <AssemblyName>Yata</AssemblyName>
     <RootNamespace>Yata</RootNamespace>
-    <Version>0.7.1</Version>
+    <Version>1.0.0</Version>
     <!-- Keep ProductVersion exactly the version ("0.1.1", not "0.1.1+commit"): code signing (SignPath)
          checks it against the release tag. -->
     <IncludeSourceRevisionInInformationalVersion>false</IncludeSourceRevisionInInformationalVersion>
