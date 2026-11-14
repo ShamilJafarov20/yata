@@ -8,7 +8,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   shots:
@@ -35,3 +35,15 @@ jobs:
         with:
           name: screenshots
           path: ${{ runner.temp }}/shots
+
+      # Also committed to this branch, so the images can be fetched with git alone.
+      - name: Commit
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force docs/screenshots-fork | Out-Null
+          Copy-Item "$env:RUNNER_TEMP\shots\en\*.png" docs/screenshots-fork/
+          git config user.name "github-actions[bot]"
+          git config user.email "41898283+github-actions[bot]@users.noreply.github.com"
+          git add docs/screenshots-fork
+          git commit -m "Screenshots from the Windows runner"
+          git push
