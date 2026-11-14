@@ -194,10 +194,10 @@ try {
         Remove-Item Env:YATA_DATA_DIR
         $done = Join-Path $shots "done.txt"
         $clock = [Diagnostics.Stopwatch]::StartNew()
-        while (-not (Test-Path $done) -and $clock.Elapsed.TotalMinutes -lt 3) { Start-Sleep -Milliseconds 500 }
+        while (-not (Test-Path $done) -and $clock.Elapsed.TotalMinutes -lt 8) { Start-Sleep -Milliseconds 500 }
         if (-not $process.HasExited) { $process.WaitForExit(10000) | Out-Null }
         if (-not $process.HasExited) { $process | Stop-Process -Force }
-        $result = if (Test-Path $done) { Get-Content $done } else { "sem resposta em 3 min" }
+        $result = if (Test-Path $done) { Get-Content $done } else { "sem resposta em 8 min" }
         if ($result -ne "ok") { throw "$language`: $result" }
 
         $target = Join-Path $OutDir $language

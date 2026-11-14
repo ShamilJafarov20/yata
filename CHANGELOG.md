@@ -2,6 +2,18 @@
 
 What changed in each version of Yata. The full notes (installing, checking the file and known limitations) are on [GitHub releases](https://github.com/akaneni/yata/releases), in Portuguese.
 
+## 0.8.0 — Shamil's edition — 2026-11-14
+
+The first version of [ShamilJafarov20/yata](https://github.com/ShamilJafarov20/yata), on top of 0.7.1. Details and screenshots in the [README](README.md#what-this-fork-adds).
+
+- **Themes.** Ten ready-made themes, Liquid Glass among them, or your own five colors; eight clock fonts in three sizes.
+- **Clock companions.** Yata or a pixel character beside the clock (cat, ghost, robot, alien, frog, bat, masked hero), or one you draw; they move, react to a click, sleep at night and dance while music plays.
+- **Daily tools.** New pages for timers and alarms, the clipboard, notes, and devices and calls.
+- **The closed notch.** Badges for network, date, next alarm and task, notifications, the muted microphone, headphone battery and downloads; shortcuts you choose; Ctrl+Alt+H hides the notch completely.
+- **Music.** The player's own volume, switching between two players, cleaner browser titles and optional Spotify like, shuffle and repeat.
+- **Automatic.** Game summary and game mode, optional prayer times, download progress, optional phone and app notifications, easier file drops.
+- **Screenshots of all of it**, drawn by `tools/make-shots.ps1` like the rest.
+
 ## 0.7.1 — 2026-10-29
 
 - **The microphone dot no longer gets stuck.** Windows sometimes doesn't say an app stopped using the microphone, and the orange dot stayed on with nobody recording. While an app is shown, Yata now checks again every few seconds.
