@@ -1,126 +1,81 @@
-<h1><img src="docs/brand/yata-lockup.svg" alt="Yata" height="56"></h1>
+<p align="center"><img src="docs/brand/yata-lockup.svg" alt="Yata" height="64"></p>
 
-**English** · [Português](README.pt-BR.md)
-
-**Yata, Shamil's edition** — a live notch at the top of the Windows screen, with themes, pixel companions beside the clock and a set of everyday tools: timers, clipboard, notes, devices and calls.
-
-<p align="center"><img src="docs/screenshots/en/aberto-musica.png" width="554" alt="Yata open on a song: cover, title, progress, controls, synced lyrics and the full row of pages"></p>
+<p align="center"><b>A live notch for Windows.</b><br>
+What's playing with synced lyrics, your next meeting, timers, notes and a pixel raven by the clock — at the top of the screen, right below the camera, out of the way until you need it.</p>
 
 <p align="center">
-  <a href="https://github.com/ShamilJafarov20/yata/releases/latest"><b>Download for Windows</b></a> ·
-  <a href="#what-this-fork-adds">What's new</a> ·
-  <a href="CHANGELOG.md">Changelog</a> ·
-  <a href="docs/screenshots/fork">All screenshots</a>
+  <a href="https://github.com/ShamilJafarov20/yata/releases/latest"><img src="https://img.shields.io/github/v/release/ShamilJafarov20/yata?label=release&color=0A84FF" alt="Latest release"></a>
+  <a href="https://github.com/ShamilJafarov20/yata/releases"><img src="https://img.shields.io/github/downloads/ShamilJafarov20/yata/total?color=4ADE80" alt="Downloads"></a>
+  <img src="https://img.shields.io/badge/Windows-10%20%7C%2011-555" alt="Windows 10 and 11">
+  <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-555" alt="MIT license"></a>
 </p>
 
-> **About this fork.** Built by [ShamilJafarov20](https://github.com/ShamilJafarov20) on top of [akaneni/yata](https://github.com/akaneni/yata) (MIT). This part of the README covers what the fork adds; everything below the line is the original Yata's README, and credit for Yata itself goes to its author.
+<p align="center"><a href="https://github.com/ShamilJafarov20/yata/releases/latest"><b>⬇ Download for Windows</b></a> · <a href="#install">How to install</a> · <a href="CHANGELOG.md">What's new</a></p>
 
-## What this fork adds
+<p align="center"><img src="docs/screenshots/fork/fork-glass.png" width="644" alt="Yata open on a song in the Liquid Glass theme, over a colorful wallpaper: cover, controls and synced lyrics, the wallpaper blurred and bent at the notch's edges"></p>
 
-### Themes
+Open source, no account, no telemetry. Free.
 
-<p align="center"><img src="docs/screenshots/fork/fork-glass.png" width="644" alt="Liquid Glass: the open notch over a colorful wallpaper, the colors behind it blurred and bent at the edges"></p>
+## Highlights
+
+- **Music, front and center** — any player that uses the Windows media controls (Spotify, YouTube in the browser…), with synced lyrics and a volume bar for just that app.
+- **Ten themes**, Liquid Glass among them, or your own colors.
+- **A companion by the clock** — Yata the raven, a cat, a robot, a ghost… or one you draw.
+- **Daily tools** — timers and alarms, clipboard history, notes, devices and calls.
+- **Your day** — Google Calendar with a Join button, Pomodoro focus, water, tasks with reminders, a file shelf.
+- **Knows when to be quiet** — hides in games and full screen, stays out of screen sharing, keeps reminders for later.
+- **Talks to your tools** — scripts and AI agents (Claude Code, Cursor, Codex) show their progress beside the notch.
+
+## Themes
+
 <p align="center"><img src="docs/screenshots/fork/fork-glass-closed.png" width="616" alt="Liquid Glass on the closed notch while a song plays"></p>
 
 <p align="center"><img src="docs/fork/themes.png" alt="The same song in eight themes: Midnight, Graphite, Neon, Ocean, Sunset, Violet, Sakura and Paper"></p>
 
-- **10 ready-made themes** (Midnight, Liquid Glass, Graphite, Neon, Ocean, Forest, Sunset, Violet, Sakura, Paper), or your own five colors.
-- **Liquid Glass** blurs and bends what's behind the notch, with a tint that adapts to bright backgrounds. It follows motion behind it smoothly (up to about 120 updates a second on a fast display), with a setting to lower that and save power. It needs *Hide from recordings and screen sharing* on.
-- **Clock styles**: eight number fonts (Thin, Bold, Condensed, Digital, Serif, Handwritten…) and three sizes.
+Ten ready-made themes — Midnight, **Liquid Glass**, Graphite, Neon, Ocean, Forest, Sunset, Violet, Sakura, Paper — or your own five colors. Liquid Glass blurs and bends whatever is behind the notch, with a tint that adapts to bright backgrounds so the text stays readable, and follows motion behind it at up to ~120 frames a second (adjustable, to save power). The clock comes in eight fonts (Thin, Bold, Condensed, Digital, Serif, Handwritten…) and three sizes.
 
-### Clock companions
+## Clock companions
 
 <p align="center"><img src="docs/fork/companions.png" alt="The idle clock with each companion beside it: Yata the raven, a cat, a robot, a ghost, a frog and a bat"></p>
 
-- **Yata the raven or an original pixel character** beside the clock: cat, ghost, robot, alien, frog, bat, masked hero.
-- **Or one you draw yourself**: a 16×14 editor with an eyes tool, mirror and picture import; kept on your PC.
-- **They're alive**: each has its own moves (the cat flicks its tail, the robot scans, the bat flaps…), reacts with a line when you click it, says hello once a day, sleeps at night and dances in the closed notch while music plays. The chosen one also keeps the shelf company.
+Yata the raven or an original pixel character sits by the clock: cat, ghost, robot, alien, frog, bat, masked hero — or **one you draw yourself** in a 16×14 editor (with an eyes tool, mirror and picture import). Each one has its own moves (the cat flicks its tail, the robot scans, the bat flaps…), answers when you click it, says hello once a day, sleeps at night and dances in the closed notch while music plays.
 
-### Daily tools
+## Daily tools
 
-<p align="center"><img src="docs/fork/tools.png" alt="The four new pages: timers with an alarm and a running stopwatch, notes, the clipboard history, and devices and calls"></p>
+<p align="center"><img src="docs/fork/tools.png" alt="Timers with an alarm and a running stopwatch, notes, the clipboard history, and devices and calls"></p>
 
-Four new pages in the open notch:
+- **Timers and alarms** — type "10m", "pizza 12m" or "7:30 daily"; a stopwatch with laps. Alarms ring during games too, without popping over them.
+- **Clipboard** — the last 12 copies, in memory only (password managers are skipped). After Win+Shift+S the notch offers Copy / Save / Open.
+- **Notes** — a scratchpad saved as you type.
+- **Devices and calls** — Bluetooth headphone and mouse batteries, microphone mute and "silence call apps" for any app (Discord, Teams, games), Wi-Fi status and a speed test.
 
-- **Timers and alarms**: type "10m", "pizza 12m" or "7:30 daily"; a stopwatch with laps. Alarms ring during games too, without showing over them.
-- **Clipboard**: the last 12 copies (in memory only, password managers skipped); after Win+Shift+S the notch offers Copy / Save / Open.
-- **Notes**: a scratchpad saved as you type.
-- **Devices and calls**: Bluetooth headphone/mouse batteries, microphone mute and "silence call apps" for any app (Discord, Teams, games), Wi-Fi status and a speed test.
+## Your day
 
-### The closed notch
+<p align="center"><img src="docs/fork/everyday.png" alt="The Calendar, Focus, Tasks, Shelf and Water pages"></p>
 
-<p align="center"><img src="docs/screenshots/fork/fork-closed-badges.png" width="526" alt="The closed notch while a song plays, with the network badge on the left and the date on the right"></p>
+- **Calendar** — today and tomorrow from Google Calendar, a **Join** button for Meet, Zoom and Teams, and "Standup in 8 min" in the closed notch.
+- **Focus** — Pomodoro with a countdown in the notch, tied to a task, against a daily goal.
+- **Tasks** — a time in the text ("Call Ana at 3pm") becomes a reminder; optional sync with Google Tasks.
+- **Water** — a daily goal and gentle hourly reminders, if you want them.
+- **File shelf** — drop files on the notch, drag them out into any app later.
 
-- **Badges**: network (Wi-Fi bars, Ethernet, offline), date, next alarm, next task, unread notifications, muted microphone, headphone battery and a download ring beside the clock, each shown only when it has something to say and switchable in Settings. An optional ticker alternates the clock with the date, the next task and the next alarm.
-- **Keyboard shortcuts you choose** for: open and close, hide the notch completely, play/pause, next, previous, player volume, like on Spotify, microphone mute, silence call apps. Taken combinations are flagged.
-- **Hide completely**: one shortcut (Ctrl+Alt+H by default) or the tray menu takes the whole notch off the screen and back.
+## The closed notch
 
-### Music
+<p align="center"><img src="docs/fork/closed.png" width="620" alt="The closed notch in six states: the clock, a song with the next meeting in a bubble, badges, a volume notice, an AI agent that finished, and the summary of what happened while you were away"></p>
 
-- **The player's own volume**: a bar in the player that turns down only the app playing (YouTube in the browser, Spotify), not the game or the call. Works for free Spotify accounts.
-- **Switch players**: with two players open (Spotify and a YouTube tab), ⇄ switches between them; ✕ takes one off the notch until it plays again. Untitled media sessions (a game's sounds) no longer hide the real player.
-- **Cleaner browser titles**: "Song / Artist · Opera" instead of "Artist - Song (Official Video)".
-- **Spotify Web API (optional)**: like, shuffle and repeat, with your own Spotify app's Client ID.
+- **Badges** for network, date, next alarm and task, unread notifications, a muted microphone, headphone battery and downloads — each only when it has something to say. An optional ticker alternates the clock with them.
+- **System notices** for volume, brightness, charger and battery, audio output, Caps Lock and keyboard language — with no keyboard hook.
+- **A bubble beside the notch**, like the iPhone's island splitting in two, for the next meeting, the focus countdown and other programs' activities.
+- **Your shortcuts** for open/close, hide the notch completely (Ctrl+Alt+H), play/pause, next, previous, player volume, like on Spotify, microphone mute and silencing call apps.
 
-### Automatic
+## Meet Yata
 
-- **Game summary and game mode**: how long you played when a full-screen game ends; no notices or sounds during games except alarms and timers.
-- **Prayer times** (optional), computed on the PC from the weather city.
-- **Download progress** for browser downloads in the Downloads folder, beside the notch.
-- **Phone and app notifications** (optional) from Phone Link, Telegram, WhatsApp, Discord.
-- **Easier file drops**: the shelf stays open while it's the page, and a file dragged near the top of the screen opens it.
+<p align="center"><img src="docs/yata.gif" alt="Yata's repertoire in the notch"></p>
 
-### Privacy
+Yata is a 1-bit pixel-art raven, named after **Yatagarasu** (八咫烏), the messenger crow of Japanese mythology. It blinks, looks around and naps when you're away, caws when it brings a reminder, and flies in with a letter of what you missed when you come back.
 
-**What the new features read or send** (on top of the list further down): the Spotify Web API (only with your own Client ID, signed in), Cloudflare's speed test (only when you press *Test speed*), and, only if you turn them on, the clipboard (in memory) and Windows' own notification list (read-only, `wpndatabase.db`). Battery levels, Wi-Fi and game times are read on the PC; game minutes per day are kept in `data.json`.
-
-### Install this version
-
-Download `Yata-Setup-x.y.z.exe` from this fork's [Releases](https://github.com/ShamilJafarov20/yata/releases) and run it. It installs for your user only, fetches the .NET 10 Desktop Runtime from Microsoft if it's missing, and installs over the original Yata, keeping your data in `%LOCALAPPDATA%\Yata`. The installer isn't signed, so SmartScreen asks first: **More info** → **Run anyway**.
-
-Signing in to Google Calendar and Google Tasks needs the Google OAuth keys, which builds of this fork don't carry yet; everything else works without them.
-
-The screenshots are drawn by Yata itself with sample content (`tools/make-shots.ps1`); the fork's are in [docs/screenshots/fork](docs/screenshots/fork).
-
----
-
-![Yata, a pixel-art raven, perched in front of a dithered sun](docs/yata-hero.png)
-
-A live notch at the top of the Windows screen, right below the camera: it shows what's playing, the time and your reminders, and gets out of the way when it isn't needed. Website: **[getyata.app](https://getyata.app)**.
-
-The name comes from **Yatagarasu** (八咫烏), the messenger and guide crow of Japanese mythology — a relative of Huginn and Muninn, the ravens who fly over the world and come back to tell what they saw. That's what Yata does: it sits up there and brings you the news.
-
-Open source, no account and no telemetry.
-
-**Local data:** tasks, the water log, focus time per day and shelf paths are kept in `%LOCALAPPDATA%\Yata\data.json`. A diagnostic log (errors and what each part of the app did, with no songs, tasks, events, paths or accounts) is kept in `%LOCALAPPDATA%\Yata\logs` for 7 days, for you to attach to an issue if you want.
-
-**Network access:** only what you turn on, and nothing about the PC is sent:
-- lyrics lookup on [LRCLIB](https://lrclib.net) (an open, free service), sending only the artist, title and length of the song. Lyrics are cached in `%LOCALAPPDATA%\Yata\lyrics`. Can be turned off in Settings.
-- new version notice: **off by default**. When on, it checks GitHub's [public releases page](https://github.com/ShamilJafarov20/yata/releases) once a day. **Check now** (Settings → Updates, or the tray menu) asks right away, on or off. Updating takes one click (**Update and restart** in Settings): the installer comes from GitHub and is checked against its published SHA-256 before it runs; once Yata is code-signed, it also has to carry the same publisher's signature.
-- **weather** from [Open-Meteo](https://open-meteo.com) (open, no account or key), only if you turn it on: sends the chosen city's coordinates, rounded to ~1 km. The city search sends only the name you type.
-- **Google Calendar and Google Tasks**, only if you connect your account and allow each one: reading your calendars and today's and tomorrow's events, and syncing one task list, directly between the PC and Google. The access is encrypted with DPAPI in `%LOCALAPPDATA%\Yata\google.dat` and events stay in memory only. Details in [PRIVACY.md](PRIVACY.md).
-
-## Identity
-
-- **Minimal and monochrome**: black notch, white text; the album art's color is the only accent.
-- **Yata**: a 1-bit pixel-art raven (16×14), white on the notch's black. Hand-drawn in `Views/RavenSprite.cs`; the app icon is generated from the same sprite (`tools/make-icon.ps1`).
-- **Repertoire**: blinks, looks back, settles its feathers and, now and then, looks up, stretches a wing or hops; sleeps breathing slowly; caws when it brings a reminder, shakes off water when the water goal is reached and arrives with a letter when it brings the news.
-- **Logo**: "yata" in pixel letters on the raven's grid, with a 2 px stroke; the tail of the "y" goes down at the same angle as Yata's back, and Yata perches on the text's baseline. White, black and light/dark-theme versions in `docs/brand/`, generated by `tools/make-brand.ps1` from the sprite itself (along with the favicon and the site's link preview).
-- **Website type**: DotGothic16 for headings (pixel, with the 八咫烏), Geist for text and Geist Mono for details.
-- **Larger art** (README and installer): the same stroke at twice the resolution and with three legs, like the Yatagarasu of the myth, in front of a 1-bit dithered sun. Made with PhotoCraft from the ArtCraft suite (`tools/make-art.ps1`); the GIF below comes from the sprite itself and is encoded with EffectCraft (`tools/make-gif.ps1`).
-
-![Yata's repertoire in the notch](docs/yata.gif)
-
-## Screenshots
-
-<p align="center"><img src="docs/screenshots/en/fechado-musica.png" width="448" alt="Yata closed while a song plays: cover, the line being sung, the equalizer and a meeting countdown in a bubble"></p>
-<p align="center"><img src="docs/screenshots/en/aberto-musica.png" width="554" alt="Yata open on a song: cover, title, progress, controls and the synced lyrics underneath"></p>
-<p align="center"><img src="docs/screenshots/en/aberto-foco.png" width="554" alt="The Focus tab: countdown, the task for the session, today against a 2-hour goal and the week"></p>
-<p align="center"><img src="docs/screenshots/en/aberto-tarefas.png" width="554" alt="The Tasks tab: tasks, one with a 3:30 PM reminder and one done"></p>
-
-Drawn by Yata itself, with sample content, by `tools/make-shots.ps1`; every state is in [docs/screenshots](docs/screenshots).
-
-## Features (v0.1)
+<details>
+<summary><b>Everything Yata does</b></summary>
 
 - **Welcome**: the first time, Settings open with what the notch can do and the choices that are yours (water reminders, new version notice). The tray menu has **Open Yata**.
 - **English and Portuguese**: follows the Windows language (Portuguese on any Portuguese Windows, English everywhere else), or pick one in Settings → Language.
@@ -133,7 +88,7 @@ Drawn by Yata itself, with sample content, by `tools/make-shots.ps1`; every stat
 - **Ctrl+Alt+Y shortcut** opens and closes the notch from anywhere. **Ctrl+Alt+J** (off by default) goes to the window of the activity that needs you, and pressed again, to the next one. Both use `RegisterHotKey`: Windows reports only those combinations.
 - **Multiple displays**: choose in Settings which display the notch sits on; it respects each display's scaling.
 - **Tabs in the open notch**: Media, Calendar, Focus, Water, Tasks and Shelf.
-- **Calendar (Google)**: connect your Google account (OAuth, read-only) and choose which calendars appear. The tab shows today and tomorrow, highlights the ongoing event and has a **Join** button for Meet, Zoom and Teams calls. The closed notch shows "Standup in 8 min" in the 15 minutes before, and a notice (with sound) arrives a configurable few minutes before, plus another when the event starts. Declined invitations don't appear. To register the app with Google, see [docs/google-calendar.md](docs/google-calendar.md) (in Portuguese).
+- **Calendar (Google)**: connect your Google account (OAuth, read-only) and choose which calendars appear. The tab shows today and tomorrow, highlights the ongoing event and has a **Join** button for Meet, Zoom and Teams calls. The closed notch shows "Standup in 8 min" in the 15 minutes before, and a notice (with sound) arrives a configurable few minutes before, plus another when the event starts. Declined invitations don't appear. To register the app with Google, see [docs/google-calendar.md](docs/google-calendar.md).
 - **Weather** (off by default): pick the city by name or, if you prefer, with a single reading of the Windows location (rounded to ~1 km right away, never stored precisely). No IP geolocation. 1-bit pixel-art icons in Yata's style. The closed notch shows the icon and temperature next to the clock; open with no music, it shows the condition, high/low and expected rain. A notice arrives when the chance of rain goes over 60% in the next 2 hours. Weather data: [Open-Meteo.com](https://open-meteo.com) (CC BY 4.0).
 - **Focus (Pomodoro)**: 25 min of focus / 5 min break, a 15 min long break every 4 sessions, a sound at the end of each phase and a countdown in the compact notch. Explicit controls for each state: **Start**, **Pause**, **Resume**, **Stop** and **Skip break**; when paused, the ring dims and the time pulses gently (and the compact notch shows ⏸). Pick the task the session is for from the Tasks tab and tick it off right there; beside it, today's focus against a daily goal (2 h by default, in Settings) and the last 7 days.
 - **Water**: a daily goal, a +250 ml button, a chart of the last 7 days and an optional hourly reminder (8:00–22:00) until the goal is reached (off until you turn it on, on the welcome card or in Settings).
@@ -150,191 +105,53 @@ Drawn by Yata itself, with sample content, by `tools/make-shots.ps1`; every stat
 - **Now, not at the next round**: **Check now** for a new version (Settings → Updates, or the tray menu, even with the daily check off); **↻** on the Agenda and Tasks tabs and **Sync now** in Settings read Google at once; **Refresh now** fetches the forecast. Each shows when it last ran, and a second click within 15 seconds doesn't go online again.
 - Reminders that arrive while the notch is open or in full screen wait and show up afterwards, one at a time, instead of being lost. A status blip (volume, Caps Lock) shows at once and the reminder it interrupted comes back right after.
 - **Bubble beside the notch**: like the iPhone's island splitting in two, a second small notch, a pill with what it is on one end (the program's icon, the agent's logo) and how it's going on the other, carries what doesn't fit in the first: while music has the notch, the focus countdown (a ring emptying around the minutes left) and the next meeting move there, and so do other programs' activities. One at a time, by priority (what needs you, the meeting, focus, activities); hover it to see what it is and how many others are waiting. Clicking an activity takes you to the window it came from (the terminal where the agent asks for a permission, say), and you answer there. While the notch is open, the bubble grows into a second notch beside it that lists every activity, each with a way to its window and a way to dismiss it.
-- **Activities from other programs** (scripts, builds, AI agents): they can show their progress in the bubble with `yata-cli`. See [Activities](#activities) below. Can be turned off in Settings.
+- **Activities from other programs** (scripts, builds, AI agents): they can show their progress in the bubble with `yata-cli`. See [Activities](docs/DEVELOPMENT.md#activities) below. Can be turned off in Settings.
 - **Hides in full screen** (videos, games, presentations).
 - **Out of screen sharing and recordings**: in a Teams/Meet/Zoom call, an OBS stream or a screenshot, the notch isn't captured, so the next meeting, your tasks and your agent's project don't show up for others (you still see it). On by default; `--show` keeps the notch capturable for previews.
 - **The chime comes with the reminder**: a reminder held back by a game in full screen chimes when it shows, not in the middle of the match. No chime while the microphone is in use (a call) or Windows says not to disturb, and it can be turned off. A held reminder that's no longer true ("Daily in 5 min" after the meeting started) is dropped instead of shown late.
 - Doesn't steal focus and doesn't show in Alt+Tab or the taskbar. Quit from the tray icon.
 
+**Also:** the player's own volume (turns down only the app playing, not the game or the call); switching between two players with ⇄; cleaner browser titles ("Song / Artist · Opera"); optional Spotify like, shuffle and repeat with your own Client ID; a game summary and a game mode with no notices except alarms; optional prayer times; download progress beside the notch; optional phone and app notifications from Phone Link, Telegram, WhatsApp and Discord.
+
+</details>
+
 ## Install
 
-Download `Yata-Setup-x.y.z.exe` from [Releases](https://github.com/akaneni/yata/releases) (~3 MB). The installer:
+1. Download **`Yata-Setup-x.y.z.exe`** from [Releases](https://github.com/ShamilJafarov20/yata/releases/latest) (~4 MB) and run it.
+2. Windows SmartScreen will warn because the installer isn't signed yet: click **More info**, then **Run anyway**.
+3. That's it. Yata installs for your user only (no administrator rights) and starts at the top of the screen.
 
-- installs for your user only, without asking for administrator rights;
-- if the **.NET 10 Desktop Runtime** is missing, downloads it straight from Microsoft, checks that Microsoft signed it, and installs it (that step asks for administrator rights);
-- offers to start with Windows and a desktop shortcut;
-- on uninstall, removes the app and the automatic start but **keeps your data** in `%LOCALAPPDATA%\Yata`.
+If the **.NET 10 Desktop Runtime** is missing, the installer downloads it from Microsoft, checks Microsoft's signature and installs it (that one step asks for administrator rights). It installs over the original Yata, and uninstalling keeps your data in `%LOCALAPPDATA%\Yata`. A **portable** zip is on every release too; it needs the .NET 10 Desktop Runtime installed.
 
-The installer isn't digitally signed yet, so Windows SmartScreen may warn on the first run: choose **More info**, then **Run anyway**. To check the file first:
+**Check the download:** `Get-FileHash .\Yata-Setup-x.y.z.exe` in PowerShell must match the release's `SHA256SUMS.txt`, and `gh attestation verify Yata-Setup-x.y.z.exe --repo ShamilJafarov20/yata` confirms it was built by GitHub Actions from this repository.
 
-- **Checksum:** in PowerShell, `Get-FileHash .\Yata-Setup-x.y.z.exe` must match the line in the release's `SHA256SUMS.txt`.
-- **Provenance:** every installer is built by GitHub Actions from this repository and carries a build provenance attestation. With the [GitHub CLI](https://cli.github.com), `gh attestation verify Yata-Setup-x.y.z.exe --repo akaneni/yata` confirms which workflow run and commit built it.
+**Requirements:** Windows 10 (2004 or newer) or Windows 11, 64-bit.
 
-The SignPath Foundation, which signs open-source projects for free, declined Yata in October 2026 for lack of public visibility; Yata will apply again as it grows. See the [code signing policy](https://getyata.app/code-signing) and [docs/code-signing.md](docs/code-signing.md) (in Portuguese).
+> Signing in to Google Calendar and Google Tasks needs Google OAuth keys, which this repository's builds don't carry yet; everything else works without them.
 
-## Requirements
+## Privacy
 
-- Windows 10 (2004+) or 11, x64
-- [.NET 10 SDK](https://dotnet.microsoft.com/download) to build
+Everything stays on your PC: tasks, water, focus time and shelf paths in `%LOCALAPPDATA%\Yata\data.json`, and a 7-day diagnostic log with no songs, tasks, events, paths or accounts. Yata goes online only for what you turn on:
 
-## Build and run
+- **Lyrics** from [LRCLIB](https://lrclib.net) — only the artist, title and length of the song.
+- **Weather** from [Open-Meteo](https://open-meteo.com) — the city's coordinates, rounded to ~1 km. Off by default.
+- **Google Calendar and Tasks** — directly between the PC and Google, the access encrypted with DPAPI.
+- **New version notice** — this repository's public releases page, once a day. Off by default.
+- **Spotify Web API** (with your own Client ID) and **Cloudflare's speed test** (only when you press *Test speed*).
+
+The clipboard history (in memory) and Windows' notification list (read-only) are read only if you turn them on. Details in [PRIVACY.md](PRIVACY.md).
+
+## Build from source
 
 ```powershell
 dotnet run --project src/Yata
-```
-
-Google Calendar and Tasks need your own OAuth client, which isn't in the repository. Without it, the rest of the app works normally. See [docs/google-calendar.md](docs/google-calendar.md).
-
-Automated tests (Pomodoro, lyrics, tasks, water, presence, player choice, version notice, calendar and translations, with a simulated clock and no network). They also run on GitHub Actions on every push:
-
-```powershell
 dotnet test
 ```
 
-### Activities
+The activities API, the AI agent hooks, translations, the code's structure and how releases are made are in [docs/DEVELOPMENT.md](docs/DEVELOPMENT.md). The screenshots are drawn by Yata itself with sample content (`tools/make-shots.ps1`).
 
-Any script or program running as you on this PC can put an activity beside the notch with `yata-cli.exe`, installed next to `Yata.exe` (`%LOCALAPPDATA%\Programs\Yata`). The installer can add that folder to your PATH (an option, off by default) so `yata-cli` works from any terminal:
+## Credits
 
-```powershell
-yata-cli activity set build --title "Build" --text "compiling" --progress 40% --icon code
-yata-cli activity set build --title "Build" --progress 0.8
-yata-cli activity done build --title "Build" --text "ok"     # a check, then it goes away
-yata-cli activity attention agent --title "Claude Code" --text "waiting for you" --icon agent
-yata-cli activity end agent
-```
+Made by [ShamilJafarov20](https://github.com/ShamilJafarov20). Built on [Yata by akaneni](https://github.com/akaneni/yata), which created the notch, the raven and its art; this version adds the themes, companions, daily tools, badges and more. Third-party notices are in [THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md).
 
-It's a console program, so PowerShell, cmd, bash and AI agents wait for it and get its exit code and error messages; `Yata.exe` itself doesn't take commands. `yata-cli --help` lists everything.
-
-- Actions: `set` (running), `attention` (needs you: warning color, and a notice that waits to be seen), `done`, `fail` (failed: warning color), `end`.
-- **Send `--title` every time.** A running activity nobody updates goes away after 10 minutes (`--ttl` changes it, up to 24 h), and an id that's gone needs its title to come back. `attention` and `fail` stay until ended (up to 1 h); `done` stays 12 s. `end` on an id that's already gone is fine.
-- Icons: `activity`, `code`, `build`, `download`, `upload`, `sync`, `agent`, `bell`, `timer`, and the agents' marks `claude`, `cursor`, `codex`. A fixed set: programs can't send images or arbitrary glyphs.
-- Text is one plain line (titles up to 60 characters, text up to 120); control, invisible and direction-changing characters are removed.
-- At most 8 activities at a time, and 60 requests per 10 s. Nothing is printed on success.
-- Exit codes: 0 shown, 1 bad arguments (unknown option, icon or value), 2 Yata isn't running, 3 refused by Yata (the reason is printed).
-- How it works: a named pipe that only your Windows user can open and that refuses network access. Activities live in memory only; their text isn't logged.
-
-### AI agents: Claude Code, Cursor and Codex
-
-Yata can show what your coding agent is doing — **working**, **waiting for you** (needs a permission, or your answer) and **done** — one bubble per session, titled with the program it runs in and the project folder ("Orca · yata", "Windows Terminal · api") and marked with the agent's logo (never recolored), so you tell them apart at a glance; a small ✓, ✗ or ! in its corner says done, failed or waiting for you. The logos only say where a notice comes from: Yata isn't affiliated with Anthropic, Anysphere or OpenAI (see [THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md)). The agent's hooks call `yata-cli hook <agent>`; only the state goes to the notch, never your prompts, commands or the agent's answers. If Yata isn't running, the hook returns at once, and it never blocks or changes the agent (it always exits 0 and prints only the neutral answer some events expect).
-
-**The easy way: Settings → AI agents.** One switch per agent found on the PC (Claude Code, Cursor, Codex). Yata adds its hooks to the agent's own settings file, next to whatever is there, keeps a copy of the file before each change (`.yata-backup`), and turning the switch off removes only what it added. New sessions pick it up. Also there:
-- **Claude Code in WSL → Choose…** lists the WSL distros that have Claude Code; check the ones you want. Each gets the same hooks, calling `yata-cli.exe` through `/mnt/c`, and a `yata-cli` link in `~/.local/bin` for the skill. A distro that can't reach Windows (no `/mnt/c` access) is listed but can't be turned on.
-- **yata-cli on PATH**, the same as the installer option (silent updates don't show it), for scripts and Codex.
-- Uninstalling Yata takes its hooks out of Claude Code, Cursor and Codex on Windows, so none is left pointing at a removed `yata-cli.exe`. WSL distros keep theirs: turn them off in Settings first.
-
-**By hand**, with `yata-cli` on PATH:
-
-- **Claude Code**: install the plugin, which brings the hooks and the skill below:
-  ```
-  /plugin marketplace add akaneni/yata
-  /plugin install yata@yata
-  ```
-  Or add the hooks yourself: `yata-cli hook setup claude` prints them for `%USERPROFILE%\.claude\settings.json`. If the plugin is on, Settings shows Claude Code as on through it and leaves it alone.
-- **WSL by hand**: in the distro, `ln -s /mnt/c/Users/<you>/AppData/Local/Programs/Yata/yata-cli.exe ~/.local/bin/yata-cli`, then install the plugin in that distro's Claude Code.
-- **Cursor**: `yata-cli hook setup cursor` prints `%USERPROFILE%\.cursor\hooks.json`. Cursor has no event for "waiting for your approval", so it shows working and done. Yata only uses Cursor's fail-open events, never the ones that decide permissions.
-- **Codex**: `yata-cli hook setup codex` prints `%USERPROFILE%\.codex\hooks.json` (review and trust it with `/hooks`). Older Codex without hooks: `notify = ["yata-cli", "hook", "codex"]` in `config.toml` shows when a turn is done.
-
-**Skill**: so the agent puts its long tasks (builds, tests, deploys) in the notch on its own, `yata-cli skill install` copies a `SKILL.md` to `%USERPROFILE%\.claude\skills` (Claude Code, Cursor) and `%USERPROFILE%\.agents\skills` (Codex, Cursor). `yata-cli skill` prints it. The plugin already includes it for Claude Code.
-
-Open the notch on a tab without using the mouse, for N seconds (previews, screenshots and UI tests):
-
-```powershell
-Yata.exe --show focus 30     # focus | water | tasks | shelf | calendar | media
-```
-
-Measure CPU, wake-ups, memory and startup time in fixed states (nothing playing, music with lyrics, open notch and Pomodoro). Each round uses a throwaway profile, a simulated song and no network, so your data and what you do on the PC during the measurement stay out of the numbers. A running Yata is closed and reopened at the end:
-
-```powershell
-./tools/measure.ps1 -Phases             # -States parado,musica -Rounds 3 -Seconds 20 -OutFile medicao.csv
-```
-
-Build the installer locally (needs [Inno Setup 6](https://jrsoftware.org/isinfo.php)):
-
-```powershell
-./tools/build-installer.ps1 -Version 0.1.0   # output in dist/
-```
-
-Releases are built by GitHub Actions when a version tag is pushed:
-
-```powershell
-git tag v0.1.0
-git push origin v0.1.0
-```
-
-What changes in each version goes in [CHANGELOG.md](CHANGELOG.md) and [CHANGELOG.pt-BR.md](CHANGELOG.pt-BR.md), written in the version's PR (along with the new number in `Yata.csproj`). The site shows both at [getyata.app/changelog](https://getyata.app/changelog), and the site build fails if the `Yata.csproj` version has no entry in both.
-
-## Translations
-
-Interface text lives in `src/Yata/Strings.resx` (English, the default) and `src/Yata/Strings.pt-BR.resx` (Portuguese). Use it as `Strings.Key` in C# and `{x:Static y:Strings.Key}` in XAML. A test fails when a language misses a key, has one left over or uses different `{0}` placeholders. `Helpers/Lang.cs` picks the language at startup. Log messages stay in Portuguese, since they're for whoever is debugging.
-
-The website ([getyata.app](https://getyata.app)) lives in `site/`: the English page is `site/index.html`, and the Portuguese version comes from the translations in `site/pt.json`. The site's privacy policy mirrors `PRIVACY.md` and `PRIVACY.pt-BR.md`. Build and preview locally (published to GitHub Pages on every push to `main` that touches the site):
-
-```powershell
-./tools/make-site.ps1                        # output in _site/
-python -m http.server 8000 -d _site          # http://localhost:8000
-```
-
-## Structure
-
-```
-src/Yata/
-  App.xaml(.cs)               startup, single instance, tray icon
-  MainWindow.xaml(.cs)        the notch window, shape, animation, compact/expanded modes
-  MainWindow.*.cs             parts by topic: media, lyrics, notices, Yata, privacy, hotkey...
-  Views/RavenSprite.cs        Yata: pixel-art frames and crisp rendering
-  Views/RavenAnimator.cs      Yata's behavior (blink, look, sleep, fly)
-  Views/                      Focus, Water, Tasks and Shelf pages
-  Services/PresenceTracker.cs away/back and the "while you were away" summary
-  Services/MediaService.cs    Windows media session (SMTC)
-  Services/LyricsService.cs   lyrics lookup/cache (LRCLIB) and LRC parser
-  Services/AudioWatcher.cs    volume and output device (Core Audio)
-  Services/BrightnessWatcher.cs  brightness (WMI)
-  Services/PowerWatcher.cs    charger and battery
-  Services/NetworkWatcher.cs  network connection
-  Services/KeyboardWatcher.cs Caps Lock and keyboard language (no hook)
-  Services/FullscreenWatcher.cs  detects full-screen apps and keeps the notch on top
-  Services/PrivacyWatcher.cs  camera and microphone in use (MicrophoneMonitor.cs: Core Audio)
-  Services/UpdateChecker.cs   optional new version notice (GitHub releases)
-  Services/UpdateInstaller.cs "Update and restart": download, SHA-256 check, silent setup
-  Services/HudQueue.cs        which notice shows, and reminders waiting their turn
-  Services/Activities.cs      other programs' activities: request, cleaning, the board
-  Services/BrandMarks.cs      Claude, Cursor and Codex marks (Lobe Icons, MIT); Views/IconView.cs draws them
-  Services/ActivityPipe.cs    the local pipe (this user only); ActivityClient.cs, the sending side
-src/Yata.Cli/                 yata-cli.exe: console side for scripts and agents (compiles Yata's activity files)
-  Services/AgentHook.cs       (in src/Yata) Claude Code, Cursor and Codex hook events → activities
-integrations/claude-code/     Claude Code plugin: hooks and the yata-notch skill (.claude-plugin/marketplace.json lists it)
-  Services/AppStore.cs        local storage (JSON)
-  Services/FocusTimer.cs      Pomodoro
-  Services/WaterTracker.cs    water and reminders
-  Services/TaskList.cs        tasks and reminders
-  Services/GoogleTasks.cs     Google Tasks sync (GoogleAccount.cs: account shared with the calendar)
-  Services/Shelf.cs           file shelf
-  Helpers/                    animation springs, album art color, file icons, sound, paths, language
-  Interop/                    Win32 and COM calls (Core Audio)
-  Assets/yata.ico             icon (generated by tools/make-icon.ps1)
-  SettingsWindow.xaml(.cs)    settings window
-  Strings.resx                interface text in English (Strings.pt-BR.resx: Portuguese)
-installer/yata.iss            installer (Inno Setup) and its images (wizard-*.png)
-docs/                         README images, Google registration and code signing
-.signpath/                    SignPath artifact configurations (a copy of what's in the project there)
-tools/                        icon, art (PhotoCraft), GIF (EffectCraft), installer and measurement
-tests/Yata.Tests/             tests (xUnit)
-.github/workflows/ci.yml      build and tests on every push
-.github/workflows/release.yml automatic release from a tag
-```
-
-## Roadmap
-
-1. ~~Notch base + media~~
-2. ~~Synced lyrics (LRCLIB)~~
-3. ~~System notices: volume, brightness, battery, headphones, Caps Lock~~
-4. ~~Pomodoro, water reminder, to-do~~
-5. ~~File shelf (drag and drop)~~
-6. ~~Identity (Yata) and companion~~
-7. ~~Settings, start with Windows, installer~~
-8. ~~Camera/microphone in use, multiple displays, global hotkey, version notice~~
-9. ~~English and Portuguese~~
-
-10. ~~Notice queue, bubble beside the notch and activities from other programs~~
-
-Next ideas: [docs/roadmap.md](docs/roadmap.md) (in Portuguese) — code signing (in progress, see [docs/code-signing.md](docs/code-signing.md)), winget, Claude Code integration, Bluetooth battery, call controls and more.
+[MIT license](LICENSE).
