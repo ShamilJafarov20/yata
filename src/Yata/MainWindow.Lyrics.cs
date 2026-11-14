@@ -167,6 +167,23 @@ public partial class MainWindow
 
     private Color PaletteColor(string key) => ((SolidColorBrush)FindResource(key)).Color;
 
+    /// <summary>
+    /// After a theme change: each line has its own brush (so it can be animated), which kept the old theme's
+    /// colors, white on a light theme's notch. They take the new ones here.
+    /// </summary>
+    private void RecolorLyrics()
+    {
+        if (LyricsLines == null)
+            return;
+        for (int i = 0; i < LyricsLines.Children.Count; i++)
+        {
+            if (LyricsLines.Children[i] is not TextBlock { Foreground: SolidColorBrush brush })
+                continue;
+            brush.BeginAnimation(SolidColorBrush.ColorProperty, null);
+            brush.Color = PaletteColor(i == _lyricIndex ? "TextPrimary" : "LyricDimBrush");
+        }
+    }
+
     private void ScrollLyrics(bool animate)
     {
         if (LyricsLines.Children.Count == 0 || LyricsPanel.ActualHeight <= 0)
