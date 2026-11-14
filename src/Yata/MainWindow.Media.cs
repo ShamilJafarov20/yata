@@ -268,7 +268,11 @@ public partial class MainWindow
     /// Only media elements (equalizer, progress bar) wear it; everything else stays white.
     /// </summary>
     /// <summary>The chosen theme's colors, for the notch and Settings alike (Application resources).</summary>
-    private void ApplyTheme() => Themes.Apply(Application.Current.Resources, Themes.Current(Settings));
+    private void ApplyTheme()
+    {
+        Themes.Apply(Application.Current.Resources, Themes.Current(Settings));
+        RecolorLyrics();
+    }
 
     private void ApplyAccent()
     {
