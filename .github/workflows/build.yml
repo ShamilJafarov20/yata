@@ -1,5 +1,6 @@
 # Builds Shamil's version of Yata (the main branch) on a Windows runner: the Inno Setup installer and the
 # portable Yata.exe / yata-cli.exe, committed to builds/ on this branch so they can be fetched with git.
+# Rebuilt for the v0.8.0 release, after PR #1.
 name: Build
 
 on:
