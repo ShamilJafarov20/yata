@@ -5,6 +5,7 @@ name: Screenshots
 on:
   push:
     branches: [shots]
+    paths: ["src/**", "tools/make-shots.ps1", ".github/workflows/shots.yml"]
   workflow_dispatch:
 
 permissions:

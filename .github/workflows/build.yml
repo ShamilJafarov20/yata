@@ -1,0 +1,54 @@
+# Builds Shamil's version of Yata (the main branch) on a Windows runner: the Inno Setup installer and the
+# portable Yata.exe / yata-cli.exe, committed to builds/ on this branch so they can be fetched with git.
+name: Build
+
+on:
+  push:
+    branches: [shots]
+    paths: [".github/workflows/build.yml"]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+env:
+  VERSION: "0.8.0"
+
+jobs:
+  build:
+    runs-on: windows-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          path: app
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "10.0.x"
+
+      - name: Install Inno Setup
+        run: choco install innosetup --no-progress -y
+
+      - name: Build
+        shell: pwsh
+        working-directory: app
+        run: ./tools/build-installer.ps1 -Version $env:VERSION
+
+      - name: Commit
+        shell: pwsh
+        run: |
+          $out = "builds/$env:VERSION"
+          New-Item -ItemType Directory -Force $out | Out-Null
+          Copy-Item "app/dist/Yata-Setup-$env:VERSION.exe" $out
+          Copy-Item app/publish/Yata.exe, app/publish/yata-cli.exe $out
+          git -C app rev-parse HEAD | Set-Content "$out/commit.txt"
+          Get-ChildItem $out | Format-Table Name, Length
+          git config user.name "github-actions[bot]"
+          git config user.email "41898283+github-actions[bot]@users.noreply.github.com"
+          git add builds
+          git commit -m "Build $env:VERSION from main"
+          git push
