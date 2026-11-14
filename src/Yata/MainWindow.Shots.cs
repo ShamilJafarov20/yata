@@ -73,6 +73,7 @@ public partial class MainWindow
         HideNews();
 
         await Shot(dir, "fechado-relogio");
+        await CompanionShots(dir);
 
         var events = Events(vitrine.Events, DateTime.Now);
         _calendar.Simulate(events);
@@ -137,6 +138,8 @@ public partial class MainWindow
         await Task.Delay(2000); // The flight in, then the text.
         await Shot(dir, "fechado-fora");
         HideNews();
+
+        await ForkShots(dir);
     }
 
     /// <summary>The day's events around now; all but the one about to start on the quarter hour, as real ones are.</summary>

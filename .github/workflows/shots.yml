@@ -1,0 +1,37 @@
+# Screenshots of the notch (tools/make-shots.ps1) on a Windows runner, for a push to the "shots" branch
+# or a manual run. The images come out as the "screenshots" artifact.
+name: Screenshots
+
+on:
+  push:
+    branches: [shots]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  shots:
+    runs-on: windows-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "10.0.x"
+
+      - name: Screenshots
+        shell: pwsh
+        run: ./tools/make-shots.ps1 -Languages en -OutDir "$env:RUNNER_TEMP\shots" -SiteDir "$env:RUNNER_TEMP\site-shots"
+
+      - name: Log
+        if: always()
+        shell: pwsh
+        run: Get-ChildItem "$env:TEMP\yata-shots\profile" -Recurse -Filter *.log -ErrorAction SilentlyContinue | ForEach-Object { Get-Content $_.FullName -Tail 80 }
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: screenshots
+          path: ${{ runner.temp }}/shots
