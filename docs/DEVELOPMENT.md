@@ -97,7 +97,7 @@ What changes in each version goes in [CHANGELOG.md](../CHANGELOG.md) and [CHANGE
 
 Interface text lives in `src/Yata/Strings.resx` (English, the default) and `src/Yata/Strings.pt-BR.resx` (Portuguese). Use it as `Strings.Key` in C# and `{x:Static y:Strings.Key}` in XAML. A test fails when a language misses a key, has one left over or uses different `{0}` placeholders. `Helpers/Lang.cs` picks the language at startup. Log messages stay in Portuguese, since they're for whoever is debugging.
 
-The website ([getyata.app](https://getyata.app)) lives in `site/`: the English page is `site/index.html`, and the Portuguese version comes from the translations in `site/pt.json`. The site's privacy policy mirrors `PRIVACY.md` and `PRIVACY.pt-BR.md`. Build and preview locally (published to GitHub Pages on every push to `main` that touches the site):
+The website ([getyata.app](https://getyata.app)) lives in `site/`: the English page is `site/index.html`, and the Portuguese version comes from the translations in `site/pt.json`. The site's privacy policy mirrors `PRIVACY.md`. Build and preview locally (published to GitHub Pages on every push to `main` that touches the site):
 
 ```powershell
 ./tools/make-site.ps1                        # output in _site/

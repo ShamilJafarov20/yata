@@ -23,6 +23,7 @@ public partial class MainWindow
     /// "dormindo" (Yata asleep in the closed notch);
     /// "transicoes" (opens, switches tabs and closes over and over, for tools/measure-frames.ps1);
     /// "vitrine" (every state drawn to a PNG, for tools/make-shots.ps1; see MainWindow.Shots.cs);
+    /// "reel" (a scripted tour recorded for the README's animations, for tools/make-reel.ps1; see MainWindow.Reel.cs);
     /// "erro" and "queda" throw on purpose, to check the error handling. Null outside measurements.
     /// </summary>
     internal string? Bench { get; init; }
@@ -51,6 +52,9 @@ public partial class MainWindow
                 break;
             case "vitrine":
                 RunShots(ShotsDir ?? System.IO.Path.GetTempPath());
+                break;
+            case "reel":
+                RunReel(ShotsDir ?? System.IO.Path.GetTempPath());
                 break;
             case "dormindo":
                 // Nothing playing and the user long gone: Yata dozes in the closed notch.
